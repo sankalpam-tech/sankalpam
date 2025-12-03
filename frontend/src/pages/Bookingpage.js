@@ -1,0 +1,145 @@
+import React from "react";
+import "../styles/Bookingpage.css";
+
+function Bookingpage({ puja, onBack }) {
+  return (
+    <div className="bp-root">
+      {/* Top Navigation */}
+
+      <main className="bp-page-content">
+        <section className="bp-booking-wrapper">
+          <h1 className="bp-page-title">Book Your Puja</h1>
+
+          {/* Selected Puja Card */}
+          <div className="bp-puja-card">
+            <div className="bp-puja-card-inner">
+              <h2 className="bp-puja-name">
+                {puja?.name || "Satyanarayan Puja"}
+              </h2>
+              <p className="bp-puja-subtitle">You are booking this puja</p>
+              <p className="bp-puja-cost">Cost: {puja?.price || "₹2501"}</p>
+            </div>
+          </div>
+
+          {/* Form */}
+          <section className="bp-form-section">
+            <h2 className="bp-form-title">
+              Enter Your Details for the Sankalpam
+            </h2>
+
+            <form
+              className="bp-booking-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Form submitted (demo)!");
+              }}
+            >
+              {/* Row 1 */}
+              <div className="bp-form-row">
+                <div className="bp-form-field">
+                  <label>
+                    Your Name (Karta)<span className="bp-required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your full name"
+                    required
+                  />
+                </div>
+                <div className="bp-form-field">
+                  <label>Wife&apos;s Name</label>
+                  <input type="text" placeholder="Optional" />
+                </div>
+              </div>
+
+              {/* Row 2 */}
+              <div className="bp-form-row">
+                <div className="bp-form-field bp-full-width">
+                  <label>Other Family Members&apos; Names</label>
+                  <input
+                    type="text"
+                    placeholder="e.g., Children, Parents (Optional)"
+                  />
+                </div>
+              </div>
+
+              {/* Row 3 */}
+              <div className="bp-form-row">
+                <div className="bp-form-field">
+                  <label>
+                    Gothram<span className="bp-required">*</span>
+                    <span
+                      className="bp-info-icon"
+                      title="Your family lineage"
+                    />
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your Gothram"
+                    required
+                  />
+                </div>
+                <div className="bp-form-field">
+                  <label>
+                    Phone Number<span className="bp-required">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="Enter your 10-digit number"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="bp-form-row">
+                <div className="bp-form-field bp-full-width">
+                  <label>Referral </label>
+                  <input type="text" placeholder="Enter your Referral" />
+                </div>
+              </div>
+              {/* Row 4 */}
+              <div className="bp-form-row">
+                <div className="bp-form-field bp-full-width">
+                  <label>
+                    Prasadam Delivery Address
+                    <span className="bp-required">*</span>
+                  </label>
+                  <textarea
+                    rows="3"
+                    placeholder="Enter your full address for Prasadam delivery"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Pay button */}
+              <div className="bp-pay-wrapper">
+                <button type="submit" className="bp-pay-btn">
+                  Pay Now
+                </button>
+                <p className="bp-pay-note">Secure payment powered by Stripe</p>
+              </div>
+            </form>
+          </section>
+        </section>
+      </main>
+
+      <footer className="bp-page-footer">
+        <div className="bp-footer-inner">
+          <p className="bp-footer-copy">
+            © 2024 Sankalpam. All Rights Reserved.
+          </p>
+          <div className="bp-footer-links">
+            <button>Privacy Policy</button>
+            <span className="bp-footer-sep">|</span>
+            <button>Terms of Service</button>
+            <span className="bp-footer-sep">|</span>
+            <button>Contact Us</button>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default Bookingpage;

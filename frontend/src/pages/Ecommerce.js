@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import "./Ecommerce.css";
 
 // Mock product data – frontend only, no backend calls
@@ -99,8 +99,57 @@ const Ecommerce = () => {
   const [maxPrice, setMaxPrice] = useState(5000);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [cart, setCart] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [currentView, setCurrentView] = useState("products"); // products, cart, buyingForm, payment, confirmation
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    pincode: "",
+    state: "",
+  });
+  const [orderDetails, setOrderDetails] = useState(null);
+  const [addedToCartProductId, setAddedToCartProductId] = useState(null);
 
   const ITEMS_PER_PAGE = 8;
+
+  // Load cart and wishlist from localStorage on mount
+  useEffect(() => {
+    const savedCart = localStorage.getItem("sankalpam_cart");
+    if (savedCart) {
+      try {
+        setCart(JSON.parse(savedCart));
+      } catch (e) {
+        console.error("Error loading cart:", e);
+      }
+    }
+    const savedWishlist = localStorage.getItem("sankalpam_wishlist");
+    if (savedWishlist) {
+      try {
+        setWishlist(JSON.parse(savedWishlist));
+      } catch (e) {
+        console.error("Error loading wishlist:", e);
+      }
+    }
+  }, []);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    if (cart.length > 0 || localStorage.getItem("sankalpam_cart")) {
+      localStorage.setItem("sankalpam_cart", JSON.stringify(cart));
+    }
+  }, [cart]);
+
+  // Save wishlist to localStorage whenever it changes
+  useEffect(() => {
+    if (wishlist.length > 0 || localStorage.getItem("sankalpam_wishlist")) {
+      localStorage.setItem("sankalpam_wishlist", JSON.stringify(wishlist));
+    }
+  }, [wishlist]);
 
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
@@ -144,6 +193,427 @@ const Ecommerce = () => {
     setCurrentPage(page);
   };
 
+  // Cart functions
+  const addToCart = (product) => {
+    const existingItem = cart.find((item) => item.id === product.id);
+    if (existingItem) {
+      setCart(
+        cart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+    } else {
+      setCart([...cart, { ...product, quantity: 1 }]);
+    }
+    // Show inline notification
+    setAddedToCartProductId(product.id);
+    setTimeout(() => {
+      setAddedToCartProductId(null);
+    }, 2000);
+  };
+
+  // Wishlist functions
+  const toggleWishlist = (product) => {
+    const isInWishlist = wishlist.some((item) => item.id === product.id);
+    if (isInWishlist) {
+      setWishlist(wishlist.filter((item) => item.id !== product.id));
+    } else {
+      setWishlist([...wishlist, product]);
+    }
+  };
+
+  const isInWishlist = (productId) => {
+    return wishlist.some((item) => item.id === productId);
+  };
+
+  const removeFromCart = (productId) => {
+    setCart(cart.filter((item) => item.id !== productId));
+  };
+
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(productId);
+      return;
+    }
+    setCart(
+      cart.map((item) =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+  const getCartTotal = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
+  const getCartItemCount = () => {
+    return cart.reduce((count, item) => count + item.quantity, 0);
+  };
+
+  // Buy Now - direct purchase
+  const handleBuyNow = (product) => {
+    setCart([{ ...product, quantity: 1 }]);
+    setCurrentView("buyingForm");
+    setIsCartOpen(false);
+  };
+
+  // Form handling
+  const handleFormChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setCurrentView("payment");
+  };
+
+  // Payment handling
+  const handlePayment = () => {
+    // Simulate payment processing
+    const order = {
+      id: `ORD-${Date.now()}`,
+      items: cart,
+      total: getCartTotal(),
+      customer: formData,
+      date: new Date().toISOString(),
+    };
+    setOrderDetails(order);
+    
+    // Simulate WhatsApp notification
+    const whatsappMessage = `Order Confirmed!\n\nOrder ID: ${order.id}\nTotal: ${formatCurrency(order.total)}\n\nItems:\n${cart.map(item => `- ${item.name} x${item.quantity}`).join('\n')}\n\nThank you for your purchase!`;
+    console.log("WhatsApp notification (simulated):", whatsappMessage);
+    
+    // In real app, this would send to backend which sends WhatsApp
+    // For now, we'll show an alert
+    alert(`Order Confirmed!\n\nOrder ID: ${order.id}\n\nWhatsApp confirmation sent (simulated).\n\nIn production, this would be sent via WhatsApp API.`);
+    
+    // Clear cart
+    setCart([]);
+    localStorage.removeItem("sankalpam_cart");
+    
+    setCurrentView("confirmation");
+  };
+
+  // Navigation functions
+  const goToProducts = () => {
+    setCurrentView("products");
+    setIsCartOpen(false);
+  };
+
+  const goToCart = () => {
+    setCurrentView("cart");
+    setIsCartOpen(false);
+  };
+
+  // Render different views
+  if (currentView === "buyingForm") {
+    return (
+      <div className="ecom-page">
+        <header className="ecom-header">
+          <div className="ecom-header-left">
+            <div className="ecom-logo">
+              <span className="ecom-logo-icon">🪔</span>
+              <span className="ecom-logo-text">Sankalpam</span>
+            </div>
+          </div>
+          <button className="ecom-back-btn" onClick={goToProducts}>
+            ← Back to Products
+          </button>
+        </header>
+        <div className="ecom-form-container">
+          <h1>Buying Information</h1>
+          <form onSubmit={handleFormSubmit} className="ecom-buying-form">
+            <div className="ecom-form-row">
+              <div className="ecom-form-group">
+                <label>Full Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  required
+                />
+              </div>
+              <div className="ecom-form-group">
+                <label>Email *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleFormChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="ecom-form-row">
+              <div className="ecom-form-group">
+                <label>Phone Number *</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleFormChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="ecom-form-group">
+              <label>Address *</label>
+              <textarea
+                name="address"
+                value={formData.address}
+                onChange={handleFormChange}
+                rows="3"
+                required
+              />
+            </div>
+            <div className="ecom-form-row">
+              <div className="ecom-form-group">
+                <label>City *</label>
+                <input
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleFormChange}
+                  required
+                />
+              </div>
+              <div className="ecom-form-group">
+                <label>State *</label>
+                <input
+                  type="text"
+                  name="state"
+                  value={formData.state}
+                  onChange={handleFormChange}
+                  required
+                />
+              </div>
+              <div className="ecom-form-group">
+                <label>Pincode *</label>
+                <input
+                  type="text"
+                  name="pincode"
+                  value={formData.pincode}
+                  onChange={handleFormChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="ecom-order-summary">
+              <h3>Order Summary</h3>
+              {cart.map((item) => (
+                <div key={item.id} className="ecom-order-item">
+                  <span>{item.name} x{item.quantity}</span>
+                  <span>{formatCurrency(item.price * item.quantity)}</span>
+                </div>
+              ))}
+              <div className="ecom-order-total">
+                <strong>Total: {formatCurrency(getCartTotal())}</strong>
+              </div>
+            </div>
+            <button type="submit" className="ecom-primary-btn ecom-pay-btn">
+              Proceed to Payment
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentView === "payment") {
+    return (
+      <div className="ecom-page">
+        <header className="ecom-header">
+          <div className="ecom-header-left">
+            <div className="ecom-logo">
+              <span className="ecom-logo-icon">🪔</span>
+              <span className="ecom-logo-text">Sankalpam</span>
+            </div>
+          </div>
+        </header>
+        <div className="ecom-payment-container">
+          <h1>Payment</h1>
+          <div className="ecom-payment-card">
+            <div className="ecom-payment-summary">
+              <h3>Order Summary</h3>
+              {cart.map((item) => (
+                <div key={item.id} className="ecom-payment-item">
+                  <span>{item.name} x{item.quantity}</span>
+                  <span>{formatCurrency(item.price * item.quantity)}</span>
+                </div>
+              ))}
+              <div className="ecom-payment-total">
+                <strong>Total Amount: {formatCurrency(getCartTotal())}</strong>
+              </div>
+            </div>
+            <div className="ecom-payment-methods">
+              <h3>Select Payment Method</h3>
+              <div className="ecom-payment-options">
+                <label className="ecom-payment-option">
+                  <input type="radio" name="payment" value="upi" defaultChecked />
+                  <span>UPI</span>
+                </label>
+                <label className="ecom-payment-option">
+                  <input type="radio" name="payment" value="card" />
+                  <span>Credit/Debit Card</span>
+                </label>
+                <label className="ecom-payment-option">
+                  <input type="radio" name="payment" value="cod" />
+                  <span>Cash on Delivery</span>
+                </label>
+              </div>
+            </div>
+            <button
+              className="ecom-primary-btn ecom-pay-now-btn"
+              onClick={handlePayment}
+            >
+              Pay Now
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentView === "confirmation") {
+    return (
+      <div className="ecom-page">
+        <header className="ecom-header">
+          <div className="ecom-header-left">
+            <div className="ecom-logo">
+              <span className="ecom-logo-icon">🪔</span>
+              <span className="ecom-logo-text">Sankalpam</span>
+            </div>
+          </div>
+        </header>
+        <div className="ecom-confirmation-container">
+          <div className="ecom-confirmation-icon">✅</div>
+          <h1>Order Confirmed!</h1>
+          <p className="ecom-confirmation-message">
+            Thank you for your purchase. Your order has been placed successfully.
+          </p>
+          {orderDetails && (
+            <div className="ecom-order-details-card">
+              <h3>Order Details</h3>
+              <p><strong>Order ID:</strong> {orderDetails.id}</p>
+              <p><strong>Total Amount:</strong> {formatCurrency(orderDetails.total)}</p>
+              <p><strong>Date:</strong> {new Date(orderDetails.date).toLocaleString()}</p>
+              <div className="ecom-confirmation-items">
+                <h4>Items:</h4>
+                {orderDetails.items.map((item) => (
+                  <div key={item.id} className="ecom-confirmation-item">
+                    <span>{item.name} x{item.quantity}</span>
+                    <span>{formatCurrency(item.price * item.quantity)}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="ecom-confirmation-address">
+                <h4>Delivery Address:</h4>
+                <p>{orderDetails.customer.name}</p>
+                <p>{orderDetails.customer.address}</p>
+                <p>
+                  {orderDetails.customer.city}, {orderDetails.customer.state} - {orderDetails.customer.pincode}
+                </p>
+                <p>Phone: {orderDetails.customer.phone}</p>
+              </div>
+              <div className="ecom-whatsapp-notice">
+                <p>📱 Order confirmation sent via WhatsApp (simulated)</p>
+                <p className="ecom-notice-small">
+                  In production, this would be sent to both you and our admin via WhatsApp API.
+                </p>
+              </div>
+            </div>
+          )}
+          <button className="ecom-primary-btn" onClick={goToProducts}>
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentView === "cart") {
+    return (
+      <div className="ecom-page">
+        <header className="ecom-header">
+          <div className="ecom-header-left">
+            <div className="ecom-logo">
+              <span className="ecom-logo-icon">🪔</span>
+              <span className="ecom-logo-text">Sankalpam</span>
+            </div>
+          </div>
+          <button className="ecom-back-btn" onClick={goToProducts}>
+            ← Back to Products
+          </button>
+        </header>
+        <div className="ecom-cart-container">
+          <h1>Shopping Cart</h1>
+          {cart.length === 0 ? (
+            <div className="ecom-empty-cart">
+              <p>Your cart is empty</p>
+              <button className="ecom-primary-btn" onClick={goToProducts}>
+                Continue Shopping
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="ecom-cart-items">
+                {cart.map((item) => (
+                  <div key={item.id} className="ecom-cart-item">
+                    <img src={item.image} alt={item.name} />
+                    <div className="ecom-cart-item-details">
+                      <h3>{item.name}</h3>
+                      <p className="ecom-cart-item-category">{item.category}</p>
+                      <div className="ecom-cart-item-controls">
+                        <div className="ecom-quantity-controls">
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          >
+                            −
+                          </button>
+                          <span>{item.quantity}</span>
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          >
+                            +
+                          </button>
+                        </div>
+                        <span className="ecom-cart-item-price">
+                          {formatCurrency(item.price * item.quantity)}
+                        </span>
+                      </div>
+                      <button
+                        className="ecom-remove-btn"
+                        onClick={() => removeFromCart(item.id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="ecom-cart-summary">
+                <div className="ecom-cart-total">
+                  <h3>Total: {formatCurrency(getCartTotal())}</h3>
+                </div>
+                <button
+                  className="ecom-primary-btn ecom-checkout-btn"
+                  onClick={() => {
+                    setCurrentView("buyingForm");
+                  }}
+                >
+                  Buy Now
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="ecom-page">
       {/* Top navigation / header */}
@@ -175,11 +645,30 @@ const Ecommerce = () => {
               onChange={handleSearchChange}
             />
           </div>
-          <button className="ecom-icon-btn" aria-label="Wishlist">
+          <button
+            className="ecom-icon-btn ecom-wishlist-btn"
+            aria-label="Wishlist"
+            onClick={() => {
+              // Could add wishlist view here later
+            }}
+          >
             ❤️
+            {wishlist.length > 0 && (
+              <span className="ecom-wishlist-badge">{wishlist.length}</span>
+            )}
           </button>
-          <button className="ecom-icon-btn" aria-label="Cart">
+          <button
+            className="ecom-icon-btn ecom-cart-btn"
+            aria-label="Cart"
+            onClick={() => {
+              setIsCartOpen(true);
+              setCurrentView("cart");
+            }}
+          >
             🛒
+            {getCartItemCount() > 0 && (
+              <span className="ecom-cart-badge">{getCartItemCount()}</span>
+            )}
           </button>
           <button className="ecom-avatar" aria-label="Profile">
             <span>U</span>
@@ -284,11 +773,17 @@ const Ecommerce = () => {
                   <div className="ecom-product-image-wrap">
                     <img src={product.image} alt={product.name} />
                     <button
-                      className="ecom-fav-btn"
+                      className={`ecom-fav-btn ${isInWishlist(product.id) ? "ecom-fav-btn-active" : ""}`}
                       aria-label="Add to wishlist"
+                      onClick={() => toggleWishlist(product)}
                     >
-                      🤍
+                      {isInWishlist(product.id) ? "❤️" : "🤍"}
                     </button>
+                    {addedToCartProductId === product.id && (
+                      <div className="ecom-added-notification">
+                        Added to Cart! ✓
+                      </div>
+                    )}
                   </div>
                   <div className="ecom-product-body">
                     <h3>{product.name}</h3>
@@ -299,7 +794,20 @@ const Ecommerce = () => {
                       <span className="ecom-product-price">
                         {formatCurrency(product.price)}
                       </span>
-                      <button className="ecom-add-btn">Add to Cart</button>
+                      <div className="ecom-product-actions">
+                        <button
+                          className="ecom-add-btn"
+                          onClick={() => addToCart(product)}
+                        >
+                          Add to Cart
+                        </button>
+                        <button
+                          className="ecom-buy-btn"
+                          onClick={() => handleBuyNow(product)}
+                        >
+                          Buy Now
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </article>
@@ -342,6 +850,93 @@ const Ecommerce = () => {
           )}
         </section>
       </main>
+
+      {/* Cart Sidebar Modal */}
+      {isCartOpen && currentView === "products" && (
+        <>
+          <div
+            className="ecom-cart-overlay"
+            onClick={() => setIsCartOpen(false)}
+          />
+          <div className="ecom-cart-sidebar">
+            <div className="ecom-cart-sidebar-header">
+              <h2>Cart ({getCartItemCount()})</h2>
+              <button
+                className="ecom-close-btn"
+                onClick={() => setIsCartOpen(false)}
+              >
+                ×
+              </button>
+            </div>
+            {cart.length === 0 ? (
+              <div className="ecom-cart-sidebar-empty">
+                <p>Your cart is empty</p>
+                <button
+                  className="ecom-primary-btn"
+                  onClick={() => setIsCartOpen(false)}
+                >
+                  Continue Shopping
+                </button>
+              </div>
+            ) : (
+              <>
+                <div className="ecom-cart-sidebar-items">
+                  {cart.map((item) => (
+                    <div key={item.id} className="ecom-cart-sidebar-item">
+                      <img src={item.image} alt={item.name} />
+                      <div className="ecom-cart-sidebar-item-info">
+                        <h4>{item.name}</h4>
+                        <div className="ecom-cart-sidebar-item-controls">
+                          <div className="ecom-quantity-controls-small">
+                            <button
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity - 1)
+                              }
+                            >
+                              −
+                            </button>
+                            <span>{item.quantity}</span>
+                            <button
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity + 1)
+                              }
+                            >
+                              +
+                            </button>
+                          </div>
+                          <span className="ecom-cart-sidebar-item-price">
+                            {formatCurrency(item.price * item.quantity)}
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        className="ecom-remove-btn-small"
+                        onClick={() => removeFromCart(item.id)}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <div className="ecom-cart-sidebar-footer">
+                  <div className="ecom-cart-sidebar-total">
+                    <strong>Total: {formatCurrency(getCartTotal())}</strong>
+                  </div>
+                  <button
+                    className="ecom-primary-btn"
+                    onClick={() => {
+                      setIsCartOpen(false);
+                      goToCart();
+                    }}
+                  >
+                    View Cart
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

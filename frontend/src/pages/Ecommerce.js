@@ -313,10 +313,10 @@ const Ecommerce = () => {
       <div className="ecom-page">
         <header className="ecom-header">
           <div className="ecom-header-left">
-            <div className="ecom-logo">
+            {/* <div className="ecom-logo">
               <span className="ecom-logo-icon">🪔</span>
               <span className="ecom-logo-text">Sankalpam</span>
-            </div>
+            </div> */}
           </div>
           <button className="ecom-back-btn" onClick={goToProducts}>
             ← Back to Products
@@ -618,7 +618,7 @@ const Ecommerce = () => {
     <div className="ecom-page">
       {/* Top navigation / header */}
       <header className="ecom-header">
-        <div className="ecom-header-left">
+        {/* <div className="ecom-header-left">
           <div className="ecom-logo">
             <span className="ecom-logo-icon">🪔</span>
             <span className="ecom-logo-text">Sankalpam</span>
@@ -633,7 +633,7 @@ const Ecommerce = () => {
             <button className="ecom-nav-link">Astrology</button>
             <button className="ecom-nav-link">Tourism</button>
           </nav>
-        </div>
+        </div> */}
 
         <div className="ecom-header-right">
           <div className="ecom-search-wrapper">

@@ -148,50 +148,49 @@
 /* Hero Banner – transparent box over page background */
 .hero-banner {
   position: relative;
-  max-width: 1100px;
-  width: calc(100% - 6rem);
-  margin: 2rem auto;
-  min-height: 220px;
+  max-width: 1400px;
+  width: calc(100% - 4rem);
+  margin: 2.5rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem 2rem;
-  border-radius: 12px;
+  padding: 0;
+  border-radius: 16px;
 }
 
 .hero-content {
   text-align: center;
-  max-width: 800px;
+  width: 100%;
   position: relative;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 2rem 2.5rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 3.75rem 2.5rem;
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .hero-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
-  color: #1f2933;
+  color: #000;
 }
 
 .hero-description {
-  font-size: 1.05rem;
-  margin-bottom: 1.6rem;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
   line-height: 1.6;
-  color: #4b5563;
+  color: #666;
 }
 
 .btn-explore {
-  background-color: #dc2626;
+  background-color: #c41e3a;
   color: white;
   border: none;
-  padding: 0.9rem 2.4rem;
+  padding: 0.875rem 2rem;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 999px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s,
     box-shadow 0.2s ease;
@@ -204,10 +203,10 @@
   box-shadow: 0 14px 30px rgba(220, 38, 38, 0.45);
 }
 
-/* Booking Options Section - Tab Style */
+/* Booking Options Section - Modern Tab Style */
 .booking-options {
   background-color: transparent;
-  padding: 1rem 0 0.5rem 0;
+  padding: 2rem 0 1.5rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -215,39 +214,55 @@
 
 .booking-tabs-container {
   display: flex;
-  background-color: #f5f0e8;
+  background-color: #fff;
   border-radius: 12px;
-  padding: 4px;
-  gap: 0;
+  padding: 6px;
+  gap: 8px;
   width: 100%;
-  max-width: 1100px;
+  max-width: 500px;
   margin: 0 auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(196, 30, 58, 0.1);
 }
 
 .booking-tab {
   flex: 1;
-  padding: 0.45rem 1.1rem;
-  font-size: 1.05rem;
-  font-weight: 500;
+  padding: 0.875rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   border: none;
   background-color: transparent;
-  color: #8b7355;
+  color: #666;
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 8px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tab-icon {
+  font-size: 1.2rem;
+  display: inline-block;
+}
+
+.tab-text {
+  display: inline-block;
 }
 
 .booking-tab.active {
-  background-color: #ffffff;
-  color: #1a1a1a;
+  background: linear-gradient(135deg, #c41e3a 0%, #a31830 100%);
+  color: #ffffff;
   font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+  transform: translateY(-2px);
 }
 
 .booking-tab:not(.active):hover {
-  color: #5a4a3a;
+  background-color: rgba(196, 30, 58, 0.05);
+  color: #c41e3a;
 }
 
 /* Puja Offerings Section */

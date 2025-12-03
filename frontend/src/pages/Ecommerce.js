@@ -1,5 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
-import "./Ecommerce.css";
+import "../styles/Ecommerce.css";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
 
 // Mock product data – frontend only, no backend calls
 const PRODUCTS = [
@@ -311,17 +313,7 @@ const Ecommerce = () => {
   if (currentView === "buyingForm") {
     return (
       <div className="ecom-page">
-        <header className="ecom-header">
-          <div className="ecom-header-left">
-            {/* <div className="ecom-logo">
-              <span className="ecom-logo-icon">🪔</span>
-              <span className="ecom-logo-text">Sankalpam</span>
-            </div> */}
-          </div>
-          <button className="ecom-back-btn" onClick={goToProducts}>
-            ← Back to Products
-          </button>
-        </header>
+        <Navbar activePage="ecommerce" />
         <div className="ecom-form-container">
           <h1>Buying Information</h1>
           <form onSubmit={handleFormSubmit} className="ecom-buying-form">
@@ -425,14 +417,7 @@ const Ecommerce = () => {
   if (currentView === "payment") {
     return (
       <div className="ecom-page">
-        <header className="ecom-header">
-          <div className="ecom-header-left">
-            <div className="ecom-logo">
-              <span className="ecom-logo-icon">🪔</span>
-              <span className="ecom-logo-text">Sankalpam</span>
-            </div>
-          </div>
-        </header>
+        <Navbar activePage="ecommerce" />
         <div className="ecom-payment-container">
           <h1>Payment</h1>
           <div className="ecom-payment-card">
@@ -480,14 +465,7 @@ const Ecommerce = () => {
   if (currentView === "confirmation") {
     return (
       <div className="ecom-page">
-        <header className="ecom-header">
-          <div className="ecom-header-left">
-            <div className="ecom-logo">
-              <span className="ecom-logo-icon">🪔</span>
-              <span className="ecom-logo-text">Sankalpam</span>
-            </div>
-          </div>
-        </header>
+        <Navbar activePage="ecommerce" />
         <div className="ecom-confirmation-container">
           <div className="ecom-confirmation-icon">✅</div>
           <h1>Order Confirmed!</h1>
@@ -536,18 +514,8 @@ const Ecommerce = () => {
 
   if (currentView === "cart") {
     return (
-      <div className="ecom-page">
-        <header className="ecom-header">
-          <div className="ecom-header-left">
-            <div className="ecom-logo">
-              <span className="ecom-logo-icon">🪔</span>
-              <span className="ecom-logo-text">Sankalpam</span>
-            </div>
-          </div>
-          <button className="ecom-back-btn" onClick={goToProducts}>
-            ← Back to Products
-          </button>
-        </header>
+      <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#FFF8E1', minHeight: '100vh' }}>
+        <Navbar activePage="ecommerce" />
         <div className="ecom-cart-container">
           <h1>Shopping Cart</h1>
           {cart.length === 0 ? (
@@ -615,213 +583,465 @@ const Ecommerce = () => {
   }
 
   return (
-    <div className="ecom-page">
+    <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#FFF8E1', minHeight: '100vh' }}>
       {/* Top navigation / header */}
-      <header className="ecom-header">
-        {/* <div className="ecom-header-left">
-          <div className="ecom-logo">
-            <span className="ecom-logo-icon">🪔</span>
-            <span className="ecom-logo-text">Sankalpam</span>
-          </div>
-
-          <nav className="ecom-nav">
-            <button className="ecom-nav-link">Home</button>
-            <button className="ecom-nav-link">Pujas</button>
-            <button className="ecom-nav-link ecom-nav-link-active">
-              Store
-            </button>
-            <button className="ecom-nav-link">Astrology</button>
-            <button className="ecom-nav-link">Tourism</button>
-          </nav>
-        </div> */}
-
-        <div className="ecom-header-right">
-          <div className="ecom-search-wrapper">
-            <span className="ecom-search-icon">🔍</span>
-            <input
-              type="text"
-              placeholder="Search for puja items..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
-          <button
-            className="ecom-icon-btn ecom-wishlist-btn"
-            aria-label="Wishlist"
-            onClick={() => {
-              // Could add wishlist view here later
+      <Navbar activePage="ecommerce" />
+      
+      {/* Additional ecommerce-specific controls */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        gap: '16px',
+        padding: '12px 48px',
+        backgroundColor: '#fff',
+        borderBottom: '1px solid #e0e0e0'
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          backgroundColor: '#f5f5f5',
+          borderRadius: '8px',
+          padding: '8px 16px',
+          gap: '8px',
+          minWidth: '250px'
+        }}>
+          <span>🔍</span>
+          <input
+            type="text"
+            placeholder="Search for puja items..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            style={{
+              border: 'none',
+              backgroundColor: 'transparent',
+              outline: 'none',
+              fontSize: '14px',
+              width: '100%'
             }}
-          >
-            ❤️
-            {wishlist.length > 0 && (
-              <span className="ecom-wishlist-badge">{wishlist.length}</span>
-            )}
-          </button>
-          <button
-            className="ecom-icon-btn ecom-cart-btn"
-            aria-label="Cart"
-            onClick={() => {
-              setIsCartOpen(true);
-              setCurrentView("cart");
-            }}
-          >
-            🛒
-            {getCartItemCount() > 0 && (
-              <span className="ecom-cart-badge">{getCartItemCount()}</span>
-            )}
-          </button>
-          <button className="ecom-avatar" aria-label="Profile">
-            <span>U</span>
-          </button>
+          />
         </div>
-      </header>
+        <button
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '20px',
+            position: 'relative'
+          }}
+          aria-label="Wishlist"
+          onClick={() => {}}
+        >
+          ❤️
+          {wishlist.length > 0 && (
+            <span style={{
+              position: 'absolute',
+              top: '-5px',
+              right: '-5px',
+              backgroundColor: '#c41e3a',
+              color: '#fff',
+              borderRadius: '50%',
+              width: '18px',
+              height: '18px',
+              fontSize: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 'bold'
+            }}>{wishlist.length}</span>
+          )}
+        </button>
+        <button
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '20px',
+            position: 'relative'
+          }}
+          aria-label="Cart"
+          onClick={() => {
+            setIsCartOpen(true);
+            setCurrentView("cart");
+          }}
+        >
+          🛒
+          {getCartItemCount() > 0 && (
+            <span style={{
+              position: 'absolute',
+              top: '-5px',
+              right: '-5px',
+              backgroundColor: '#c41e3a',
+              color: '#fff',
+              borderRadius: '50%',
+              width: '18px',
+              height: '18px',
+              fontSize: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 'bold'
+            }}>{getCartItemCount()}</span>
+          )}
+        </button>
+      </div>
 
-      {/* Page title & tabs */}
-      <section className="ecom-hero">
-        <h1>Puja Samagri &amp; Spiritual Items</h1>
-        <p>
-          Discover authentic items for your spiritual journey and daily rituals.
-        </p>
+      {/* MAIN CONTENT */}
+      <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '40px 20px' }}>
+        {/* HERO SECTION */}
+        <div style={{
+          backgroundColor: '#fff',
+          borderRadius: '16px',
+          padding: '60px 40px',
+          marginBottom: '60px',
+          textAlign: 'center',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+        }}>
+          <h1 style={{
+            fontSize: '48px',
+            fontWeight: 'bold',
+            marginBottom: '16px',
+            color: '#000'
+          }}>Puja Samagri &amp; Spiritual Items</h1>
+          <p style={{
+            fontSize: '18px',
+            color: '#666',
+            marginBottom: '32px'
+          }}>
+            Discover authentic items for your spiritual journey and daily rituals.
+          </p>
 
-        <div className="ecom-tabs-row">
-          {CATEGORY_FILTERS.map((category) => (
-            <button
-              key={category}
-              className={`ecom-tab-pill ${
-                activeCategory === category ? "ecom-tab-pill-active" : ""
-              }`}
-              onClick={() => handleCategoryClick(category)}
-            >
-              {category}
-            </button>
-          ))}
+          <div style={{
+            display: 'flex',
+            gap: '12px',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
+          }}>
+            {CATEGORY_FILTERS.map((category) => (
+              <button
+                key={category}
+                style={{
+                  padding: '10px 24px',
+                  backgroundColor: activeCategory === category ? '#c41e3a' : '#fff',
+                  color: activeCategory === category ? '#fff' : '#333',
+                  border: `2px solid ${activeCategory === category ? '#c41e3a' : '#e0e0e0'}`,
+                  borderRadius: '24px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onClick={() => handleCategoryClick(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
-      </section>
 
-      {/* Main layout: sidebar + products grid */}
-      <main className="ecom-main">
-        <aside className="ecom-sidebar">
-          <div className="ecom-card ecom-categories-card">
-            <h3>Categories</h3>
-            <ul>
-              {CATEGORY_FILTERS.map((category) => (
-                <li key={category}>
-                  <button
-                    className={`ecom-category-btn ${
-                      activeCategory === category
-                        ? "ecom-category-btn-active"
-                        : ""
-                    }`}
-                    onClick={() => handleCategoryClick(category)}
-                  >
-                    {category}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="ecom-card ecom-price-filter-card">
-            <h3>Filter by Price</h3>
-            <div className="ecom-price-range">
-              <span>{formatCurrency(100)}</span>
-              <input
-                type="range"
-                min={100}
-                max={5000}
-                step={100}
-                value={maxPrice}
-                onChange={handlePriceChange}
-              />
-              <span>{formatCurrency(5000)}+</span>
-            </div>
-            <p className="ecom-price-selected">
-              Showing items up to{" "}
-              <strong>{formatCurrency(maxPrice)}</strong>
-            </p>
-          </div>
-        </aside>
-
-        <section className="ecom-products-section">
-          <div className="ecom-products-header">
-            <h2>Products</h2>
-            <p>
-              {filteredProducts.length} item
-              {filteredProducts.length === 1 ? "" : "s"} found
-            </p>
-          </div>
-
-          <div className="ecom-products-grid">
-            {paginatedProducts.length === 0 ? (
-              <div className="ecom-empty-state">
-                <p>No items match your filters.</p>
-                <button
-                  className="ecom-primary-btn"
-                  onClick={() => {
-                    setActiveCategory("All Items");
-                    setMaxPrice(5000);
-                    setSearchTerm("");
-                    setCurrentPage(1);
-                  }}
-                >
-                  Clear Filters
-                </button>
-              </div>
-            ) : (
-              paginatedProducts.map((product) => (
-                <article className="ecom-product-card" key={product.id}>
-                  <div className="ecom-product-image-wrap">
-                    <img src={product.image} alt={product.name} />
+        {/* MAIN LAYOUT: SIDEBAR + PRODUCTS */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '280px 1fr',
+          gap: '40px',
+          marginBottom: '80px'
+        }}>
+          {/* LEFT SIDEBAR - FILTERS */}
+          <aside>
+            {/* Categories Filter */}
+            <div style={{
+              backgroundColor: '#fff',
+              borderRadius: '12px',
+              padding: '24px',
+              marginBottom: '24px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                marginBottom: '16px',
+                color: '#000'
+              }}>Categories</h3>
+              <ul style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0
+              }}>
+                {CATEGORY_FILTERS.map((category) => (
+                  <li key={category} style={{ marginBottom: '8px' }}>
                     <button
-                      className={`ecom-fav-btn ${isInWishlist(product.id) ? "ecom-fav-btn-active" : ""}`}
-                      aria-label="Add to wishlist"
+                      onClick={() => handleCategoryClick(category)}
+                      style={{
+                        width: '100%',
+                        textAlign: 'left',
+                        padding: '10px 16px',
+                        backgroundColor: activeCategory === category ? '#ffebee' : 'transparent',
+                        color: activeCategory === category ? '#c41e3a' : '#666',
+                        border: 'none',
+                        borderRadius: '6px',
+                        fontSize: '14px',
+                        fontWeight: activeCategory === category ? '600' : '500',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease'
+                      }}
+                    >
+                      {category}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Price Filter */}
+            <div style={{
+              backgroundColor: '#fff',
+              borderRadius: '12px',
+              padding: '24px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}>
+              <h3 style={{
+                fontSize: '18px',
+                fontWeight: '600',
+                marginBottom: '16px',
+                color: '#000'
+              }}>Filter by Price</h3>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  fontSize: '14px',
+                  color: '#666'
+                }}>
+                  <span>{formatCurrency(100)}</span>
+                  <span>{formatCurrency(5000)}+</span>
+                </div>
+                <input
+                  type="range"
+                  min={100}
+                  max={5000}
+                  step={100}
+                  value={maxPrice}
+                  onChange={handlePriceChange}
+                  style={{
+                    width: '100%',
+                    accentColor: '#c41e3a'
+                  }}
+                />
+                <p style={{
+                  fontSize: '14px',
+                  color: '#666',
+                  marginTop: '8px'
+                }}>
+                  Up to <strong style={{ color: '#c41e3a' }}>{formatCurrency(maxPrice)}</strong>
+                </p>
+              </div>
+            </div>
+          </aside>
+
+          {/* RIGHT SIDE - PRODUCTS */}
+          <section>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '32px'
+            }}>
+              <h2 style={{
+                fontSize: '32px',
+                fontWeight: 'bold',
+                color: '#000'
+              }}>Our Products</h2>
+              <p style={{
+                fontSize: '16px',
+                color: '#666'
+              }}>
+                {filteredProducts.length} item{filteredProducts.length === 1 ? "" : "s"} found
+              </p>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+              gap: '24px'
+            }}>
+              {paginatedProducts.length === 0 ? (
+                <div style={{
+                  gridColumn: '1 / -1',
+                  textAlign: 'center',
+                  padding: '60px 20px'
+                }}>
+                  <p style={{ fontSize: '18px', color: '#666', marginBottom: '24px' }}>No items match your filters.</p>
+                  <button
+                    onClick={() => {
+                      setActiveCategory("All Items");
+                      setMaxPrice(5000);
+                      setSearchTerm("");
+                      setCurrentPage(1);
+                    }}
+                    style={{
+                      padding: '12px 32px',
+                      backgroundColor: '#c41e3a',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Clear Filters
+                  </button>
+                </div>
+              ) : (
+                paginatedProducts.map((product) => (
+                  <div key={product.id} style={{
+                    backgroundColor: '#fff',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  textAlign: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  position: 'relative'
+                }}>
+                  <div style={{
+                    width: '100%',
+                    height: '250px',
+                    backgroundColor: '#4a6560',
+                    backgroundImage: `url(${product.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    position: 'relative'
+                  }}>
+                    <button
                       onClick={() => toggleWishlist(product)}
+                      style={{
+                        position: 'absolute',
+                        top: '12px',
+                        right: '12px',
+                        background: 'rgba(255,255,255,0.9)',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '36px',
+                        height: '36px',
+                        cursor: 'pointer',
+                        fontSize: '18px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                      aria-label="Add to wishlist"
                     >
                       {isInWishlist(product.id) ? "❤️" : "🤍"}
                     </button>
                     {addedToCartProductId === product.id && (
-                      <div className="ecom-added-notification">
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '12px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        backgroundColor: '#4caf50',
+                        color: '#fff',
+                        padding: '8px 16px',
+                        borderRadius: '6px',
+                        fontSize: '12px',
+                        fontWeight: '600'
+                      }}>
                         Added to Cart! ✓
                       </div>
                     )}
                   </div>
-                  <div className="ecom-product-body">
-                    <h3>{product.name}</h3>
-                    <p className="ecom-product-category">
-                      {product.category}
-                    </p>
-                    <div className="ecom-product-footer">
-                      <span className="ecom-product-price">
-                        {formatCurrency(product.price)}
-                      </span>
-                      <div className="ecom-product-actions">
+                  <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                    <h3 style={{
+                      fontSize: '18px',
+                      fontWeight: '600',
+                      marginBottom: '8px',
+                      color: '#000'
+                    }}>{product.name}</h3>
+                    <p style={{
+                      fontSize: '13px',
+                      color: '#999',
+                      marginBottom: '16px'
+                    }}>{product.category}</p>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginTop: 'auto',
+                      gap: '12px'
+                    }}>
+                      <span style={{
+                        fontSize: '20px',
+                        fontWeight: 'bold',
+                        color: '#c41e3a'
+                      }}>{formatCurrency(product.price)}</span>
+                      <div style={{ display: 'flex', gap: '8px' }}>
                         <button
-                          className="ecom-add-btn"
                           onClick={() => addToCart(product)}
+                          style={{
+                            padding: '8px 16px',
+                            backgroundColor: '#fff',
+                            color: '#c41e3a',
+                            border: '2px solid #c41e3a',
+                            borderRadius: '6px',
+                            fontSize: '13px',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s'
+                          }}
                         >
-                          Add to Cart
+                          Add
                         </button>
                         <button
-                          className="ecom-buy-btn"
                           onClick={() => handleBuyNow(product)}
+                          style={{
+                            padding: '8px 16px',
+                            backgroundColor: '#c41e3a',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '6px',
+                            fontSize: '13px',
+                            fontWeight: '600',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.3s'
+                          }}
                         >
                           Buy Now
                         </button>
                       </div>
                     </div>
                   </div>
-                </article>
+                </div>
               ))
             )}
           </div>
 
-          {/* Simple pagination */}
+          {/* Pagination */}
           {paginatedProducts.length > 0 && (
-            <div className="ecom-pagination">
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
+              marginTop: '48px'
+            }}>
               <button
-                className="ecom-page-btn"
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: currentPage === 1 ? '#f5f5f5' : '#fff',
+                  color: currentPage === 1 ? '#999' : '#333',
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
+                }}
               >
                 Prev
               </button>
@@ -830,26 +1050,46 @@ const Ecommerce = () => {
                 return (
                   <button
                     key={page}
-                    className={`ecom-page-btn ${
-                      page === currentPage ? "ecom-page-btn-active" : ""
-                    }`}
                     onClick={() => handlePageChange(page)}
+                    style={{
+                      padding: '10px 16px',
+                      backgroundColor: page === currentPage ? '#c41e3a' : '#fff',
+                      color: page === currentPage ? '#fff' : '#333',
+                      border: `1px solid ${page === currentPage ? '#c41e3a' : '#e0e0e0'}`,
+                      borderRadius: '6px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      minWidth: '40px'
+                    }}
                   >
                     {page}
                   </button>
                 );
               })}
               <button
-                className="ecom-page-btn"
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageChange(currentPage + 1)}
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: currentPage === totalPages ? '#f5f5f5' : '#fff',
+                  color: currentPage === totalPages ? '#999' : '#333',
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
+                }}
               >
                 Next
               </button>
             </div>
           )}
         </section>
+        </div>
       </main>
+
+      <Footer />
 
       {/* Cart Sidebar Modal */}
       {isCartOpen && currentView === "products" && (

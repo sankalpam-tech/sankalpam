@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Pujas.css";
 import BookingPage from "../pages/Bookingpage";
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
 
 import bgimg from "../images/86-Meenakshi-Amman-Temple-01_credit-Shutterstock.jpg";
 
@@ -18,6 +20,12 @@ function Pujas() {
   const [selectedPuja, setSelectedPuja] = useState(null);
   const [currentPage, setCurrentPage] = useState("home");
   const [openDropdown, setOpenDropdown] = useState(null); // which card's "view more" is open
+
+  // Preload background image
+  useEffect(() => {
+    const img = new Image();
+    img.src = bgimg;
+  }, []);
 
   const allPujas = [
     {
@@ -142,69 +150,7 @@ function Pujas() {
       )}
 
       {/* Header */}
-      <header className="header">
-        <div className="header-container">
-          <div className="logo-section">
-            <img
-              src="https://png.pngtree.com/png-vector/20250123/ourmid/pngtree-gold-om-symbol-with-golden-decoration-png-image_15312501.png"
-              alt="Om Symbol"
-              className="logo-icon"
-            />
-            <span className="logo-text">Sankalpam</span>
-          </div>
-          <nav className="nav-links">
-            <a href="#home" className="nav-link">
-              Home
-            </a>
-            <a href="#pujas" className="nav-link active">
-              Pujas
-            </a>
-            <a href="#astrology" className="nav-link">
-              Astrology
-            </a>
-            <a href="#ecommerce" className="nav-link">
-              Ecommerce
-            </a>
-            <a href="#tourism" className="nav-link">
-              Tourism
-            </a>
-          </nav>
-          <div className="header-right">
-            <div className="search-bar">
-              <svg
-                className="search-icon"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z"
-                  stroke="#999"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M14 14L11.1 11.1"
-                  stroke="#999"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <input
-                type="text"
-                placeholder="Search"
-                className="search-input"
-              />
-            </div>
-            <button className="btn-signin">Sign In</button>
-            <button className="btn-signup">Sign Up</button>
-          </div>
-        </div>
-      </header>
+      <Navbar activePage="pujas" />
 
       {/* Hero section (card over background) */}
       <section className="hero-banner">
@@ -218,31 +164,34 @@ function Pujas() {
         </div>
       </section>
 
-      {/* Online/Offline Tabs */}
-      <section className="booking-options">
-        <div className="booking-tabs-container">
-          <button
-            className={`booking-tab ${
-              bookingMode === "online" ? "active" : ""
-            }`}
-            onClick={() => setBookingMode("online")}
-          >
-            Online Pujas
-          </button>
-          <button
-            className={`booking-tab ${
-              bookingMode === "offline" ? "active" : ""
-            }`}
-            onClick={() => setBookingMode("offline")}
-          >
-            Offline Pujas
-          </button>
-        </div>
-      </section>
-
       {/* Puja Cards */}
       <section className="puja-offerings" id="pujas">
         <h2 className="section-title">Our Puja Offerings</h2>
+        
+        {/* Online/Offline Tabs - Modern Design */}
+        <div className="booking-options">
+          <div className="booking-tabs-container">
+            <button
+              className={`booking-tab ${
+                bookingMode === "online" ? "active" : ""
+              }`}
+              onClick={() => setBookingMode("online")}
+            >
+              <span className="tab-icon">🌐</span>
+              <span className="tab-text">Online Pujas</span>
+            </button>
+            <button
+              className={`booking-tab ${
+                bookingMode === "offline" ? "active" : ""
+              }`}
+              onClick={() => setBookingMode("offline")}
+            >
+              <span className="tab-icon">🏠</span>
+              <span className="tab-text">Offline Pujas</span>
+            </button>
+          </div>
+        </div>
+
         <div className="puja-grid">
           {displayedPujas.map((puja) => (
             <div key={puja.id} className="puja-card">
@@ -301,6 +250,7 @@ function Pujas() {
           ))}
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

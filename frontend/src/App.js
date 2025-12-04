@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Pujas from './pages/Pujas';
 import Astrology from './pages/Astrology';
@@ -36,7 +36,6 @@ function App() {
 
   return (
     <Router>
-      <ScrollToTop />
       <div className="App">
         <main>
           <Routes>

@@ -335,7 +335,7 @@ const Ecommerce = () => {
   // Render different views
   if (currentView === "buyingForm") {
     return (
-      <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#FFF8E1', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div className="ecom-page">
         <Navbar activePage="ecommerce" />
         <div className="ecom-form-container">
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>

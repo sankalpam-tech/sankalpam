@@ -771,3 +771,388 @@
     font-size: 16px;
   }
 }
+
+/* ================================
+   MOBILE: TOGGLED HORIZONTAL SLIDER
+   ================================ */
+
+/* hidden by default, only for mobile */
+.puja-mobile-toggle-area {
+  display: none;
+}
+
+/* nav strip above slider */
+.puja-mobile-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0 0.75rem;
+  padding: 0 0.1rem;
+}
+
+.puja-mobile-nav-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.puja-mobile-arrow-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease,
+    box-shadow 0.2s ease;
+}
+
+.puja-mobile-arrow-btn:hover {
+  background-color: #c41e3a;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(196, 30, 58, 0.3);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  /* use new slider layout on mobile */
+  .puja-mobile-toggle-area {
+    display: block;
+    margin-top: 1.5rem;
+  }
+
+  /* keep desktop grid for larger screens only */
+  .puja-grid-desktop {
+    display: none;
+  }
+
+  /* ensure the existing toggle (booking-options) stays visible on mobile */
+  .booking-options {
+    display: flex !important;
+  }
+
+  /* In case older mobile sections exist, hide them */
+  .puja-mobile-sections {
+    display: none !important;
+  }
+
+  /* Horizontal slider container */
+  .puja-mobile-slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding: 0.25rem 0 0.75rem;
+  }
+
+  .puja-mobile-slider::-webkit-scrollbar {
+    display: none; /* clean look */
+  }
+
+  /* Each card is one "page" and laid out horizontally:
+     image LEFT, info RIGHT */
+  .puja-mobile-slider .puja-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .puja-mobile-slider .puja-image-container {
+    width: 42%;
+    height: auto;
+    min-height: 120px;
+  }
+
+  .puja-mobile-slider .puja-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .puja-mobile-slider .puja-content {
+    width: 58%;
+    padding: 0.9rem 0.9rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .puja-mobile-slider .puja-name {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .puja-mobile-slider .puja-description {
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .puja-mobile-slider .puja-dropdown-container {
+    margin-bottom: 0.6rem;
+  }
+
+  .puja-mobile-slider .puja-footer {
+    margin-top: auto;
+    padding-top: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .puja-mobile-nav-label {
+    font-size: 0.9rem;
+  }
+
+  .puja-mobile-arrow-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+}
+
+/* ===========================
+   Scroll-in / Scroll-out animation
+   =========================== */
+
+.scroll-animated {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+.scroll-animated.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
+   MOBILE: image LEFT, info RIGHT,
+   no horizontal scrolling
+   =========================== */
+
+@media (max-width: 768px) {
+  /* Already 1 column; ensure nice spacing */
+  .puja-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Turn each card into a horizontal row */
+  .puja-card.scroll-animated {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .puja-image-container {
+    width: 40%;
+    height: auto;
+    min-height: 115px;
+  }
+
+  .puja-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .puja-content {
+    width: 60%;
+    padding: 0.85rem 0.9rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .puja-name {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .puja-description {
+    font-size: 0.84rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .puja-dropdown-container {
+    margin-bottom: 0.5rem;
+  }
+
+  .puja-footer {
+    margin-top: auto;
+    padding-top: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .puja-content {
+    padding: 0.8rem 0.8rem 0.8rem;
+  }
+
+  .puja-name {
+    font-size: 0.95rem;
+  }
+
+  .puja-description {
+    font-size: 0.8rem;
+  }
+
+  .btn-book {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===========================
+   Scroll-in / Scroll-out animation
+   =========================== */
+
+.scroll-animated {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+.scroll-animated.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
+   UNIFORM CARD SIZE (desktop & tablet)
+   =========================== */
+
+/* Gives all cards a consistent minimum height in the grid */
+.puja-card {
+  min-height: 320px;
+}
+
+/* limit description length so heights stay similar */
+.puja-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;          /* show max 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===========================
+   MOBILE LAYOUT:
+   - One card per row
+   - Image LEFT, info RIGHT
+   - No horizontal scrolling
+   =========================== */
+
+@media (max-width: 768px) {
+  /* Already 1 column, keep gap tidy */
+  .puja-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Horizontal card: image left, content right, same height */
+  .puja-card.scroll-animated {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 150px;
+  }
+
+  .puja-image-container {
+    width: 40%;
+    height: 200px;
+    min-height: 150px;
+  }
+
+  .puja-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .puja-content {
+    width: 60%;
+    padding: 0.85rem 0.9rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .puja-name {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .puja-description {
+    font-size: 0.84rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .puja-dropdown-container {
+    margin-bottom: 0.5rem;
+  }
+
+  .puja-footer {
+    margin-top: auto;
+    padding-top: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .puja-content {
+    padding: 0.8rem 0.8rem 0.8rem;
+  }
+
+  .puja-name {
+    font-size: 0.95rem;
+  }
+
+  .puja-description {
+    font-size: 0.8rem;
+  }
+
+  .btn-book {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===========================
+   BOOKING MODAL – MOBILE RESPONSIVENESS
+   =========================== */
+
+@media (max-width: 768px) {
+  .booking-modal-overlay {
+    padding: 0;                    /* full-screen overlay */
+    align-items: flex-start;       /* start at top on mobile */
+  }
+
+  .booking-modal-content {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-modal-content {
+    padding: 0;                    /* let inner form use full width */
+  }
+
+  .booking-modal-close {
+    top: 8px;
+    right: 8px;
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
+  }
+}

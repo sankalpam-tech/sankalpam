@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Pujas.css";
 import BookingPage from "../pages/Bookingpage";
 import Navbar from "../components/layout/Navbar";
@@ -20,10 +20,6 @@ function Pujas() {
   const [selectedPuja, setSelectedPuja] = useState(null);
   const [currentPage, setCurrentPage] = useState("home");
   const [openDropdown, setOpenDropdown] = useState(null);
-
-  // refs for mobile sliders
-  const onlineSliderRef = useRef(null);
-  const offlineSliderRef = useRef(null);
 
   // Preload background image
   useEffect(() => {
@@ -124,29 +120,32 @@ function Pujas() {
     };
   }, [currentPage, selectedPuja]);
 
-  // Helper: scroll slider one card left/right (used on mobile)
-  const scrollSlider = (ref, direction) => {
-    const container = ref.current;
-    if (!container) return;
+  // Scroll animation: cards appear when scrolled down, disappear when scrolled up
+  useEffect(() => {
+    const cards = document.querySelectorAll(".scroll-animated");
+    if (!cards.length) return;
 
-    const firstCard = container.querySelector(".puja-card");
-    if (!firstCard) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          } else {
+            entry.target.classList.remove("visible");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-    const cardWidth = firstCard.getBoundingClientRect().width;
-    const styles = window.getComputedStyle(container);
-    const gap =
-      parseFloat(styles.columnGap || styles.gap || "16") || 16;
+    cards.forEach((card) => observer.observe(card));
 
-    const amount = cardWidth + gap;
-    container.scrollBy({
-      left: direction === "next" ? amount : -amount,
-      behavior: "smooth",
-    });
-  };
+    return () => observer.disconnect();
+  }, [displayedPujas]);
 
-  // Render a single puja card (reused for desktop & mobile)
+  // Single puja card (used for both desktop and mobile)
   const renderPujaCard = (puja) => (
-    <div key={puja.id} className="puja-card">
+    <div key={puja.id} className="puja-card scroll-animated">
       <div className="puja-image-container">
         <img src={puja.image} alt={puja.name} className="puja-image" />
       </div>
@@ -242,7 +241,7 @@ function Pujas() {
       <section className="puja-offerings" id="pujas">
         <h2 className="section-title">Our Puja Offerings</h2>
 
-        {/* Desktop / Tablet Tabs */}
+        {/* Toggle: Online / Offline – visible on all devices */}
         <div className="booking-options">
           <div className="booking-tabs-container">
             <button
@@ -266,79 +265,10 @@ function Pujas() {
           </div>
         </div>
 
-        {/* Desktop / Tablet grid (controlled by tabs) */}
-        <div className="puja-grid puja-grid-desktop">
-          {displayedPujas.map(renderPujaCard)}
-        </div>
-
-        {/* -------------------------
-             MOBILE‑ONLY SECTIONS
-           ------------------------- */}
-        <div className="puja-mobile-sections">
-          {/* Online Pujas slider */}
-          <div className="puja-mobile-section">
-            <div className="puja-mobile-section-header">
-              <h3 className="puja-mobile-title">Online Pujas</h3>
-              <div className="puja-slider-nav">
-                <button
-                  type="button"
-                  className="puja-slider-btn"
-                  onClick={() => scrollSlider(onlineSliderRef, "prev")}
-                  aria-label="Previous online puja"
-                >
-                  ‹
-                </button>
-                <button
-                  type="button"
-                  className="puja-slider-btn"
-                  onClick={() => scrollSlider(onlineSliderRef, "next")}
-                  aria-label="Next online puja"
-                >
-                  ›
-                </button>
-              </div>
-            </div>
-
-            <div
-              className="puja-grid puja-slider puja-slider-online"
-              ref={onlineSliderRef}
-            >
-              {onlinePujas.map(renderPujaCard)}
-            </div>
-          </div>
-
-          {/* Offline Pujas slider */}
-          <div className="puja-mobile-section">
-            <div className="puja-mobile-section-header">
-              <h3 className="puja-mobile-title">Offline Pujas</h3>
-              <div className="puja-slider-nav">
-                <button
-                  type="button"
-                  className="puja-slider-btn"
-                  onClick={() => scrollSlider(offlineSliderRef, "prev")}
-                  aria-label="Previous offline puja"
-                >
-                  ‹
-                </button>
-                <button
-                  type="button"
-                  className="puja-slider-btn"
-                  onClick={() => scrollSlider(offlineSliderRef, "next")}
-                  aria-label="Next offline puja"
-                >
-                  ›
-                </button>
-              </div>
-            </div>
-
-            <div
-              className="puja-grid puja-slider puja-slider-offline"
-              ref={offlineSliderRef}
-            >
-              {offlinePujas.map(renderPujaCard)}
-            </div>
-          </div>
-        </div>
+        {/* Grid for both desktop and mobile.
+            On desktop: 3 columns (existing).
+            On mobile: one card per row, image left + info right (via CSS). */}
+        <div className="puja-grid">{displayedPujas.map(renderPujaCard)}</div>
       </section>
 
       <Footer />

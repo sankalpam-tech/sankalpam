@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Pujas from './pages/Pujas';
 import Astrology from './pages/Astrology';
@@ -13,6 +13,17 @@ import './App.css';
 import bgPujas from './images/86-Meenakshi-Amman-Temple-01_credit-Shutterstock.jpg';
 import bgAstrology from './images/astrology.jpg';
 
+// Scroll to top component
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   // Preload background images on app mount
   useEffect(() => {
@@ -25,6 +36,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="App">
         <main>
           <Routes>

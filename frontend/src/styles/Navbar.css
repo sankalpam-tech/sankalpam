@@ -1,0 +1,249 @@
+/* ===========================
+   NAVBAR STYLES (Navbar.js)
+   =========================== */
+
+:root {
+  --primary-color: #c41e3a;
+  --text-color: #333333;
+  --muted-text: #666666;
+  --border-color: #e0e0e0;
+  --bg-color: #ffffff;
+  --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.header {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+}
+
+.header-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* keep logo neatly aligned */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Nav + buttons (desktop defaults) */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: nowrap;
+}
+
+.nav-link {
+  white-space: nowrap;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-signin,
+.btn-signup {
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+/* ===========================
+   HAMBURGER BUTTON
+   =========================== */
+
+.hamburger {
+  display: none; /* only visible on mobile */
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  height: 2px;
+  background-color: #333;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease;
+}
+
+.hamburger span:nth-child(1) {
+  top: 9px;
+}
+.hamburger span:nth-child(2) {
+  top: 16px;
+}
+.hamburger span:nth-child(3) {
+  top: 23px;
+}
+
+/* X state */
+.hamburger.is-active span:nth-child(1) {
+  top: 16px;
+  transform: rotate(45deg);
+}
+.hamburger.is-active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-active span:nth-child(3) {
+  top: 16px;
+  transform: rotate(-45deg);
+}
+
+/* ===========================
+   DESKTOP (>= 1024px)
+   =========================== */
+
+@media (min-width: 1024px) {
+  .header-container {
+    padding: 16px 48px !important; /* keep your original padding */
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+  }
+
+  .logo-section {
+    flex: 0 0 auto;
+  }
+
+  .nav-links {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .header-right {
+    flex: 0 0 auto;
+    margin-left: 24px;
+  }
+
+  .hamburger {
+    display: none;
+  }
+}
+
+/* ===========================
+   TABLET (769px - 1023px)
+   =========================== */
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .header-container {
+    padding: 12px 24px !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+    column-gap: 16px;
+  }
+
+  .logo-section {
+    flex: 0 0 auto;
+  }
+
+  .nav-links {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    margin-left: 24px;
+    gap: 24px;
+  }
+
+  .header-right {
+    flex: 0 0 auto;
+    margin-left: 16px;
+  }
+
+  .hamburger {
+    display: none;
+  }
+}
+
+/* ===========================
+   MOBILE (<= 768px)
+   =========================== */
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 10px 16px !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .logo-section {
+    flex: 0 0 auto;
+  }
+
+  .logo-text {
+    font-size: 18px !important; /* better proportion on small screens */
+  }
+
+  /* show hamburger */
+  .hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* hide nav & buttons when menu closed */
+  .nav-links,
+  .header-right {
+    display: none !important; /* override inline display:flex */
+  }
+
+  .nav-links,
+  .header-right {
+    width: 100%;
+  }
+
+  /* when menu is open, show dropdown stacked vertically */
+  .header.mobile-open .nav-links,
+  .header.mobile-open .header-right {
+    display: flex !important;
+  }
+
+  .header.mobile-open .nav-links {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #f0f0f0;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 10px;
+  }
+
+  .header.mobile-open .header-right {
+    margin-top: 8px;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 8px;
+  }
+
+  .header.mobile-open .btn-signin,
+  .header.mobile-open .btn-signup {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+  .header-container {
+    padding: 8px 12px !important;
+  }
+
+  .logo-text {
+    font-size: 17px !important;
+  }
+}

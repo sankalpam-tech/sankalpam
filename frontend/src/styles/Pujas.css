@@ -655,3 +655,119 @@
     font-size: 20px;
   }
 }
+
+
+ 
+/* ================================
+   MOBILE‑ONLY HORIZONTAL PUJA SLIDERS
+   (keeps all existing styles intact)
+   ================================ */
+
+/* Hidden by default, only shown on mobile */
+.puja-mobile-sections {
+  display: none;
+}
+
+/* Simple structure styling (shared, not breakpoint‑limited) */
+.puja-mobile-section + .puja-mobile-section {
+  margin-top: 2rem;
+}
+
+.puja-mobile-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem 0 0.75rem;
+  padding: 0 0.2rem;
+}
+
+.puja-mobile-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.puja-slider-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.puja-slider-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease,
+    box-shadow 0.2s ease;
+}
+
+.puja-slider-btn:hover {
+  background-color: #c41e3a;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(196, 30, 58, 0.3);
+  transform: translateY(-1px);
+}
+
+/* --------- Mobile breakpoint overrides --------- */
+@media (max-width: 768px) {
+  /* Hide tabbed grid, show mobile sliders */
+  .puja-grid-desktop {
+    display: none;
+  }
+
+  .booking-options {
+    display: none; /* hide Online/Offline tabs on mobile */
+  }
+
+  .puja-mobile-sections {
+    display: block;
+    margin-top: 1.5rem;
+  }
+
+  /* Horizontal scroll track */
+  .puja-slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding: 0.25rem 0.25rem 0.75rem;
+  }
+
+  .puja-slider::-webkit-scrollbar {
+    display: none; /* cleaner look on mobile */
+  }
+
+  .puja-slider .puja-card {
+    flex: 0 0 100%;     /* one full‑width card at a time */
+    max-width: 100%;
+    scroll-snap-align: center;
+  }
+
+  .puja-slider .puja-image-container {
+    height: 210px;      /* slightly taller image for mobile */
+  }
+}
+
+/* Extra small devices tweaks (optional) */
+@media (max-width: 480px) {
+  .puja-mobile-title {
+    font-size: 1rem;
+  }
+
+  .puja-slider-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/Pujas.css";
 import BookingPage from "../pages/Bookingpage";
 import Navbar from "../components/layout/Navbar";
@@ -19,7 +19,11 @@ function Pujas() {
   const [bookingMode, setBookingMode] = useState("online");
   const [selectedPuja, setSelectedPuja] = useState(null);
   const [currentPage, setCurrentPage] = useState("home");
-  const [openDropdown, setOpenDropdown] = useState(null); // which card's "view more" is open
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  // refs for mobile sliders
+  const onlineSliderRef = useRef(null);
+  const offlineSliderRef = useRef(null);
 
   // Preload background image
   useEffect(() => {
@@ -54,7 +58,7 @@ function Pujas() {
       name: "Maha Mrityunjaya Jaap",
       description: "For health and longevity.",
       price: "₹11000",
-      image:img8,
+      image: img8,
     },
     {
       id: 5,
@@ -120,15 +124,85 @@ function Pujas() {
     };
   }, [currentPage, selectedPuja]);
 
+  // Helper: scroll slider one card left/right (used on mobile)
+  const scrollSlider = (ref, direction) => {
+    const container = ref.current;
+    if (!container) return;
+
+    const firstCard = container.querySelector(".puja-card");
+    if (!firstCard) return;
+
+    const cardWidth = firstCard.getBoundingClientRect().width;
+    const styles = window.getComputedStyle(container);
+    const gap =
+      parseFloat(styles.columnGap || styles.gap || "16") || 16;
+
+    const amount = cardWidth + gap;
+    container.scrollBy({
+      left: direction === "next" ? amount : -amount,
+      behavior: "smooth",
+    });
+  };
+
+  // Render a single puja card (reused for desktop & mobile)
+  const renderPujaCard = (puja) => (
+    <div key={puja.id} className="puja-card">
+      <div className="puja-image-container">
+        <img src={puja.image} alt={puja.name} className="puja-image" />
+      </div>
+
+      <div className="puja-content">
+        <h3 className="puja-name">{puja.name}</h3>
+        <p className="puja-description">{puja.description}</p>
+
+        <div className="puja-dropdown-container">
+          <button
+            className="puja-dropdown-btn"
+            onClick={() =>
+              setOpenDropdown(openDropdown === puja.id ? null : puja.id)
+            }
+          >
+            View more
+          </button>
+        </div>
+
+        <div className="puja-footer">
+          <span className="puja-price">{puja.price}</span>
+          <button className="btn-book" onClick={() => handleBookNow(puja)}>
+            Book Now
+          </button>
+        </div>
+      </div>
+
+      {openDropdown === puja.id && (
+        <div className="puja-details-overlay">
+          <div className="puja-details-box">
+            <button
+              className="puja-details-close"
+              onClick={() => setOpenDropdown(null)}
+            >
+              ×
+            </button>
+            <h4 className="inclusions-title">What&apos;s included</h4>
+            <ul className="inclusions-list">
+              {inclusions.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div
       className="App pujas-page"
       style={{
- backgroundImage: `linear-gradient(
+        backgroundImage: `linear-gradient(
   rgba(255, 255, 255, 0.5),
   rgba(255, 255, 255, 0.5)
 ), url(${bgimg})`,
-
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
@@ -152,7 +226,7 @@ function Pujas() {
       {/* Header */}
       <Navbar activePage="pujas" />
 
-      {/* Hero section (card over background) */}
+      {/* Hero section */}
       <section className="hero-banner">
         <div className="hero-content">
           <h1 className="hero-title">Book Your Sacred Pujas Online</h1>
@@ -167,8 +241,8 @@ function Pujas() {
       {/* Puja Cards */}
       <section className="puja-offerings" id="pujas">
         <h2 className="section-title">Our Puja Offerings</h2>
-        
-        {/* Online/Offline Tabs - Modern Design */}
+
+        {/* Desktop / Tablet Tabs */}
         <div className="booking-options">
           <div className="booking-tabs-container">
             <button
@@ -192,64 +266,81 @@ function Pujas() {
           </div>
         </div>
 
-        <div className="puja-grid">
-          {displayedPujas.map((puja) => (
-            <div key={puja.id} className="puja-card">
-              <div className="puja-image-container">
-                <img src={puja.image} alt={puja.name} className="puja-image" />
+        {/* Desktop / Tablet grid (controlled by tabs) */}
+        <div className="puja-grid puja-grid-desktop">
+          {displayedPujas.map(renderPujaCard)}
+        </div>
+
+        {/* -------------------------
+             MOBILE‑ONLY SECTIONS
+           ------------------------- */}
+        <div className="puja-mobile-sections">
+          {/* Online Pujas slider */}
+          <div className="puja-mobile-section">
+            <div className="puja-mobile-section-header">
+              <h3 className="puja-mobile-title">Online Pujas</h3>
+              <div className="puja-slider-nav">
+                <button
+                  type="button"
+                  className="puja-slider-btn"
+                  onClick={() => scrollSlider(onlineSliderRef, "prev")}
+                  aria-label="Previous online puja"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  className="puja-slider-btn"
+                  onClick={() => scrollSlider(onlineSliderRef, "next")}
+                  aria-label="Next online puja"
+                >
+                  ›
+                </button>
               </div>
-
-              <div className="puja-content">
-                <h3 className="puja-name">{puja.name}</h3>
-                <p className="puja-description">{puja.description}</p>
-
-                <div className="puja-dropdown-container">
-                  <button
-                    className="puja-dropdown-btn"
-                    onClick={() =>
-                      setOpenDropdown(
-                        openDropdown === puja.id ? null : puja.id
-                      )
-                    }
-                  >
-                    View more
-                  </button>
-                </div>
-
-                <div className="puja-footer">
-                  <span className="puja-price">{puja.price}</span>
-                  <button
-                    className="btn-book"
-                    onClick={() => handleBookNow(puja)}
-                  >
-                    Book Now
-                  </button>
-                </div>
-              </div>
-
-              {/* Card‑local overlay, does not affect other cards */}
-              {openDropdown === puja.id && (
-                <div className="puja-details-overlay">
-                  <div className="puja-details-box">
-                    <button
-                      className="puja-details-close"
-                      onClick={() => setOpenDropdown(null)}
-                    >
-                      ×
-                    </button>
-                    <h4 className="inclusions-title">What&apos;s included</h4>
-                    <ul className="inclusions-list">
-                      {inclusions.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
             </div>
-          ))}
+
+            <div
+              className="puja-grid puja-slider puja-slider-online"
+              ref={onlineSliderRef}
+            >
+              {onlinePujas.map(renderPujaCard)}
+            </div>
+          </div>
+
+          {/* Offline Pujas slider */}
+          <div className="puja-mobile-section">
+            <div className="puja-mobile-section-header">
+              <h3 className="puja-mobile-title">Offline Pujas</h3>
+              <div className="puja-slider-nav">
+                <button
+                  type="button"
+                  className="puja-slider-btn"
+                  onClick={() => scrollSlider(offlineSliderRef, "prev")}
+                  aria-label="Previous offline puja"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  className="puja-slider-btn"
+                  onClick={() => scrollSlider(offlineSliderRef, "next")}
+                  aria-label="Next offline puja"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+
+            <div
+              className="puja-grid puja-slider puja-slider-offline"
+              ref={offlineSliderRef}
+            >
+              {offlinePujas.map(renderPujaCard)}
+            </div>
+          </div>
         </div>
       </section>
+
       <Footer />
     </div>
   );

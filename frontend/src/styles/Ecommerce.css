@@ -4,11 +4,11 @@
    =========================== */
 
 :root {
-  --ecom-bg: #f7f5fb;
+  --ecom-bg: #FFF8E1;
   --ecom-bg-alt: #ffffff;
-  --ecom-primary: #ff7a3c;
-  --ecom-primary-soft: rgba(255, 122, 60, 0.12);
-  --ecom-primary-hover: #ff955f;
+  --ecom-primary: #c41e3a;
+  --ecom-primary-soft: rgba(196, 30, 58, 0.12);
+  --ecom-primary-hover: #a01830;
   --ecom-text-main: #1f2933;
   --ecom-text-muted: #6b7280;
   --ecom-border-subtle: #e5e7eb;
@@ -553,9 +553,9 @@
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  background: linear-gradient(135deg, #ff7a3c, #f97316);
+  background: linear-gradient(135deg, #c41e3a, #a01830);
   color: #fff;
-  box-shadow: 0 8px 18px rgba(249, 115, 22, 0.45);
+  box-shadow: 0 8px 18px rgba(196, 30, 58, 0.45);
   transition: transform var(--ecom-transition-fast), box-shadow var(--ecom-transition-fast),
     background var(--ecom-transition-fast);
   white-space: nowrap;
@@ -564,8 +564,8 @@
 .ecom-add-btn:hover,
 .ecom-primary-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 22px rgba(249, 115, 22, 0.55);
-  background: linear-gradient(135deg, #ff955f, #fb923c);
+  box-shadow: 0 10px 22px rgba(196, 30, 58, 0.55);
+  background: linear-gradient(135deg, #d42342, #c41e3a);
 }
 
 .ecom-buy-btn {
@@ -1166,14 +1166,17 @@ body {
    =========================== */
 
 .ecom-form-container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 50%;
+  width: 100%;
+  margin: 40px auto;
   padding: 20px;
+  flex: 1;
 }
 
 .ecom-form-container h1 {
   margin: 0 0 24px;
   font-size: 28px;
+  color: #221a10;
 }
 
 .ecom-buying-form {
@@ -1264,13 +1267,15 @@ body {
 
 .ecom-payment-container {
   max-width: 700px;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 20px;
+  flex: 1;
 }
 
 .ecom-payment-container h1 {
   margin: 0 0 24px;
   font-size: 28px;
+  color: #221a10;
 }
 
 .ecom-payment-card {
@@ -1361,9 +1366,10 @@ body {
 
 .ecom-confirmation-container {
   max-width: 700px;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 40px 20px;
   text-align: center;
+  flex: 1;
 }
 
 .ecom-confirmation-icon {
@@ -1375,7 +1381,7 @@ body {
 .ecom-confirmation-container h1 {
   margin: 0 0 12px;
   font-size: 32px;
-  color: var(--ecom-text-main);
+  color: #221a10;
 }
 
 .ecom-confirmation-message {

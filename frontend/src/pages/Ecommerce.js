@@ -119,6 +119,27 @@ const Ecommerce = () => {
 
   const ITEMS_PER_PAGE = 8;
 
+  // Handle browser back button
+  useEffect(() => {
+    const handlePopState = () => {
+      if (currentView !== "products") {
+        setCurrentView("products");
+        setIsCartOpen(false);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    
+    // Push state when view changes
+    if (currentView !== "products") {
+      window.history.pushState({ view: currentView }, '', '');
+    }
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [currentView]);
+
   // Load cart and wishlist from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem("sankalpam_cart");
@@ -259,6 +280,7 @@ const Ecommerce = () => {
     setCart([{ ...product, quantity: 1 }]);
     setCurrentView("buyingForm");
     setIsCartOpen(false);
+    window.scrollTo(0, 0);
   };
 
   // Form handling
@@ -269,6 +291,7 @@ const Ecommerce = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setCurrentView("payment");
+    window.scrollTo(0, 0);
   };
 
   // Payment handling
@@ -312,10 +335,28 @@ const Ecommerce = () => {
   // Render different views
   if (currentView === "buyingForm") {
     return (
-      <div className="ecom-page">
+      <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#FFF8E1', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Navbar activePage="ecommerce" />
         <div className="ecom-form-container">
-          <h1>Buying Information</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+            <button 
+              onClick={goToProducts}
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '24px',
+                cursor: 'pointer',
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                color: '#c41e3a'
+              }}
+              aria-label="Back to products"
+            >
+              ← 
+            </button>
+            <h1 style={{ margin: 0 }}>Buying Information</h1>
+          </div>
           <form onSubmit={handleFormSubmit} className="ecom-buying-form">
             <div className="ecom-form-row">
               <div className="ecom-form-group">
@@ -410,13 +451,14 @@ const Ecommerce = () => {
             </button>
           </form>
         </div>
+        <Footer />
       </div>
     );
   }
 
   if (currentView === "payment") {
     return (
-      <div className="ecom-page">
+      <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#FFF8E1', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Navbar activePage="ecommerce" />
         <div className="ecom-payment-container">
           <h1>Payment</h1>
@@ -458,13 +500,14 @@ const Ecommerce = () => {
             </button>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }
 
   if (currentView === "confirmation") {
     return (
-      <div className="ecom-page">
+      <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#FFF8E1', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Navbar activePage="ecommerce" />
         <div className="ecom-confirmation-container">
           <div className="ecom-confirmation-icon">✅</div>
@@ -508,6 +551,7 @@ const Ecommerce = () => {
             Continue Shopping
           </button>
         </div>
+        <Footer />
       </div>
     );
   }
@@ -517,7 +561,25 @@ const Ecommerce = () => {
       <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#FFF8E1', minHeight: '100vh' }}>
         <Navbar activePage="ecommerce" />
         <div className="ecom-cart-container">
-          <h1>Shopping Cart</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+            <button 
+              onClick={goToProducts}
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '24px',
+                cursor: 'pointer',
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                color: '#c41e3a'
+              }}
+              aria-label="Back to products"
+            >
+              ← 
+            </button>
+            <h1 style={{ margin: 0 }}>Shopping Cart</h1>
+          </div>
           {cart.length === 0 ? (
             <div className="ecom-empty-cart">
               <p>Your cart is empty</p>

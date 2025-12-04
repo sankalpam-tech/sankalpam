@@ -81,8 +81,21 @@ const Astrology = () => {
               borderRadius: '8px',
               fontSize: '16px',
               fontWeight: '600',
-              cursor: 'pointer'
-            }}>Book a Consultation</button>
+              cursor: 'pointer',
+              transition: 'background-color 0.3s, transform 0.2s, box-shadow 0.2s ease',
+              boxShadow: '0 10px 22px rgba(220, 38, 38, 0.35)'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.backgroundColor = '#b91c1c';
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 14px 30px rgba(220, 38, 38, 0.45)';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.backgroundColor = '#c41e3a';
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 10px 22px rgba(220, 38, 38, 0.35)';
+            }}
+            >Book a Consultation</button>
           </div>
         </div>
 

@@ -192,8 +192,7 @@
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s,
-    box-shadow 0.2s ease;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s ease;
   box-shadow: 0 10px 22px rgba(220, 38, 38, 0.35);
 }
 
@@ -656,8 +655,6 @@
   }
 }
 
-
- 
 /* ================================
    MOBILE‑ONLY HORIZONTAL PUJA SLIDERS
    (keeps all existing styles intact)
@@ -749,13 +746,13 @@
   }
 
   .puja-slider .puja-card {
-    flex: 0 0 100%;     /* one full‑width card at a time */
+    flex: 0 0 100%; /* one full‑width card at a time */
     max-width: 100%;
     scroll-snap-align: center;
   }
 
   .puja-slider .puja-image-container {
-    height: 210px;      /* slightly taller image for mobile */
+    height: 210px; /* slightly taller image for mobile */
   }
 }
 
@@ -1039,7 +1036,8 @@
 /* limit description length so heights stay similar */
 .puja-description {
   display: -webkit-box;
-  -webkit-line-clamp: 3;          /* show max 3 lines */
+  -webkit-line-clamp: 3; /* show max 3 lines */
+  line-clamp: 3; /* standard property for compatibility */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1130,22 +1128,22 @@
 
 @media (max-width: 768px) {
   .booking-modal-overlay {
-    padding: 0;                    /* full-screen overlay */
-    align-items: flex-start;       /* start at top on mobile */
+    padding: 20px; /* keep some padding for edge spacing */
+    align-items: center; /* center vertically on mobile like desktop */
   }
 
   .booking-modal-content {
     width: 100%;
     max-width: 100%;
-    height: 100vh;
-    max-height: 100vh;
+    height: auto;
+    max-height: 95vh;
     border-radius: 0;
   }
 }
 
 @media (max-width: 480px) {
   .booking-modal-content {
-    padding: 0;                    /* let inner form use full width */
+    padding: 0; /* let inner form use full width */
   }
 
   .booking-modal-close {

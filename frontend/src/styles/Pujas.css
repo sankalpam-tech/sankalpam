@@ -1128,22 +1128,28 @@
 
 @media (max-width: 768px) {
   .booking-modal-overlay {
-    padding: 20px; /* keep some padding for edge spacing */
-    align-items: center; /* center vertically on mobile like desktop */
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
   }
 
   .booking-modal-content {
-    width: 100%;
-    max-width: 100%;
+    width: 95%;
+    max-width: 400px;
     height: auto;
-    max-height: 95vh;
-    border-radius: 0;
+    max-height: 90vh;
+    border-radius: 20px;
+    margin: 0 auto;
+    position: relative;
   }
 }
 
 @media (max-width: 480px) {
   .booking-modal-content {
-    padding: 0; /* let inner form use full width */
+    width: 90%;
+    max-width: 350px;
+    padding: 0;
+    margin: 0 auto;
   }
 
   .booking-modal-close {
@@ -1165,8 +1171,7 @@
 }
 
 .puja-search-inner {
-  max-width: 1100px;
-  margin: 0 auto;
+  width:100%;
   padding: 12px 48px;
   display: flex;
   justify-content: flex-end;
@@ -1208,6 +1213,15 @@
   font-size: 0.9rem;
   color: #6b7280;
   margin-top: 0.5rem;
+}
+
+/* --------- Desktop responsiveness for search bar --------- */
+@media (min-width: 769px) {
+  .puja-search-wrapper {
+    position: sticky;
+    top: 64px;
+    z-index: 999;
+  }
 }
 
 /* --------- Mobile responsiveness for search bar --------- */

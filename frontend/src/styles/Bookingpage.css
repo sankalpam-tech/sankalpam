@@ -17,6 +17,7 @@
   --bp-radius-full: 999px;
   --bp-shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.9);
   --bp-shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.75);
+  border-radius:20px;
 
   min-height: 100vh;
   display: flex;
@@ -172,12 +173,18 @@
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bp-puja-subtitle {
   margin: 0;
   font-size: 13px;
   color: var(--bp-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bp-puja-cost {
@@ -185,6 +192,9 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--bp-accent-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Form container – single large rounded box (like screenshot) */
@@ -359,5 +369,11 @@
 
   .bp-form-section {
     padding: 22px 18px 26px;
+  }
+
+  /* Mobile-specific puja card styles */
+  .bp-puja-card {
+    padding: 20px;
+    padding-left: 20px;
   }
 }

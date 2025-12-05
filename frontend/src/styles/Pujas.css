@@ -150,7 +150,7 @@
   position: relative;
   max-width: 1400px;
   width: calc(100% - 4rem);
-  margin: 2.5rem auto;
+  margin: 2.5rem auto 0rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -192,8 +192,7 @@
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s,
-    box-shadow 0.2s ease;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s ease;
   box-shadow: 0 10px 22px rgba(220, 38, 38, 0.35);
 }
 
@@ -276,7 +275,7 @@
   font-size: 2.1rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
@@ -653,5 +652,588 @@
     width: 35px;
     height: 35px;
     font-size: 20px;
+  }
+}
+
+/* ================================
+   MOBILE‑ONLY HORIZONTAL PUJA SLIDERS
+   (keeps all existing styles intact)
+   ================================ */
+
+/* Hidden by default, only shown on mobile */
+.puja-mobile-sections {
+  display: none;
+}
+
+/* Simple structure styling (shared, not breakpoint‑limited) */
+.puja-mobile-section + .puja-mobile-section {
+  margin-top: 2rem;
+}
+
+.puja-mobile-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem 0 0.75rem;
+  padding: 0 0.2rem;
+}
+
+.puja-mobile-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.puja-slider-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.puja-slider-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease,
+    box-shadow 0.2s ease;
+}
+
+.puja-slider-btn:hover {
+  background-color: #c41e3a;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(196, 30, 58, 0.3);
+  transform: translateY(-1px);
+}
+
+/* --------- Mobile breakpoint overrides --------- */
+@media (max-width: 768px) {
+  /* Hide tabbed grid, show mobile sliders */
+  .puja-grid-desktop {
+    display: none;
+  }
+
+  .booking-options {
+    display: none; /* hide Online/Offline tabs on mobile */
+  }
+
+  .puja-mobile-sections {
+    display: block;
+    margin-top: 1.5rem;
+  }
+
+  /* Horizontal scroll track */
+  .puja-slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding: 0.25rem 0.25rem 0.75rem;
+  }
+
+  .puja-slider::-webkit-scrollbar {
+    display: none; /* cleaner look on mobile */
+  }
+
+  .puja-slider .puja-card {
+    flex: 0 0 100%; /* one full‑width card at a time */
+    max-width: 100%;
+    scroll-snap-align: center;
+  }
+
+  .puja-slider .puja-image-container {
+    height: 210px; /* slightly taller image for mobile */
+  }
+}
+
+/* Extra small devices tweaks (optional) */
+@media (max-width: 480px) {
+  .puja-mobile-title {
+    font-size: 1rem;
+  }
+
+  .puja-slider-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+}
+
+/* ================================
+   MOBILE: TOGGLED HORIZONTAL SLIDER
+   ================================ */
+
+/* hidden by default, only for mobile */
+.puja-mobile-toggle-area {
+  display: none;
+}
+
+/* nav strip above slider */
+.puja-mobile-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0 0.75rem;
+  padding: 0 0.1rem;
+}
+
+.puja-mobile-nav-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.puja-mobile-arrow-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease,
+    box-shadow 0.2s ease;
+}
+
+.puja-mobile-arrow-btn:hover {
+  background-color: #c41e3a;
+  color: #ffffff;
+  box-shadow: 0 3px 8px rgba(196, 30, 58, 0.3);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  /* use new slider layout on mobile */
+  .puja-mobile-toggle-area {
+    display: block;
+    margin-top: 1.5rem;
+  }
+
+  /* keep desktop grid for larger screens only */
+  .puja-grid-desktop {
+    display: none;
+  }
+
+  /* ensure the existing toggle (booking-options) stays visible on mobile */
+  .booking-options {
+    display: flex !important;
+  }
+
+  /* In case older mobile sections exist, hide them */
+  .puja-mobile-sections {
+    display: none !important;
+  }
+
+  /* Horizontal slider container */
+  .puja-mobile-slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding: 0.25rem 0 0.75rem;
+  }
+
+  .puja-mobile-slider::-webkit-scrollbar {
+    display: none; /* clean look */
+  }
+
+  /* Each card is one "page" and laid out horizontally:
+     image LEFT, info RIGHT */
+  .puja-mobile-slider .puja-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .puja-mobile-slider .puja-image-container {
+    width: 42%;
+    height: auto;
+    min-height: 120px;
+  }
+
+  .puja-mobile-slider .puja-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .puja-mobile-slider .puja-content {
+    width: 58%;
+    padding: 0.9rem 0.9rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .puja-mobile-slider .puja-name {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .puja-mobile-slider .puja-description {
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .puja-mobile-slider .puja-dropdown-container {
+    margin-bottom: 0.6rem;
+  }
+
+  .puja-mobile-slider .puja-footer {
+    margin-top: auto;
+    padding-top: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .puja-mobile-nav-label {
+    font-size: 0.9rem;
+  }
+
+  .puja-mobile-arrow-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+}
+
+/* ===========================
+   Scroll-in / Scroll-out animation
+   =========================== */
+
+.scroll-animated {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+.scroll-animated.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
+   MOBILE: image LEFT, info RIGHT,
+   no horizontal scrolling
+   =========================== */
+
+@media (max-width: 768px) {
+  /* Already 1 column; ensure nice spacing */
+  .puja-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Turn each card into a horizontal row */
+  .puja-card.scroll-animated {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .puja-image-container {
+    width: 40%;
+    height: auto;
+    min-height: 115px;
+  }
+
+  .puja-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .puja-content {
+    width: 60%;
+    padding: 0.85rem 0.9rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .puja-name {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .puja-description {
+    font-size: 0.84rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .puja-dropdown-container {
+    margin-bottom: 0.5rem;
+  }
+
+  .puja-footer {
+    margin-top: auto;
+    padding-top: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .puja-content {
+    padding: 0.8rem 0.8rem 0.8rem;
+  }
+
+  .puja-name {
+    font-size: 0.95rem;
+  }
+
+  .puja-description {
+    font-size: 0.8rem;
+  }
+
+  .btn-book {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===========================
+   Scroll-in / Scroll-out animation
+   =========================== */
+
+.scroll-animated {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+.scroll-animated.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
+   UNIFORM CARD SIZE (desktop & tablet)
+   =========================== */
+
+/* Gives all cards a consistent minimum height in the grid */
+.puja-card {
+  min-height: 320px;
+}
+
+/* limit description length so heights stay similar */
+.puja-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* show max 3 lines */
+  line-clamp: 3; /* standard property for compatibility */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===========================
+   MOBILE LAYOUT:
+   - One card per row
+   - Image LEFT, info RIGHT
+   - No horizontal scrolling
+   =========================== */
+
+@media (max-width: 768px) {
+  /* Already 1 column, keep gap tidy */
+  .puja-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Horizontal card: image left, content right, same height */
+  .puja-card.scroll-animated {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 150px;
+  }
+
+  .puja-image-container {
+    width: 40%;
+    height: 200px;
+    min-height: 150px;
+  }
+
+  .puja-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .puja-content {
+    width: 60%;
+    padding: 0.85rem 0.9rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .puja-name {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .puja-description {
+    font-size: 0.84rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .puja-dropdown-container {
+    margin-bottom: 0.5rem;
+  }
+
+  .puja-footer {
+    margin-top: auto;
+    padding-top: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .puja-content {
+    padding: 0.8rem 0.8rem 0.8rem;
+  }
+
+  .puja-name {
+    font-size: 0.95rem;
+  }
+
+  .puja-description {
+    font-size: 0.8rem;
+  }
+
+  .btn-book {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===========================
+   BOOKING MODAL – MOBILE RESPONSIVENESS
+   =========================== */
+
+@media (max-width: 768px) {
+  .booking-modal-overlay {
+    padding: 20px; /* keep some padding for edge spacing */
+    align-items: center; /* center vertically on mobile like desktop */
+  }
+
+  .booking-modal-content {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 95vh;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-modal-content {
+    padding: 0; /* let inner form use full width */
+  }
+
+  .booking-modal-close {
+    top: 8px;
+    right: 8px;
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
+  }
+}
+
+/* ===========================
+   PUJAS PAGE SEARCH BAR
+   =========================== */
+
+.puja-search-wrapper {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.puja-search-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 48px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.puja-search-box {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 8px 14px;
+  gap: 8px;
+  min-width: 260px;
+  max-width: 320px;
+  width: 100%;
+}
+
+.puja-search-icon {
+  font-size: 16px;
+}
+
+.puja-search-input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+}
+
+.puja-search-input::placeholder {
+  color: #9ca3af;
+}
+
+/* message when search has no results */
+.puja-search-empty {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+/* --------- Mobile responsiveness for search bar --------- */
+
+@media (max-width: 768px) {
+  .puja-search-inner {
+    padding: 10px 16px;
+    justify-content: center;
+  }
+
+  .puja-search-box {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .puja-search-inner {
+    padding: 8px 12px;
+  }
+
+  .puja-search-box {
+    padding: 7px 12px;
+  }
+
+  .puja-search-input {
+    font-size: 13px;
   }
 }

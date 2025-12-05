@@ -1,29 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../../styles/Navbar.css';
 
 const Navbar = ({ activePage = 'home' }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Close menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Close menu when a link is clicked (better UX on mobile)
+  const handleLinkClick = () => setIsMenuOpen(false);
+
   return (
-    <header className="header" style={{
-      backgroundColor: '#fff',
-      borderBottom: '1px solid #e0e0e0',
-      position: 'sticky',
-      top: 0,
-      zIndex: 1000,
-      boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-    }}>
-      <div className="header-container" style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '16px 48px',
-        maxWidth: '1400px',
-        margin: '0 auto'
-      }}>
-        <div className="logo-section" style={{
+    <header
+      className={`header ${isMenuOpen ? 'mobile-open' : ''}`}
+      style={{
+        backgroundColor: '#fff',
+        borderBottom: '1px solid #e0e0e0',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+      }}
+    >
+      <div
+        className="header-container"
+        style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '12px'
-        }}>
+          justifyContent: 'space-between',
+          padding: '16px 48px',
+          maxWidth: '1400px',
+          margin: '0 auto',
+        }}
+      >
+        {/* Logo section */}
+        <div
+          className="logo-section"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+          }}
+        >
           <img
             src="https://png.pngtree.com/png-vector/20250123/ourmid/pngtree-gold-om-symbol-with-golden-decoration-png-image_15312501.png"
             alt="Om Symbol"
@@ -31,25 +58,48 @@ const Navbar = ({ activePage = 'home' }) => {
             style={{
               width: '32px',
               height: '32px',
-              objectFit: 'contain'
+              objectFit: 'contain',
             }}
           />
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <span className="logo-text" style={{
-              fontSize: '20px',
-              fontWeight: 'bold',
-              color: '#c41e3a'
-            }}>Sankalpam</span>
+          <Link to="/" onClick={handleLinkClick} style={{ textDecoration: 'none' }}>
+            <span
+              className="logo-text"
+              style={{
+                fontSize: '20px',
+                fontWeight: 'bold',
+                color: '#c41e3a',
+              }}
+            >
+              Sankalpam
+            </span>
           </Link>
         </div>
 
-        <nav className="nav-links" style={{
-          display: 'flex',
-          gap: '32px',
-          alignItems: 'center'
-        }}>
-          <Link 
-            to="/" 
+        {/* Hamburger button (mobile) */}
+        <button
+          type="button"
+          className={`hamburger ${isMenuOpen ? 'is-active' : ''}`}
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        {/* Nav links */}
+        <nav
+          className="nav-links"
+          style={{
+            display: 'flex',
+            gap: '32px',
+            alignItems: 'center',
+          }}
+        >
+          <Link
+            to="/"
+            onClick={handleLinkClick}
             className={`nav-link ${activePage === 'home' ? 'active' : ''}`}
             style={{
               color: activePage === 'home' ? '#c41e3a' : '#333',
@@ -59,13 +109,17 @@ const Navbar = ({ activePage = 'home' }) => {
               transition: 'color 0.3s ease',
               position: 'relative',
               paddingBottom: '4px',
-              borderBottom: activePage === 'home' ? '2px solid #c41e3a' : '2px solid transparent'
+              borderBottom:
+                activePage === 'home'
+                  ? '2px solid #c41e3a'
+                  : '2px solid transparent',
             }}
           >
             Home
           </Link>
-          <Link 
-            to="/pujas" 
+          <Link
+            to="/pujas"
+            onClick={handleLinkClick}
             className={`nav-link ${activePage === 'pujas' ? 'active' : ''}`}
             style={{
               color: activePage === 'pujas' ? '#c41e3a' : '#333',
@@ -75,13 +129,17 @@ const Navbar = ({ activePage = 'home' }) => {
               transition: 'color 0.3s ease',
               position: 'relative',
               paddingBottom: '4px',
-              borderBottom: activePage === 'pujas' ? '2px solid #c41e3a' : '2px solid transparent'
+              borderBottom:
+                activePage === 'pujas'
+                  ? '2px solid #c41e3a'
+                  : '2px solid transparent',
             }}
           >
             Pujas
           </Link>
-          <Link 
-            to="/astrology" 
+          <Link
+            to="/astrology"
+            onClick={handleLinkClick}
             className={`nav-link ${activePage === 'astrology' ? 'active' : ''}`}
             style={{
               color: activePage === 'astrology' ? '#c41e3a' : '#333',
@@ -91,13 +149,17 @@ const Navbar = ({ activePage = 'home' }) => {
               transition: 'color 0.3s ease',
               position: 'relative',
               paddingBottom: '4px',
-              borderBottom: activePage === 'astrology' ? '2px solid #c41e3a' : '2px solid transparent'
+              borderBottom:
+                activePage === 'astrology'
+                  ? '2px solid #c41e3a'
+                  : '2px solid transparent',
             }}
           >
             Astrology
           </Link>
-          <Link 
-            to="/ecommerce" 
+          <Link
+            to="/ecommerce"
+            onClick={handleLinkClick}
             className={`nav-link ${activePage === 'ecommerce' ? 'active' : ''}`}
             style={{
               color: activePage === 'ecommerce' ? '#c41e3a' : '#333',
@@ -107,13 +169,17 @@ const Navbar = ({ activePage = 'home' }) => {
               transition: 'color 0.3s ease',
               position: 'relative',
               paddingBottom: '4px',
-              borderBottom: activePage === 'ecommerce' ? '2px solid #c41e3a' : '2px solid transparent'
+              borderBottom:
+                activePage === 'ecommerce'
+                  ? '2px solid #c41e3a'
+                  : '2px solid transparent',
             }}
           >
             Ecommerce
           </Link>
-          <Link 
-            to="/tourism" 
+          <Link
+            to="/tourism"
+            onClick={handleLinkClick}
             className={`nav-link ${activePage === 'tourism' ? 'active' : ''}`}
             style={{
               color: activePage === 'tourism' ? '#c41e3a' : '#333',
@@ -123,59 +189,84 @@ const Navbar = ({ activePage = 'home' }) => {
               transition: 'color 0.3s ease',
               position: 'relative',
               paddingBottom: '4px',
-              borderBottom: activePage === 'tourism' ? '2px solid #c41e3a' : '2px solid transparent'
+              borderBottom:
+                activePage === 'tourism'
+                  ? '2px solid #c41e3a'
+                  : '2px solid transparent',
             }}
           >
             Tourism
           </Link>
         </nav>
 
-        <div className="header-right" style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px'
-        }}>
-          <Link 
+        {/* Right side buttons */}
+        <div
+          className="header-right"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+          }}
+        >
+          <Link
             to="/signin"
+            onClick={handleLinkClick}
             style={{
               textDecoration: 'none',
               position: 'relative',
               paddingBottom: '4px',
-              borderBottom: activePage === 'signin' ? '2px solid #c41e3a' : '2px solid transparent'
+              borderBottom:
+                activePage === 'signin'
+                  ? '2px solid #c41e3a'
+                  : '2px solid transparent',
             }}
           >
-            <button className="btn-signin" style={{
-              padding: '10px 24px',
-              backgroundColor: '#c41e3a',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '6px',
-              fontSize: '14px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'background-color 0.3s ease'
-            }}>Sign In</button>
+            <button
+              className="btn-signin"
+              style={{
+                padding: '10px 24px',
+                backgroundColor: '#c41e3a',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'background-color 0.3s ease',
+              }}
+            >
+              Sign In
+            </button>
           </Link>
-          <Link 
+          <Link
             to="/signup"
+            onClick={handleLinkClick}
             style={{
               textDecoration: 'none',
               position: 'relative',
               paddingBottom: '4px',
-              borderBottom: activePage === 'signup' ? '2px solid #c41e3a' : '2px solid transparent'
+              borderBottom:
+                activePage === 'signup'
+                  ? '2px solid #c41e3a'
+                  : '2px solid transparent',
             }}
           >
-            <button className="btn-signup" style={{
-              padding: '10px 24px',
-              backgroundColor: '#fff',
-              color: '#c41e3a',
-              border: '2px solid #c41e3a',
-              borderRadius: '6px',
-              fontSize: '14px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}>Sign Up</button>
+            <button
+              className="btn-signup"
+              style={{
+                padding: '10px 24px',
+                backgroundColor: '#fff',
+                color: '#c41e3a',
+                border: '2px solid #c41e3a',
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              Sign Up
+            </button>
           </Link>
         </div>
       </div>

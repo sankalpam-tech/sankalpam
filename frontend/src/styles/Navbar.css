@@ -16,26 +16,52 @@
   width: 100%;
   box-sizing: border-box;
   font-family: var(--font-family-base);
+  background-color: var(--bg-color);
 }
 
+/* Base container (desktop first) */
 .header-container {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 40px !important; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
   box-sizing: border-box;
 }
 
-/* keep logo neatly aligned */
+/* Logo */
+
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
-/* Nav + buttons (desktop defaults) */
+.logo-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
+}
+
+/* Nav links + buttons */
+
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
   flex-wrap: nowrap;
+  flex: 1 1 auto;
+  justify-content: center;
 }
 
 .nav-link {
@@ -45,7 +71,8 @@
 .header-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex: 0 0 auto;
 }
 
 .btn-signin,
@@ -60,8 +87,8 @@
 
 .hamburger {
   display: none; /* only visible on mobile */
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   margin: 0;
   border: none;
@@ -72,8 +99,8 @@
 
 .hamburger span {
   position: absolute;
-  left: 5px;
-  right: 5px;
+  left: 4px;
+  right: 4px;
   height: 2px;
   background-color: #333;
   border-radius: 2px;
@@ -81,90 +108,39 @@
 }
 
 .hamburger span:nth-child(1) {
-  top: 9px;
+  top: 7px;
 }
 .hamburger span:nth-child(2) {
-  top: 16px;
+  top: 13px;
 }
 .hamburger span:nth-child(3) {
-  top: 23px;
+  top: 19px;
 }
 
 /* X state */
 .hamburger.is-active span:nth-child(1) {
-  top: 16px;
+  top: 13px;
   transform: rotate(45deg);
 }
 .hamburger.is-active span:nth-child(2) {
   opacity: 0;
 }
 .hamburger.is-active span:nth-child(3) {
-  top: 16px;
+  top: 13px;
   transform: rotate(-45deg);
 }
 
 /* ===========================
-   DESKTOP (>= 1024px)
+   DESKTOP / TABLET (>= 769px)
    =========================== */
 
-@media (min-width: 1024px) {
-  .header-container {
-    padding: 16px 48px !important; /* keep your original padding */
-    display: flex;
-    align-items: center;
-    justify-content: space-between !important;
-  }
-
-  .logo-section {
-    flex: 0 0 auto;
-  }
-
-  .nav-links {
-    flex: 1 1 auto;
-    justify-content: center;
-  }
-
-  .header-right {
-    flex: 0 0 auto;
-    margin-left: 24px;
-  }
-
+@media (min-width: 769px) {
   .hamburger {
     display: none;
   }
-}
 
-/* ===========================
-   TABLET (769px - 1023px)
-   =========================== */
-
-@media (min-width: 769px) and (max-width: 1023px) {
   .header-container {
-    padding: 12px 24px !important;
-    display: flex;
-    align-items: center;
-    justify-content: space-between !important;
-    column-gap: 16px;
-  }
-
-  .logo-section {
-    flex: 0 0 auto;
-  }
-
-  .nav-links {
-    flex: 1 1 auto;
-    justify-content: flex-start;
-    margin-left: 24px;
-    gap: 24px;
-  }
-
-  .header-right {
-    flex: 0 0 auto;
-    margin-left: 16px;
-  }
-
-  .hamburger {
-    display: none;
+    padding: 10px 40px !important;
   }
 }
 
@@ -174,33 +150,46 @@
 
 @media (max-width: 768px) {
   .header-container {
-    padding: 10px 16px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 6px 8px !important;   
+    height: 46px;
+    min-height: 46px;
     display: flex;
     align-items: center;
     justify-content: space-between !important;
-    flex-wrap: wrap;
-    row-gap: 8px;
+    gap: 8px;
+    flex-wrap: nowrap;
   }
 
   .logo-section {
     flex: 0 0 auto;
+    gap: 6px;
+    margin-left: -200px;
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
   }
 
   .logo-text {
-    font-size: 18px !important; /* better proportion on small screens */
+    font-size: 18px !important;
+    line-height: 1;
   }
 
-  /* show hamburger */
   .hamburger {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex: 0 0 auto;
+    position: absolute;
+    right: 10px;
   }
 
-  /* hide nav & buttons when menu closed */
   .nav-links,
   .header-right {
-    display: none !important; /* override inline display:flex */
+    display: none !important; 
   }
 
   .nav-links,
@@ -208,26 +197,33 @@
     width: 100%;
   }
 
-  /* when menu is open, show dropdown stacked vertically */
+  .header.mobile-open .header-container {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    height: auto;
+    padding-bottom: 8px !important;
+  }
+
   .header.mobile-open .nav-links,
   .header.mobile-open .header-right {
     display: flex !important;
+    flex-basis: 100%;
   }
 
   .header.mobile-open .nav-links {
-    margin-top: 8px;
-    padding-top: 8px;
+    margin-top: 6px;
+    padding-top: 6px;
     border-top: 1px solid #f0f0f0;
     flex-direction: column;
     align-items: flex-start !important;
-    gap: 10px;
+    gap: 8px;
   }
 
   .header.mobile-open .header-right {
-    margin-top: 8px;
+    margin-top: 6px;
     flex-direction: column;
     align-items: stretch !important;
-    gap: 8px;
+    gap: 6px;
   }
 
   .header.mobile-open .btn-signin,
@@ -238,12 +234,18 @@
 }
 
 /* Very small phones */
+
 @media (max-width: 480px) {
   .header-container {
-    padding: 8px 12px !important;
+    padding: 4px 6px !important;
+    height: 44px;
   }
 
   .logo-text {
     font-size: 17px !important;
+  }
+
+  .nav-link {
+    font-size: 13px;
   }
 }

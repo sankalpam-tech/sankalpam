@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../../styles/Navbar.css'; // make sure this path is correct
+import '../../styles/Navbar.css';
 
 const Navbar = ({ activePage = 'home' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,7 +28,7 @@ const Navbar = ({ activePage = 'home' }) => {
         position: 'sticky',
         top: 0,
         zIndex: 1000,
-        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+        boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
       }}
     >
       <div
@@ -39,7 +39,7 @@ const Navbar = ({ activePage = 'home' }) => {
           justifyContent: 'space-between',
           padding: '16px 48px',
           maxWidth: '1400px',
-          margin: '0 auto'
+          margin: '0 auto',
         }}
       >
         {/* Logo section */}
@@ -48,7 +48,7 @@ const Navbar = ({ activePage = 'home' }) => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '12px'
+            gap: '12px',
           }}
         >
           <img
@@ -58,7 +58,7 @@ const Navbar = ({ activePage = 'home' }) => {
             style={{
               width: '32px',
               height: '32px',
-              objectFit: 'contain'
+              objectFit: 'contain',
             }}
           />
           <Link to="/" onClick={handleLinkClick} style={{ textDecoration: 'none' }}>
@@ -67,7 +67,7 @@ const Navbar = ({ activePage = 'home' }) => {
               style={{
                 fontSize: '20px',
                 fontWeight: 'bold',
-                color: '#c41e3a'
+                color: '#c41e3a',
               }}
             >
               Sankalpam
@@ -94,7 +94,7 @@ const Navbar = ({ activePage = 'home' }) => {
           style={{
             display: 'flex',
             gap: '32px',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           <Link
@@ -112,7 +112,7 @@ const Navbar = ({ activePage = 'home' }) => {
               borderBottom:
                 activePage === 'home'
                   ? '2px solid #c41e3a'
-                  : '2px solid transparent'
+                  : '2px solid transparent',
             }}
           >
             Home
@@ -132,7 +132,7 @@ const Navbar = ({ activePage = 'home' }) => {
               borderBottom:
                 activePage === 'pujas'
                   ? '2px solid #c41e3a'
-                  : '2px solid transparent'
+                  : '2px solid transparent',
             }}
           >
             Pujas
@@ -152,7 +152,7 @@ const Navbar = ({ activePage = 'home' }) => {
               borderBottom:
                 activePage === 'astrology'
                   ? '2px solid #c41e3a'
-                  : '2px solid transparent'
+                  : '2px solid transparent',
             }}
           >
             Astrology
@@ -172,7 +172,7 @@ const Navbar = ({ activePage = 'home' }) => {
               borderBottom:
                 activePage === 'ecommerce'
                   ? '2px solid #c41e3a'
-                  : '2px solid transparent'
+                  : '2px solid transparent',
             }}
           >
             Ecommerce
@@ -192,7 +192,7 @@ const Navbar = ({ activePage = 'home' }) => {
               borderBottom:
                 activePage === 'tourism'
                   ? '2px solid #c41e3a'
-                  : '2px solid transparent'
+                  : '2px solid transparent',
             }}
           >
             Tourism
@@ -205,7 +205,7 @@ const Navbar = ({ activePage = 'home' }) => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '12px'
+            gap: '12px',
           }}
         >
           <Link
@@ -218,7 +218,7 @@ const Navbar = ({ activePage = 'home' }) => {
               borderBottom:
                 activePage === 'signin'
                   ? '2px solid #c41e3a'
-                  : '2px solid transparent'
+                  : '2px solid transparent',
             }}
           >
             <button
@@ -232,7 +232,7 @@ const Navbar = ({ activePage = 'home' }) => {
                 fontSize: '14px',
                 fontWeight: '600',
                 cursor: 'pointer',
-                transition: 'background-color 0.3s ease'
+                transition: 'background-color 0.3s ease',
               }}
             >
               Sign In
@@ -248,7 +248,7 @@ const Navbar = ({ activePage = 'home' }) => {
               borderBottom:
                 activePage === 'signup'
                   ? '2px solid #c41e3a'
-                  : '2px solid transparent'
+                  : '2px solid transparent',
             }}
           >
             <button
@@ -262,7 +262,7 @@ const Navbar = ({ activePage = 'home' }) => {
                 fontSize: '14px',
                 fontWeight: '600',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
               }}
             >
               Sign Up

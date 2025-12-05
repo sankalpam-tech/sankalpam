@@ -20,6 +20,7 @@ function Pujas() {
   const [selectedPuja, setSelectedPuja] = useState(null);
   const [currentPage, setCurrentPage] = useState("home");
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // NEW
 
   // Preload background image
   useEffect(() => {
@@ -88,7 +89,21 @@ function Pujas() {
 
   const onlinePujas = allPujas.slice(0, 4);
   const offlinePujas = allPujas.slice(4, 8);
-  const displayedPujas = bookingMode === "online" ? onlinePujas : offlinePujas;
+
+  // ------ SEARCH FILTERING ------
+  const filterPujas = (list) => {
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) return list;
+    return list.filter((puja) =>
+      `${puja.name} ${puja.description}`.toLowerCase().includes(term)
+    );
+  };
+
+  const filteredOnlinePujas = filterPujas(onlinePujas);
+  const filteredOfflinePujas = filterPujas(offlinePujas);
+  const displayedPujas =
+    bookingMode === "online" ? filteredOnlinePujas : filteredOfflinePujas;
+  // -------------------------------
 
   const inclusions = [
     "Puja Samagri",
@@ -141,7 +156,7 @@ function Pujas() {
     cards.forEach((card) => observer.observe(card));
 
     return () => observer.disconnect();
-  }, [displayedPujas]);
+  }, [displayedPujas, searchTerm, bookingMode]);
 
   // Single puja card (used for both desktop and mobile)
   const renderPujaCard = (puja) => (
@@ -225,6 +240,28 @@ function Pujas() {
       {/* Header */}
       <Navbar activePage="pujas" />
 
+      {/* Search bar below navbar */}
+      <div className="puja-search-wrapper">
+        <div className="puja-search-inner">
+          <div className="puja-search-box">
+            <span
+              className="puja-search-icon"
+              role="img"
+              aria-label="Search"
+            >
+              🔍
+            </span>
+            <input
+              type="text"
+              className="puja-search-input"
+              placeholder="Search for pujas..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Hero section */}
       <section className="hero-banner">
         <div className="hero-content">
@@ -265,9 +302,14 @@ function Pujas() {
           </div>
         </div>
 
-        {/* Grid for both desktop and mobile.
-            On desktop: 3 columns (existing).
-            On mobile: one card per row, image left + info right (via CSS). */}
+        {searchTerm.trim() && displayedPujas.length === 0 && (
+          <p className="puja-search-empty">
+            No pujas found for &quot;{searchTerm}&quot; in{" "}
+            {bookingMode === "online" ? "Online" : "Offline"} Pujas.
+          </p>
+        )}
+
+        {/* Grid for both desktop and mobile. */}
         <div className="puja-grid">{displayedPujas.map(renderPujaCard)}</div>
       </section>
 

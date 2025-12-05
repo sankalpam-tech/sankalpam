@@ -150,7 +150,7 @@
   position: relative;
   max-width: 1400px;
   width: calc(100% - 4rem);
-  margin: 2.5rem auto;
+  margin: 2.5rem auto 0rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -276,7 +276,7 @@
   font-size: 2.1rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
@@ -1154,5 +1154,88 @@
     width: 34px;
     height: 34px;
     font-size: 20px;
+  }
+}
+
+/* ===========================
+   PUJAS PAGE SEARCH BAR
+   =========================== */
+
+.puja-search-wrapper {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.puja-search-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 48px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.puja-search-box {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 8px 14px;
+  gap: 8px;
+  min-width: 260px;
+  max-width: 320px;
+  width: 100%;
+}
+
+.puja-search-icon {
+  font-size: 16px;
+}
+
+.puja-search-input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+}
+
+.puja-search-input::placeholder {
+  color: #9ca3af;
+}
+
+/* message when search has no results */
+.puja-search-empty {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+/* --------- Mobile responsiveness for search bar --------- */
+
+@media (max-width: 768px) {
+  .puja-search-inner {
+    padding: 10px 16px;
+    justify-content: center;
+  }
+
+  .puja-search-box {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .puja-search-inner {
+    padding: 8px 12px;
+  }
+
+  .puja-search-box {
+    padding: 7px 12px;
+  }
+
+  .puja-search-input {
+    font-size: 13px;
   }
 }

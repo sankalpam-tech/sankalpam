@@ -1,14 +1,18 @@
 import React from "react";
 import "../styles/Bookingpage.css";
 
-function Bookingpage({ puja, onBack }) {
+function Bookingpage({ puja, onBack, type = "puja" }) {
+  const isAstrology = type === "astrology";
+
   return (
     <div className="bp-root">
       {/* Top Navigation */}
 
       <main className="bp-page-content">
         <section className="bp-booking-wrapper">
-          <h1 className="bp-page-title">Book Your Puja</h1>
+          <h1 className="bp-page-title">
+            {isAstrology ? "Book Your Consultation" : "Book Your Puja"}
+          </h1>
 
           {/* Selected Puja Card */}
           <div className="bp-puja-card">
@@ -16,7 +20,9 @@ function Bookingpage({ puja, onBack }) {
               <h2 className="bp-puja-name">
                 {puja?.name || "Satyanarayan Puja"}
               </h2>
-              <p className="bp-puja-subtitle">You are booking this puja</p>
+              <p className="bp-puja-subtitle">
+                {isAstrology ? "You are booking this consultation" : "You are booking this puja"}
+              </p>
               <p className="bp-puja-cost">Cost: {puja?.price || "₹2501"}</p>
             </div>
           </div>
@@ -24,7 +30,7 @@ function Bookingpage({ puja, onBack }) {
           {/* Form */}
           <section className="bp-form-section">
             <h2 className="bp-form-title">
-              Enter Your Details for the Sankalpam
+              {isAstrology ? "Enter Your Details" : "Enter Your Details for the Sankalpam"}
             </h2>
 
             <form
@@ -34,83 +40,173 @@ function Bookingpage({ puja, onBack }) {
                 alert("Form submitted (demo)!");
               }}
             >
-              {/* Row 1 */}
-              <div className="bp-form-row">
-                <div className="bp-form-field">
-                  <label>
-                    Your Name (Karta)<span className="bp-required">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter your full name"
-                    required
-                  />
-                </div>
-                <div className="bp-form-field">
-                  <label>Wife&apos;s Name</label>
-                  <input type="text" placeholder="Optional" />
-                </div>
-              </div>
+              {isAstrology ? (
+                // Astrology Form Fields
+                <>
+                  {/* Row 1 - Name and DOB */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field">
+                      <label>
+                        Your Name<span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter your full name"
+                        required
+                      />
+                    </div>
+                    <div className="bp-form-field">
+                      <label>
+                        Date of Birth<span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="date"
+                        required
+                      />
+                    </div>
+                  </div>
 
-              {/* Row 2 */}
-              <div className="bp-form-row">
-                <div className="bp-form-field bp-full-width">
-                  <label>Other Family Members&apos; Names</label>
-                  <input
-                    type="text"
-                    placeholder="e.g., Children, Parents (Optional)"
-                  />
-                </div>
-              </div>
+                  {/* Row 2 - Nakshatram and Rasi */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field">
+                      <label>
+                        Nakshatram<span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter your Nakshatram"
+                        required
+                      />
+                    </div>
+                    <div className="bp-form-field">
+                      <label>
+                        Rasi<span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter your Rasi"
+                        required
+                      />
+                    </div>
+                  </div>
 
-              {/* Row 3 */}
-              <div className="bp-form-row">
-                <div className="bp-form-field">
-                  <label>
-                    Gothram<span className="bp-required">*</span>
-                    <span
-                      className="bp-info-icon"
-                      title="Your family lineage"
-                    />
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter your Gothram"
-                    required
-                  />
-                </div>
-                <div className="bp-form-field">
-                  <label>
-                    Phone Number<span className="bp-required">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="Enter your 10-digit number"
-                    required
-                  />
-                </div>
-              </div>
+                  {/* Row 3 - Place and Phone */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field">
+                      <label>
+                        Place<span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter your place of birth"
+                        required
+                      />
+                    </div>
+                    <div className="bp-form-field">
+                      <label>
+                        Phone Number<span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        placeholder="Enter your 10-digit number"
+                        required
+                      />
+                    </div>
+                  </div>
 
-              <div className="bp-form-row">
-                <div className="bp-form-field bp-full-width">
-                  <label>Referral </label>
-                  <input type="text" placeholder="Enter your Referral" />
-                </div>
-              </div>
-              {/* Row 4 */}
-              <div className="bp-form-row">
-                <div className="bp-form-field bp-full-width">
-                  <label>
-                    Prasadam Delivery Address
-                    <span className="bp-required">*</span>
-                  </label>
-                  <textarea
-                    rows="3"
-                    placeholder="Enter your full address for Prasadam delivery"
-                    required
-                  />
-                </div>
-              </div>
+                  {/* Row 4 - Other (Full Width) */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field bp-full-width">
+                      <label>Other Information</label>
+                      <textarea
+                        rows="4"
+                        placeholder="Any additional details you'd like to share..."
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                // Puja Form Fields (Original)
+                <>
+                  {/* Row 1 */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field">
+                      <label>
+                        Your Name (Karta)<span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter your full name"
+                        required
+                      />
+                    </div>
+                    <div className="bp-form-field">
+                      <label>Wife&apos;s Name</label>
+                      <input type="text" placeholder="Optional" />
+                    </div>
+                  </div>
+
+                  {/* Row 2 */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field bp-full-width">
+                      <label>Other Family Members&apos; Names</label>
+                      <input
+                        type="text"
+                        placeholder="e.g., Children, Parents (Optional)"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 3 */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field">
+                      <label>
+                        Gothram<span className="bp-required">*</span>
+                        <span
+                          className="bp-info-icon"
+                          title="Your family lineage"
+                        />
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter your Gothram"
+                        required
+                      />
+                    </div>
+                    <div className="bp-form-field">
+                      <label>
+                        Phone Number<span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        placeholder="Enter your 10-digit number"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="bp-form-row">
+                    <div className="bp-form-field bp-full-width">
+                      <label>Referral </label>
+                      <input type="text" placeholder="Enter your Referral" />
+                    </div>
+                  </div>
+                  {/* Row 4 */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field bp-full-width">
+                      <label>
+                        Prasadam Delivery Address
+                        <span className="bp-required">*</span>
+                      </label>
+                      <textarea
+                        rows="3"
+                        placeholder="Enter your full address for Prasadam delivery"
+                        required
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
 
               {/* Pay button */}
               <div className="bp-pay-wrapper">

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import "../styles/Ecommerce.css";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -10,6 +10,8 @@ const PRODUCTS = [
     name: "Brass Diya Set",
     category: "Puja Kits",
     price: 499,
+    description:
+      "Traditional brass diya set perfect for daily puja and festival rituals. Includes multiple diyas for a complete setup.",
     image:
       "https://5.imimg.com/data5/SELLER/Default/2023/10/350831350/CR/JZ/JK/32461526/shiv-shakti-arts-brass-puja-plate-diya-set-embossed-design-1-plate-20-brass-diyas-1000x1000.jpg",
   },
@@ -18,6 +20,8 @@ const PRODUCTS = [
     name: "Marble Ganesh Idol",
     category: "Idols & Murtis",
     price: 1299,
+    description:
+      "Exquisitely crafted marble idol of Lord Ganesha, ideal for home temples and auspicious beginnings.",
     image:
       "https://m.media-amazon.com/images/I/81NNnlE4lLL.jpg",
   },
@@ -26,6 +30,8 @@ const PRODUCTS = [
     name: "Bhagavad Gita",
     category: "Spiritual Books",
     price: 799,
+    description:
+      "A beautifully printed edition of the Bhagavad Gita with clear fonts, ideal for daily reading and study.",
     image:
       "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781647226787/bhagavad-gita-9781647226787_hr.jpg",
   },
@@ -34,6 +40,8 @@ const PRODUCTS = [
     name: "Navaratri Puja Kit",
     category: "Puja Kits",
     price: 2499,
+    description:
+      "Complete Navaratri puja kit containing all essential items curated for nine days of devotion.",
     image:
       "https://images-cdn.ubuy.co.in/67004ed9fed59b7a8146b3db-pujahome-navratri-puja-samagri.jpg",
   },
@@ -42,6 +50,8 @@ const PRODUCTS = [
     name: "Sandalwood Incense",
     category: "Incense & Dhoop",
     price: 249,
+    description:
+      "Premium sandalwood incense sticks for a calming and divine fragrance during meditation and puja.",
     image:
       "https://hemfragrances.com/cdn/shop/products/SANDALWOODHX_INCENSE.jpg?v=1606552877",
   },
@@ -50,6 +60,8 @@ const PRODUCTS = [
     name: "Panchmukhi Rudraksha",
     category: "Rudraksha & Malas",
     price: 1999,
+    description:
+      "Sacred Panchmukhi Rudraksha bead, believed to bring peace, clarity, and spiritual growth.",
     image:
       "https://astroblog.in/wp-content/uploads/2021/02/6.png",
   },
@@ -58,6 +70,8 @@ const PRODUCTS = [
     name: "Brass Puja Thali",
     category: "Puja Kits",
     price: 899,
+    description:
+      "Polished brass puja thali with intricate design, suitable for all major Hindu rituals and ceremonies.",
     image:
       "https://i.etsystatic.com/26958973/r/il/03f238/2836194859/il_1588xN.2836194859_g3uu.jpg",
   },
@@ -66,6 +80,8 @@ const PRODUCTS = [
     name: "Silver Plated Kalash",
     category: "Puja Kits",
     price: 1499,
+    description:
+      "Elegant silver plated kalash used for auspicious occasions, weddings, and housewarming ceremonies.",
     image:
       "https://i5.walmartimages.com/seo/GoldGiftIdeas-Oxidized-Silver-Plated-Nakshi-Pooja-Kalash-Pooja-Thali-Set-Decorative-Kalash-Lota-Indian-Pooja-Items-for-Home-Wedding-Gift_7d984f9d-fa19-4f74-810f-945dccde3a8a.a7b32f6f434f636188d442586eb958cf.jpeg",
   },
@@ -74,6 +90,8 @@ const PRODUCTS = [
     name: "Bracelet",
     category: "Rudraksha & Malas",
     price: 1599,
+    description:
+      "Stylish Rudraksha bracelet that combines spiritual significance with everyday wearability.",
     image:
       "https://i.pinimg.com/originals/0f/aa/a2/0faaa2099662c2847a117cb25f37abbc.jpg",
   },
@@ -87,6 +105,13 @@ const CATEGORY_FILTERS = [
   "Spiritual Books",
   "Incense & Dhoop",
   "Rudraksha & Malas",
+];
+
+const HERO_IMAGES = [
+  "https://vedicsankalpam.com/wp-content/uploads/2025/03/Designer-1.jpeg",
+  "https://static.toiimg.com/photo/94357207/Sree-Padmanabhaswamy-temple.jpg?width=748&resize=4",
+  "https://ebnw.net/wp-content/uploads/2023/10/231006-BAPS-Swaminarayan-Akshardham-dusk-se-135p-9c4a6d.png",
+  "https://img.freepik.com/premium-photo/beautiful-cinematic-shot-ram-mandir-ayodhya_849906-13668.jpg?w=2000",
 ];
 
 const formatCurrency = (value) =>
@@ -105,6 +130,10 @@ const Ecommerce = () => {
   const [wishlist, setWishlist] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [currentView, setCurrentView] = useState("products"); // products, cart, buyingForm, payment, confirmation
+  const [expandedProductId, setExpandedProductId] = useState(null);
+  const [isFilterBarVisible, setIsFilterBarVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [slideIndex, setSlideIndex] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -116,6 +145,8 @@ const Ecommerce = () => {
   });
   const [orderDetails, setOrderDetails] = useState(null);
   const [addedToCartProductId, setAddedToCartProductId] = useState(null);
+
+  const lastScrollYRef = useRef(0);
 
   const ITEMS_PER_PAGE = 8;
 
@@ -140,6 +171,44 @@ const Ecommerce = () => {
     };
   }, [currentView]);
 
+  // Track viewport size for responsive behaviors
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Show / hide filter bar based on scroll direction.
+  // Mobile: show while scrolling down, hide when scrolling up (Amazon-like).
+  // Desktop: always visible.
+  useEffect(() => {
+    if (!isMobile) {
+      setIsFilterBarVisible(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const lastY = lastScrollYRef.current;
+
+      if (currentY < 50) {
+        setIsFilterBarVisible(true);
+      } else if (currentY > lastY) {
+        // Scrolling down – show
+        setIsFilterBarVisible(true);
+      } else if (currentY < lastY) {
+        // Scrolling up – hide
+        setIsFilterBarVisible(false);
+      }
+
+      lastScrollYRef.current = currentY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMobile]);
+
   // Load cart and wishlist from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem("sankalpam_cart");
@@ -158,6 +227,14 @@ const Ecommerce = () => {
         console.error("Error loading wishlist:", e);
       }
     }
+  }, []);
+
+  // Auto-rotate hero images
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length);
+    }, 2500);
+    return () => clearInterval(id);
   }, []);
 
   // Save cart to localStorage whenever it changes
@@ -273,6 +350,10 @@ const Ecommerce = () => {
 
   const getCartItemCount = () => {
     return cart.reduce((count, item) => count + item.quantity, 0);
+  };
+
+  const toggleViewMore = (productId) => {
+    setExpandedProductId((prev) => (prev === productId ? null : productId));
   };
 
   // Buy Now - direct purchase
@@ -649,262 +730,286 @@ const Ecommerce = () => {
       {/* Top navigation / header */}
       <Navbar activePage="ecommerce" />
       
-      {/* Additional ecommerce-specific controls */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        gap: '16px',
-        padding: '12px 48px',
-        backgroundColor: '#fff',
-        borderBottom: '1px solid #e0e0e0'
-      }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          backgroundColor: '#f5f5f5',
-          borderRadius: '8px',
-          padding: '8px 16px',
-          gap: '8px',
-          minWidth: '250px'
-        }}>
-          <span>🔍</span>
-          <input
-            type="text"
-            placeholder="Search for puja items..."
-            value={searchTerm}
-            onChange={handleSearchChange}
+      {/* Filter / search bar (mobile: show on scroll down, hide on scroll up; desktop: always shown) */}
+      <div
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 40,
+          transform: isFilterBarVisible ? 'translateY(0)' : 'translateY(-120%)',
+          transition: 'transform 0.25s ease-out',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '12px',
+            alignItems: 'center',
+            padding: '8px 12px',
+            backgroundColor: '#fff',
+            borderBottom: '1px solid #e0e0e0',
+          }}
+        >
+          <div
             style={{
-              border: 'none',
-              backgroundColor: 'transparent',
-              outline: 'none',
-              fontSize: '14px',
-              width: '100%'
+              flex: 1,
+              minWidth: '180px',
+              display: 'flex',
+              alignItems: 'center',
+              backgroundColor: '#f5f5f5',
+              borderRadius: '999px',
+              padding: '6px 12px',
+              gap: '8px',
             }}
-          />
+          >
+            <span>🔍</span>
+            <input
+              type="text"
+              placeholder="Search puja items"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              style={{
+                border: 'none',
+                backgroundColor: 'transparent',
+                outline: 'none',
+                fontSize: '14px',
+                width: '100%',
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '8px',
+              alignItems: 'center',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <span style={{ fontSize: '13px', color: '#555' }}>Category</span>
+              <select
+                value={activeCategory}
+                onChange={(e) => handleCategoryClick(e.target.value)}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: '999px',
+                  border: '1px solid #d0d0d0',
+                  fontSize: '13px',
+                  backgroundColor: '#fff',
+                }}
+              >
+                {CATEGORY_FILTERS.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              <span style={{ fontSize: '13px', color: '#555' }}>Price</span>
+              <select
+                value={maxPrice}
+                onChange={handlePriceChange}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: '999px',
+                  border: '1px solid #d0d0d0',
+                  fontSize: '13px',
+                  backgroundColor: '#fff',
+                }}
+              >
+                <option value={5000}>All prices</option>
+                <option value={500}>{`Up to ${formatCurrency(500)}`}</option>
+                <option value={1000}>{`Up to ${formatCurrency(1000)}`}</option>
+                <option value={2000}>{`Up to ${formatCurrency(2000)}`}</option>
+                <option value={3000}>{`Up to ${formatCurrency(3000)}`}</option>
+                <option value={4000}>{`Up to ${formatCurrency(4000)}`}</option>
+              </select>
+            </div>
+
+            <button
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '20px',
+                position: 'relative',
+              }}
+              aria-label="Wishlist"
+              onClick={() => {}}
+            >
+              ❤️
+              {wishlist.length > 0 && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '-5px',
+                    right: '-5px',
+                    backgroundColor: '#c41e3a',
+                    color: '#fff',
+                    borderRadius: '50%',
+                    width: '18px',
+                    height: '18px',
+                    fontSize: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {wishlist.length}
+                </span>
+              )}
+            </button>
+
+            <button
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '20px',
+                position: 'relative',
+              }}
+              aria-label="Cart"
+              onClick={() => {
+                setIsCartOpen(true);
+                setCurrentView("cart");
+              }}
+            >
+              🛒
+              {getCartItemCount() > 0 && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '-5px',
+                    right: '-5px',
+                    backgroundColor: '#c41e3a',
+                    color: '#fff',
+                    borderRadius: '50%',
+                    width: '18px',
+                    height: '18px',
+                    fontSize: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {getCartItemCount()}
+                </span>
+              )}
+            </button>
+          </div>
         </div>
-        <button
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: '20px',
-            position: 'relative'
-          }}
-          aria-label="Wishlist"
-          onClick={() => {}}
-        >
-          ❤️
-          {wishlist.length > 0 && (
-            <span style={{
-              position: 'absolute',
-              top: '-5px',
-              right: '-5px',
-              backgroundColor: '#c41e3a',
-              color: '#fff',
-              borderRadius: '50%',
-              width: '18px',
-              height: '18px',
-              fontSize: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 'bold'
-            }}>{wishlist.length}</span>
-          )}
-        </button>
-        <button
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: '20px',
-            position: 'relative'
-          }}
-          aria-label="Cart"
-          onClick={() => {
-            setIsCartOpen(true);
-            setCurrentView("cart");
-          }}
-        >
-          🛒
-          {getCartItemCount() > 0 && (
-            <span style={{
-              position: 'absolute',
-              top: '-5px',
-              right: '-5px',
-              backgroundColor: '#c41e3a',
-              color: '#fff',
-              borderRadius: '50%',
-              width: '18px',
-              height: '18px',
-              fontSize: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 'bold'
-            }}>{getCartItemCount()}</span>
-          )}
-        </button>
       </div>
 
       {/* MAIN CONTENT */}
       <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '40px 20px' }}>
         {/* HERO SECTION */}
-        <div style={{
-          backgroundColor: '#fff',
-          borderRadius: '16px',
-          padding: '60px 40px',
-          marginBottom: '60px',
-          textAlign: 'center',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-        }}>
-          <h1 style={{
-            fontSize: '48px',
-            fontWeight: 'bold',
-            marginBottom: '16px',
-            color: '#000'
-          }}>Puja Samagri &amp; Spiritual Items</h1>
-          <p style={{
-            fontSize: '18px',
-            color: '#666',
-            marginBottom: '32px'
-          }}>
-            Discover authentic items for your spiritual journey and daily rituals.
-          </p>
-
-          <div style={{
-            display: 'flex',
-            gap: '12px',
-            justifyContent: 'center',
-            flexWrap: 'wrap'
-          }}>
-            {CATEGORY_FILTERS.map((category) => (
-              <button
-                key={category}
-                style={{
-                  padding: '10px 24px',
-                  backgroundColor: activeCategory === category ? '#c41e3a' : '#fff',
-                  color: activeCategory === category ? '#fff' : '#333',
-                  border: `2px solid ${activeCategory === category ? '#c41e3a' : '#e0e0e0'}`,
-                  borderRadius: '24px',
-                  fontSize: '14px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
-                }}
-                onClick={() => handleCategoryClick(category)}
-              >
-                {category}
-              </button>
-            ))}
+        <div
+          style={{
+            backgroundColor: '#fff',
+            borderRadius: '16px',
+            padding: '16px',
+            marginBottom: '24px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            minHeight: '260px',
+          }}
+        >
+          <div
+            style={{
+              position: 'relative',
+              overflow: 'hidden',
+              borderRadius: '12px',
+              height: isMobile ? '220px' : '320px',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                height: '100%',
+                width: `${HERO_IMAGES.length * 100}%`,
+                transform: `translateX(-${(100 / HERO_IMAGES.length) * slideIndex}%)`,
+                transition: 'transform 0.6s ease',
+              }}
+            >
+              {HERO_IMAGES.map((src, idx) => (
+                <div
+                  key={src}
+                  style={{
+                    flex: `0 0 ${100 / HERO_IMAGES.length}%`,
+                    backgroundImage: `url(${src})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                  aria-hidden={slideIndex !== idx}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => setSlideIndex((idx) => (idx - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
+              aria-label="Previous slide"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '12px',
+                transform: 'translateY(-50%)',
+                background: 'rgba(255,255,255,0.85)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '36px',
+                height: '36px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+              }}
+            >
+              {"<"}
+            </button>
+            <button
+              onClick={() => setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length)}
+              aria-label="Next slide"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '12px',
+                transform: 'translateY(-50%)',
+                background: 'rgba(255,255,255,0.85)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '36px',
+                height: '36px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+              }}
+            >
+              {">"}
+            </button>
           </div>
         </div>
 
-        {/* MAIN LAYOUT: SIDEBAR + PRODUCTS */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '280px 1fr',
-          gap: '40px',
-          marginBottom: '80px'
-        }}>
-          {/* LEFT SIDEBAR - FILTERS */}
-          <aside>
-            {/* Categories Filter */}
-            <div style={{
-              backgroundColor: '#fff',
-              borderRadius: '12px',
-              padding: '24px',
-              marginBottom: '24px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-            }}>
-              <h3 style={{
-                fontSize: '18px',
-                fontWeight: '600',
-                marginBottom: '16px',
-                color: '#000'
-              }}>Categories</h3>
-              <ul style={{
-                listStyle: 'none',
-                padding: 0,
-                margin: 0
-              }}>
-                {CATEGORY_FILTERS.map((category) => (
-                  <li key={category} style={{ marginBottom: '8px' }}>
-                    <button
-                      onClick={() => handleCategoryClick(category)}
-                      style={{
-                        width: '100%',
-                        textAlign: 'left',
-                        padding: '10px 16px',
-                        backgroundColor: activeCategory === category ? '#ffebee' : 'transparent',
-                        color: activeCategory === category ? '#c41e3a' : '#666',
-                        border: 'none',
-                        borderRadius: '6px',
-                        fontSize: '14px',
-                        fontWeight: activeCategory === category ? '600' : '500',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease'
-                      }}
-                    >
-                      {category}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Price Filter */}
-            <div style={{
-              backgroundColor: '#fff',
-              borderRadius: '12px',
-              padding: '24px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-            }}>
-              <h3 style={{
-                fontSize: '18px',
-                fontWeight: '600',
-                marginBottom: '16px',
-                color: '#000'
-              }}>Filter by Price</h3>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '12px'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  fontSize: '14px',
-                  color: '#666'
-                }}>
-                  <span>{formatCurrency(100)}</span>
-                  <span>{formatCurrency(5000)}+</span>
-                </div>
-                <input
-                  type="range"
-                  min={100}
-                  max={5000}
-                  step={100}
-                  value={maxPrice}
-                  onChange={handlePriceChange}
-                  style={{
-                    width: '100%',
-                    accentColor: '#c41e3a'
-                  }}
-                />
-                <p style={{
-                  fontSize: '14px',
-                  color: '#666',
-                  marginTop: '8px'
-                }}>
-                  Up to <strong style={{ color: '#c41e3a' }}>{formatCurrency(maxPrice)}</strong>
-                </p>
-              </div>
-            </div>
-          </aside>
-
-          {/* RIGHT SIDE - PRODUCTS */}
+        {/* PRODUCTS LIST */}
+        <div style={{ marginBottom: '80px' }}>
           <section>
             <div style={{
               display: 'flex',
@@ -925,163 +1030,405 @@ const Ecommerce = () => {
               </p>
             </div>
 
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-              gap: '24px'
-            }}>
-              {paginatedProducts.length === 0 ? (
-                <div style={{
-                  gridColumn: '1 / -1',
-                  textAlign: 'center',
-                  padding: '60px 20px'
-                }}>
-                  <p style={{ fontSize: '18px', color: '#666', marginBottom: '24px' }}>No items match your filters.</p>
-                  <button
-                    onClick={() => {
-                      setActiveCategory("All Items");
-                      setMaxPrice(5000);
-                      setSearchTerm("");
-                      setCurrentPage(1);
-                    }}
-                    style={{
-                      padding: '12px 32px',
-                      backgroundColor: '#c41e3a',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '16px',
-                      fontWeight: '600',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Clear Filters
-                  </button>
-                </div>
-              ) : (
-                paginatedProducts.map((product) => (
-                  <div key={product.id} style={{
-                    backgroundColor: '#fff',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  textAlign: 'center',
+            {isMobile ? (
+              <div
+                style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  position: 'relative'
-                }}>
+                  gap: '16px',
+                }}
+              >
+                {paginatedProducts.length === 0 ? (
                   <div style={{
-                    width: '100%',
-                    height: '250px',
-                    backgroundColor: '#4a6560',
-                    backgroundImage: `url(${product.image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    position: 'relative'
+                    textAlign: 'center',
+                    padding: '60px 20px'
                   }}>
+                    <p style={{ fontSize: '18px', color: '#666', marginBottom: '24px' }}>No items match your filters.</p>
                     <button
-                      onClick={() => toggleWishlist(product)}
-                      style={{
-                        position: 'absolute',
-                        top: '12px',
-                        right: '12px',
-                        background: 'rgba(255,255,255,0.9)',
-                        border: 'none',
-                        borderRadius: '50%',
-                        width: '36px',
-                        height: '36px',
-                        cursor: 'pointer',
-                        fontSize: '18px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
+                      onClick={() => {
+                        setActiveCategory("All Items");
+                        setMaxPrice(5000);
+                        setSearchTerm("");
+                        setCurrentPage(1);
                       }}
-                      aria-label="Add to wishlist"
-                    >
-                      {isInWishlist(product.id) ? "❤️" : "🤍"}
-                    </button>
-                    {addedToCartProductId === product.id && (
-                      <div style={{
-                        position: 'absolute',
-                        bottom: '12px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        backgroundColor: '#4caf50',
+                      style={{
+                        padding: '12px 32px',
+                        backgroundColor: '#c41e3a',
                         color: '#fff',
-                        padding: '8px 16px',
-                        borderRadius: '6px',
-                        fontSize: '12px',
-                        fontWeight: '600'
-                      }}>
-                        Added to Cart! ✓
-                      </div>
-                    )}
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Clear Filters
+                    </button>
                   </div>
-                  <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                    <h3 style={{
-                      fontSize: '18px',
-                      fontWeight: '600',
-                      marginBottom: '8px',
-                      color: '#000'
-                    }}>{product.name}</h3>
-                    <p style={{
-                      fontSize: '13px',
-                      color: '#999',
-                      marginBottom: '16px'
-                    }}>{product.category}</p>
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginTop: 'auto',
-                      gap: '12px'
-                    }}>
-                      <span style={{
-                        fontSize: '20px',
-                        fontWeight: 'bold',
-                        color: '#c41e3a'
-                      }}>{formatCurrency(product.price)}</span>
-                      <div style={{ display: 'flex', gap: '8px' }}>
+                ) : (
+                  paginatedProducts.map((product) => (
+                    <div
+                      key={product.id}
+                      style={{
+                        backgroundColor: '#fff',
+                        borderRadius: '12px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                        display: 'flex',
+                        padding: '12px',
+                        gap: '12px',
+                      }}
+                    >
+                      <div
+                        style={{
+                          flex: '0 0 120px',
+                          height: '140px',
+                          borderRadius: '8px',
+                          backgroundImage: `url(${product.image})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          position: 'relative',
+                        }}
+                      >
                         <button
-                          onClick={() => addToCart(product)}
+                          onClick={() => toggleWishlist(product)}
                           style={{
-                            padding: '8px 16px',
-                            backgroundColor: '#fff',
-                            color: '#c41e3a',
-                            border: '2px solid #c41e3a',
-                            borderRadius: '6px',
-                            fontSize: '13px',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            transition: 'all 0.3s'
-                          }}
-                        >
-                          Add
-                        </button>
-                        <button
-                          onClick={() => handleBuyNow(product)}
-                          style={{
-                            padding: '8px 16px',
-                            backgroundColor: '#c41e3a',
-                            color: '#fff',
+                            position: 'absolute',
+                            top: '8px',
+                            right: '8px',
+                            background: 'rgba(255,255,255,0.9)',
                             border: 'none',
-                            borderRadius: '6px',
-                            fontSize: '13px',
-                            fontWeight: '600',
+                            borderRadius: '50%',
+                            width: '30px',
+                            height: '30px',
                             cursor: 'pointer',
-                            transition: 'background-color 0.3s'
+                            fontSize: '16px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                          aria-label="Add to wishlist"
+                        >
+                          {isInWishlist(product.id) ? "❤️" : "🤍"}
+                        </button>
+                        {addedToCartProductId === product.id && (
+                          <div
+                            style={{
+                              position: 'absolute',
+                              bottom: '8px',
+                              left: '50%',
+                              transform: 'translateX(-50%)',
+                              backgroundColor: '#4caf50',
+                              color: '#fff',
+                              padding: '4px 8px',
+                              borderRadius: '4px',
+                              fontSize: '11px',
+                              fontWeight: '600',
+                            }}
+                          >
+                            Added to Cart! ✓
+                          </div>
+                        )}
+                      </div>
+
+                      <div
+                        style={{
+                          flex: 1,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '4px',
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start',
+                            gap: '8px',
                           }}
                         >
-                          Buy Now
-                        </button>
+                          <div>
+                            <h3
+                              style={{
+                                fontSize: '15px',
+                                fontWeight: 600,
+                                margin: 0,
+                                marginBottom: '4px',
+                                color: '#000',
+                              }}
+                            >
+                              {product.name}
+                            </h3>
+                            <p
+                              style={{
+                                fontSize: '12px',
+                                color: '#777',
+                                margin: 0,
+                              }}
+                            >
+                              {product.category}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => toggleViewMore(product.id)}
+                            style={{
+                              border: 'none',
+                              background: 'none',
+                              color: '#007185',
+                              cursor: 'pointer',
+                              fontSize: '12px',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {expandedProductId === product.id ? "View less" : "View more"}
+                          </button>
+                        </div>
+
+                        <span
+                          style={{
+                            fontSize: '18px',
+                            fontWeight: 'bold',
+                            color: '#c41e3a',
+                            marginTop: '4px',
+                          }}
+                        >
+                          {formatCurrency(product.price)}
+                        </span>
+
+                        {expandedProductId === product.id && (
+                          <p
+                            style={{
+                              fontSize: '12px',
+                              color: '#555',
+                              marginTop: '4px',
+                            }}
+                          >
+                            {product.description}
+                          </p>
+                        )}
+
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            gap: '6px',
+                            marginTop: '8px',
+                          }}
+                        >
+                          <button
+                            onClick={() => addToCart(product)}
+                            style={{
+                              padding: '6px 16px',
+                              backgroundColor: '#fff',
+                              color: '#c41e3a',
+                              border: '1px solid #c41e3a',
+                              borderRadius: '20px',
+                              fontSize: '13px',
+                              fontWeight: '600',
+                              cursor: 'pointer',
+                              width: 'fit-content',
+                            }}
+                          >
+                            Add to Cart
+                          </button>
+                          <button
+                            onClick={() => handleBuyNow(product)}
+                            style={{
+                              padding: '6px 16px',
+                              backgroundColor: '#c41e3a',
+                              color: '#fff',
+                              border: 'none',
+                              borderRadius: '20px',
+                              fontSize: '13px',
+                              fontWeight: '600',
+                              cursor: 'pointer',
+                              width: 'fit-content',
+                            }}
+                          >
+                            Buy Now
+                          </button>
+                        </div>
                       </div>
                     </div>
+                  ))
+                )}
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+                  gap: '20px',
+                }}
+              >
+                {paginatedProducts.length === 0 ? (
+                  <div style={{
+                    gridColumn: '1 / -1',
+                    textAlign: 'center',
+                    padding: '60px 20px'
+                  }}>
+                    <p style={{ fontSize: '18px', color: '#666', marginBottom: '24px' }}>No items match your filters.</p>
+                    <button
+                      onClick={() => {
+                        setActiveCategory("All Items");
+                        setMaxPrice(5000);
+                        setSearchTerm("");
+                        setCurrentPage(1);
+                      }}
+                      style={{
+                        padding: '12px 32px',
+                        backgroundColor: '#c41e3a',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Clear Filters
+                    </button>
                   </div>
-                </div>
-              ))
-            )}
-          </div>
+                ) : (
+                  paginatedProducts.map((product) => (
+                    <div
+                      key={product.id}
+                      style={{
+                        backgroundColor: '#fff',
+                        borderRadius: '12px',
+                        overflow: 'hidden',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        position: 'relative',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '100%',
+                          height: '200px',
+                          backgroundImage: `url(${product.image})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          position: 'relative',
+                        }}
+                      >
+                        <button
+                          onClick={() => toggleWishlist(product)}
+                          style={{
+                            position: 'absolute',
+                            top: '12px',
+                            right: '12px',
+                            background: 'rgba(255,255,255,0.9)',
+                            border: 'none',
+                            borderRadius: '50%',
+                            width: '32px',
+                            height: '32px',
+                            cursor: 'pointer',
+                            fontSize: '16px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                          aria-label="Add to wishlist"
+                        >
+                          {isInWishlist(product.id) ? "❤️" : "🤍"}
+                        </button>
+                        {addedToCartProductId === product.id && (
+                          <div
+                            style={{
+                              position: 'absolute',
+                              bottom: '12px',
+                              left: '50%',
+                              transform: 'translateX(-50%)',
+                              backgroundColor: '#4caf50',
+                              color: '#fff',
+                              padding: '6px 12px',
+                              borderRadius: '6px',
+                              fontSize: '12px',
+                              fontWeight: '600',
+                            }}
+                          >
+                            Added to Cart! ✓
+                          </div>
+                        )}
+                      </div>
 
+                      <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px', flexGrow: 1 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '8px' }}>
+                          <div>
+                            <h3 style={{ fontSize: '16px', fontWeight: 600, margin: 0, color: '#000' }}>
+                              {product.name}
+                            </h3>
+                            <p style={{ fontSize: '13px', color: '#777', margin: '4px 0 0' }}>
+                              {product.category}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => toggleViewMore(product.id)}
+                            style={{
+                              border: 'none',
+                              background: 'none',
+                              color: '#007185',
+                              cursor: 'pointer',
+                              fontSize: '12px',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {expandedProductId === product.id ? "View less" : "View more"}
+                          </button>
+                        </div>
+
+                        <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#c41e3a' }}>
+                          {formatCurrency(product.price)}
+                        </span>
+
+                        {expandedProductId === product.id && (
+                          <p style={{ fontSize: '13px', color: '#555', marginTop: '4px' }}>
+                            {product.description}
+                          </p>
+                        )}
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: 'auto' }}>
+                          <button
+                            onClick={() => addToCart(product)}
+                            style={{
+                              padding: '8px 12px',
+                              backgroundColor: '#fff',
+                              color: '#c41e3a',
+                              border: '1px solid #c41e3a',
+                              borderRadius: '20px',
+                              fontSize: '13px',
+                              fontWeight: '600',
+                              cursor: 'pointer',
+                              width: '100%',
+                            }}
+                          >
+                            Add to Cart
+                          </button>
+                          <button
+                            onClick={() => handleBuyNow(product)}
+                            style={{
+                              padding: '8px 12px',
+                              backgroundColor: '#c41e3a',
+                              color: '#fff',
+                              border: 'none',
+                              borderRadius: '20px',
+                              fontSize: '13px',
+                              fontWeight: '600',
+                              cursor: 'pointer',
+                              width: '100%',
+                            }}
+                          >
+                            Buy Now
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
           {/* Pagination */}
           {paginatedProducts.length > 0 && (
             <div style={{

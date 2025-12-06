@@ -327,11 +327,11 @@ const Astrology = () => {
           <div style={{
             position: 'relative',
             width: '100%',
-            maxWidth: '900px',
+            maxWidth: '650px',
             backgroundColor: '#fff',
             borderRadius: '12px',
             overflow: 'hidden',
-            maxHeight: '90vh',
+            maxHeight: '95vh',
             overflowY: 'auto'
           }}>
             <button

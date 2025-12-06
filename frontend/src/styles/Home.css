@@ -1,0 +1,1349 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+body {
+  margin: 0;
+  font-family: "Work Sans", sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.home-wrapper {
+  min-height: 100vh;
+  background: 
+  linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+  url("https://kirtankar.com/wp-content/uploads/2025/08/Dravidian-Temple-Architecture-A-Detailed-Guide-1200x650.jpg")
+    center/cover fixed;
+}
+
+.section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* =========================================================
+   HERO WITH EVENTS SIDEBAR CONTAINER
+========================================================= */
+.hero-events-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+  align-items: flex-start;
+}
+
+/* =========================================================
+   HERO SECTION WITH CAROUSEL
+========================================================= */
+.hero {
+  flex: 1;
+  color: white;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Hero Carousel Container */
+.hero-carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.hero-carousel-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s ease-in-out;
+  opacity: 0;
+}
+
+.hero-carousel-image.active {
+  opacity: 1;
+  transform: translateX(0) !important;
+}
+
+/* Hero Content */
+.hero-content-mouli {
+  position: relative;
+  z-index: 2;
+  padding: 80px 40px;
+  text-align: center;
+  background: none !important;
+  border-radius: 20px;
+}
+
+.hero-content-mouli h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content-mouli p {
+  font-size: 20px;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+/* ------------------------------------------------------------------------------------------------- */
+/* Hero Carousel Navigation Buttons */
+.hero-carousel-btn {
+  /* position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(196, 30, 58, 0.8), rgba(160, 24, 48, 0.8));
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(196, 30, 58, 0.45);
+  transition: all 0.18s ease-out; */
+  display: none;
+}
+
+/* .hero-carousel-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 10px 22px rgba(196, 30, 58, 0.55);
+  background: linear-gradient(135deg, rgba(212, 35, 66, 0.9), rgba(196, 30, 58, 0.9));
+}
+
+.hero-carousel-btn.prev-btn {
+  left: 20px;
+}
+
+.hero-carousel-btn.next-btn {
+  right: 20px;
+} */
+
+/* ----------------------------------------------------------------------------------------------------- */
+
+/* Hero Carousel Indicators */
+.hero-carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.hero-carousel-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.18s ease-out;
+  padding: 0;
+}
+
+.hero-carousel-indicator.active {
+  background-color: #c41e3a;
+  transform: scale(1.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.hero-carousel-indicator:hover {
+  background-color: rgba(196, 30, 58, 0.8);
+}
+
+/* =========================================================
+   EVENTS SIDEBAR (For Laptop & Large Screens)
+========================================================= */
+.events-sidebar {
+  width: 400px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(221, 221, 221, 0.5);
+}
+
+.events-sidebar-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #221a10;
+  margin: 0 0 25px 0;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.events-sidebar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.events-sidebar-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.events-sidebar-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.events-sidebar-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #c41e3a, #a01830);
+  border-radius: 10px;
+}
+
+.event-sidebar-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #f9f9f9;
+  border: 1px solid rgba(221, 221, 221, 0.5);
+  padding: 20px;
+  border-radius: 15px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.event-sidebar-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #c41e3a;
+}
+
+.event-sidebar-date {
+  align-self: center;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, rgba(196, 30, 58, 0.1), rgba(160, 24, 48, 0.1));
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #c41e3a;
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.event-sidebar-date small {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+.event-sidebar-content {
+  text-align: center;
+}
+
+.event-sidebar-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.event-sidebar-card p {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+  font-size: 14px;
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.event-sidebar-card .btn-primary {
+  align-self: center;
+  background: transparent;
+  color: #c41e3a;
+  border: 1px solid #c41e3a;
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.15);
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  min-height: 40px;
+}
+
+.event-sidebar-card .btn-primary:hover {
+  background: linear-gradient(135deg, #c41e3a, #a01830);
+  color: white;
+  border-color: #c41e3a;
+}
+
+/* Hide mobile events section on desktop */
+.mobile-events-section {
+  display: none;
+}
+
+/* =========================================================
+   UPDATED SECTION TITLE - SIMPLE LIKE REFERENCE CSS
+========================================================= */
+.section-title {
+  text-align: center;
+  margin: 0 0 40px 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #221a10; /* ecommerce text color */
+  letter-spacing: 0.02em;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  display: block;
+  position: relative;
+  border-radius: 0;
+}
+
+/* Remove all pseudo-elements and transitions */
+.section-title:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.section-title::after {
+  content: none;
+}
+
+/* SPECIAL BACKGROUNDS REMOVED - All section titles are simple */
+#services-section .section-title {
+  background: none;
+  border-color: transparent;
+  color: #221a10;
+}
+
+section:nth-of-type(2) .section-title {
+  background: none;
+  border-color: transparent;
+  color: #221a10;
+}
+
+/* =========================================================
+   UPDATED BUTTONS - USING ECOMMERCE STYLE
+========================================================= */
+.btn-primary {
+  background: linear-gradient(135deg, #c41e3a, #a01830); /* ecom-primary gradient */
+  padding: 14px 32px;
+  border-radius: 999px; /* ecom-radius-pill */
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease-out; /* ecom-transition-fast */
+  position: relative;
+  box-shadow: 0 8px 18px rgba(196, 30, 58, 0.45); /* ecom button shadow */
+  overflow: hidden;
+  min-height: 48px;
+  gap: 10px;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(196, 30, 58, 0.55);
+  background: linear-gradient(135deg, #d42342, #c41e3a);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.45);
+}
+
+/* Secondary button style for event cards */
+.event-card .btn-primary {
+  background: transparent;
+  color: #c41e3a;
+  border: 1px solid #c41e3a;
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.15);
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.event-card .btn-primary:hover {
+  background: linear-gradient(135deg, #c41e3a, #a01830);
+  color: white;
+  border-color: #c41e3a;
+}
+
+/* =========================================================
+   FEATURED VIDEOS — INFINITE SCROLL FOR TABLET+ & CAROUSEL FOR MOBILE
+========================================================= */
+
+/* Tablet & Desktop: Infinite Scroll */
+.video-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+
+.video-row {
+  display: flex;
+  gap: 20px;
+  white-space: nowrap;
+  animation: scrollVideos linear infinite 40s;
+  padding: 10px 0;
+  will-change: transform;
+}
+
+/* Pause animation on hover for desktop */
+.video-row:hover {
+  animation-play-state: paused;
+}
+
+/* UPDATED VIDEO CARD WIDTH TO SHOW 3 CARDS AT A TIME */
+.video-card {
+  display: inline-block;
+  width: calc(33.333% - 15px); /* 3 cards with gaps */
+  min-width: 300px;
+  max-width: 400px;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.video-iframe-wrapper {
+  width: 100%;
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+.video-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  transition: transform 0.5s ease;
+}
+
+.video-card:hover .video-iframe {
+  transform: scale(1.05);
+}
+
+.video-caption {
+  font-size: 14px;
+  padding: 15px;
+  text-align: center;
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+  border-top: 1px solid #f0f0f0;
+  background: white;
+}
+
+/* SLOWER INFINITE SCROLL ANIMATION */
+@keyframes scrollVideos {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* =========================================================
+   MOBILE VIDEO CAROUSEL (Shown only on mobile)
+========================================================= */
+.mobile-video-carousel {
+  display: none; /* Hidden by default, shown only on mobile */
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 250px; /* Adjusted for mobile */
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.video-card-carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.video-card-carousel.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.video-card-carousel .video-iframe-wrapper {
+  height: 180px;
+  width: 100%;
+}
+
+.video-card-carousel .video-caption {
+  font-size: 14px;
+  padding: 10px;
+  text-align: center;
+  color: #333;
+  font-weight: 500;
+  background: white;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Carousel Navigation Buttons - UPDATED */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #c41e3a, #a01830);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(196, 30, 58, 0.45);
+  transition: all 0.18s ease-out;
+}
+
+.carousel-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 10px 22px rgba(196, 30, 58, 0.55);
+  background: linear-gradient(135deg, #d42342, #c41e3a);
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+/* Carousel Indicators - UPDATED */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  z-index: 10;
+}
+
+.carousel-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(196, 30, 58, 0.3);
+  cursor: pointer;
+  transition: all 0.18s ease-out;
+  padding: 0;
+}
+
+.carousel-indicator.active {
+  background-color: #c41e3a;
+  transform: scale(1.2);
+  box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.2);
+}
+
+.carousel-indicator:hover {
+  background-color: #a01830;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* =========================================================
+   SIMPLE MUSIC PLAYER - ONLY PLAY/PAUSE BUTTON
+========================================================= */
+.music-player {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+/* UPDATED MUSIC BUTTON GRADIENT COLORS */
+.music-toggle-btn {
+  background: linear-gradient(135deg, #c41e3a, #a01830);
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease-out;
+  font-size: 24px;
+  box-shadow: 0 8px 18px rgba(196, 30, 58, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.music-toggle-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s ease;
+}
+
+.music-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 22px rgba(196, 30, 58, 0.55);
+  background: linear-gradient(135deg, #d42342, #c41e3a);
+}
+
+.music-toggle-btn:hover::before {
+  left: 100%;
+}
+
+/* =========================================================
+   SERVICES WITH ZOOM ANIMATION - FIXED GAP ISSUE
+========================================================= */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.service-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(221, 221, 221, 0.3);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* UPDATED CARD TOP BORDER GRADIENT */
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(45deg, #c41e3a, #a01830, #d42342);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-card:hover {
+  transform: scale(1.05) translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.service-image {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+  margin-bottom: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:hover .service-image {
+  transform: scale(1.04);
+}
+
+.service-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* UPDATED CARD HOVER TITLE COLOR */
+.service-card:hover h3 {
+  color: #c41e3a;
+}
+
+.service-card p {
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+/* =========================================================
+   EVENTS — ONLY 3 VISIBLE, SCROLLABLE (For Mobile)
+========================================================= */
+.events-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.events-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  border: 1px solid rgba(221, 221, 221, 0.5);
+}
+
+.events-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.events-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* UPDATED SCROLLBAR GRADIENT */
+.events-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #c41e3a, #a01830);
+  border-radius: 10px;
+}
+
+.event-card {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: white;
+  border: 1px solid rgba(221, 221, 221, 0.5);
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.event-card:hover {
+  transform: translateX(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  /* UPDATED EVENT CARD BORDER COLOR */
+  border-color: #c41e3a;
+}
+
+/* UPDATED EVENT DATE GRADIENT */
+.event-date {
+  min-width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(196, 30, 58, 0.1), rgba(160, 24, 48, 0.1));
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* UPDATED EVENT DATE TEXT COLOR */
+  color: #c41e3a;
+  font-size: 28px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.event-date small {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+.event-content {
+  flex: 1;
+}
+
+.event-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.event-card p {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+@media (max-width: 1024px) {
+  .hero-events-container {
+    margin: 30px auto;
+    padding: 0 15px;
+    gap: 25px;
+  }
+  
+  .hero-content {
+    padding: 60px 30px;
+  }
+  
+  .hero-content h1 {
+    font-size: 36px;
+  }
+  
+  .hero-content p {
+    font-size: 18px;
+  }
+  
+  .events-sidebar {
+    width: 350px;
+    padding: 25px;
+  }
+  
+  .section {
+    padding: 40px 15px;
+  }
+  
+  .section-title {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+  
+  /* Music player responsive */
+  .music-toggle-btn {
+    width: 55px;
+    height: 55px;
+    font-size: 22px;
+  }
+  
+  /* Video cards - Infinite scroll for tablets */
+  .video-card {
+    width: calc(50% - 15px); /* 2 cards on tablet */
+  }
+  
+  .video-iframe-wrapper {
+    height: 160px;
+  }
+  
+  /* Ensure infinite scroll works on tablets */
+  .video-container {
+    overflow: hidden;
+  }
+  
+  .video-row {
+    animation: scrollVideos linear infinite 40s;
+  }
+  
+  /* Hero carousel buttons */
+  .hero-carousel-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+  }
+  
+  .hero-carousel-btn.prev-btn {
+    left: 15px;
+  }
+  
+  .hero-carousel-btn.next-btn {
+    right: 15px;
+  }
+}
+
+/* TABLET - 2 cards per row */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+    padding: 25px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  .service-card {
+    width: 100%;
+  }
+  
+  /* Hide mobile carousel, show infinite scroll */
+  .mobile-video-carousel {
+    display: none;
+  }
+  
+  .video-container {
+    display: block;
+  }
+  
+  /* Music player responsive */
+  .music-player {
+    bottom: 25px;
+    right: 25px;
+  }
+  
+  .music-toggle-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+
+/* MOBILE - Show mobile events, hide sidebar */
+@media (max-width: 768px) {
+  .hero-events-container {
+    flex-direction: column;
+    margin: 20px 15px;
+    gap: 0;
+  }
+  
+  .hero {
+    margin-bottom: 30px;
+    min-height: 350px;
+  }
+  
+  .hero-content {
+    padding: 50px 20px;
+  }
+  
+  .events-sidebar {
+    display: none;
+  }
+  
+  /* Show mobile events section */
+  .mobile-events-section {
+    display: block;
+  }
+  
+  .service-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .service-card {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .service-card:hover {
+    transform: scale(1.03) translateY(-5px);
+  }
+  
+  .event-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .event-date {
+    width: 70px;
+    height: 70px;
+    font-size: 24px;
+  }
+  
+  .event-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .events-list {
+    max-height: 450px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+  }
+  
+  /* Video Section - Switch to Carousel on Mobile */
+  .video-container {
+    display: none; /* Hide infinite scroll on mobile */
+  }
+  
+  .mobile-video-carousel {
+    display: block; /* Show carousel on mobile */
+  }
+  
+  /* Music player responsive */
+  .music-player {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .music-toggle-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+  
+  /* Hero carousel buttons smaller on mobile */
+  .hero-carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .hero-carousel-btn.prev-btn {
+    left: 10px;
+  }
+  
+  .hero-carousel-btn.next-btn {
+    right: 10px;
+  }
+  
+  .hero-carousel-indicator {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* For screens 650px and below - CAROUSEL ONLY */
+@media (max-width: 650px) {
+  .video-container {
+    display: none;
+  }
+  
+  .mobile-video-carousel {
+    display: block;
+  }
+  
+  .section-title {
+    font-size: 22px;
+  }
+  
+  .carousel-container {
+    height: 230px;
+  }
+  
+  .video-card-carousel .video-iframe-wrapper {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    margin: 15px 10px;
+  }
+  
+  .hero-content {
+    padding: 40px 15px;
+  }
+  
+  .hero-content h1 {
+    font-size: 28px;
+  }
+  
+  .hero-content p {
+    font-size: 16px;
+  }
+  
+  .btn-primary {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+  
+  .service-card {
+    padding: 18px;
+  }
+  
+  .service-image {
+    height: 160px;
+  }
+  
+  .section-title {
+    font-size: 22px;
+  }
+  
+  .carousel-container {
+    height: 220px;
+  }
+  
+  .video-card-carousel .video-iframe-wrapper {
+    height: 150px;
+  }
+  
+  /* Music player responsive */
+  .music-player {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .music-toggle-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  /* Hero carousel adjustments */
+  .hero-carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+  }
+  
+  .hero-carousel-indicator {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 360px) {
+  .carousel-container {
+    height: 200px;
+  }
+  
+  .video-card-carousel .video-iframe-wrapper {
+    height: 140px;
+  }
+  
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+  
+  .hero-content h1 {
+    font-size: 24px;
+  }
+  
+  .service-card {
+    padding: 15px;
+  }
+  
+  .section-title {
+    font-size: 20px;
+  }
+  
+  /* Music player responsive */
+  .music-player {
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .music-toggle-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+}
+
+/* LAPTOP and DESKTOP - EVENTS SIDEBAR SHOWN */
+@media (min-width: 1025px) {
+  .hero-events-container {
+    max-width: 1400px;
+    margin: 50px auto;
+  }
+  
+  .hero {
+    flex: 2;
+    min-height: 450px;
+  }
+  
+  .hero-content {
+    padding: 100px 60px;
+  }
+  
+  .events-sidebar {
+    flex: 1;
+    width: 400px;
+  }
+  
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .service-card {
+    width: 100%;
+  }
+  
+  /* Video cards - Infinite scroll for desktop */
+  .video-container {
+    display: block;
+    overflow: hidden;
+  }
+  
+  .mobile-video-carousel {
+    display: none;
+  }
+  
+  .video-row {
+    animation: scrollVideos linear infinite 40s;
+  }
+  
+  .video-card {
+    width: calc(33.333% - 15px); /* Show 3 cards at a time */
+  }
+  
+  .video-iframe-wrapper {
+    height: 180px;
+  }
+}
+
+/* For screens between 651px and 768px (Tablets in portrait) */
+@media (min-width: 651px) and (max-width: 768px) {
+  .video-container {
+    display: none;
+  }
+  
+  .mobile-video-carousel {
+    display: block;
+    max-width: 450px;
+  }
+  
+  .carousel-container {
+    height: 240px;
+  }
+}
+
+/* Touch device optimization */
+@media (hover: none) and (pointer: coarse) {
+  .video-row:hover {
+    animation-play-state: running;
+  }
+  
+  .video-card:hover {
+    transform: none;
+  }
+  
+  .carousel-btn:hover {
+    transform: translateY(-50%);
+  }
+  
+  .hero-carousel-btn:hover {
+    transform: translateY(-50%);
+  }
+}

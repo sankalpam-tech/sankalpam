@@ -1,0 +1,251 @@
+/* ===========================
+   NAVBAR STYLES (Navbar.js)
+   =========================== */
+
+:root {
+  --primary-color: #c41e3a;
+  --text-color: #333333;
+  --muted-text: #666666;
+  --border-color: #e0e0e0;
+  --bg-color: #ffffff;
+  --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.header {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+  background-color: var(--bg-color);
+}
+
+/* Base container (desktop first) */
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 40px !important; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-sizing: border-box;
+}
+
+/* Logo */
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
+}
+
+/* Nav links + buttons */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: nowrap;
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+.nav-link {
+  white-space: nowrap;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.btn-signin,
+.btn-signup {
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+/* ===========================
+   HAMBURGER BUTTON
+   =========================== */
+
+.hamburger {
+  display: none; /* only visible on mobile */
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background-color: #333;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease;
+}
+
+.hamburger span:nth-child(1) {
+  top: 7px;
+}
+.hamburger span:nth-child(2) {
+  top: 13px;
+}
+.hamburger span:nth-child(3) {
+  top: 19px;
+}
+
+/* X state */
+.hamburger.is-active span:nth-child(1) {
+  top: 13px;
+  transform: rotate(45deg);
+}
+.hamburger.is-active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-active span:nth-child(3) {
+  top: 13px;
+  transform: rotate(-45deg);
+}
+
+/* ===========================
+   DESKTOP / TABLET (>= 769px)
+   =========================== */
+
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+
+  .header-container {
+    padding: 10px 40px !important;
+  }
+}
+
+/* ===========================
+   MOBILE (<= 768px)
+   =========================== */
+
+@media (max-width: 768px) {
+  .header-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 6px 8px !important;   
+    height: 46px;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .logo-section {
+    flex: 0 0 auto;
+    gap: 6px;
+    margin-left: -200px;
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .logo-text {
+    font-size: 18px !important;
+    line-height: 1;
+  }
+
+  .hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    position: absolute;
+    right: 10px;
+  }
+
+  .nav-links,
+  .header-right {
+    display: none !important; 
+  }
+
+  .nav-links,
+  .header-right {
+    width: 100%;
+  }
+
+  .header.mobile-open .header-container {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    height: auto;
+    padding-bottom: 8px !important;
+  }
+
+  .header.mobile-open .nav-links,
+  .header.mobile-open .header-right {
+    display: flex !important;
+    flex-basis: 100%;
+  }
+
+  .header.mobile-open .nav-links {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid #f0f0f0;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 8px;
+  }
+
+  .header.mobile-open .header-right {
+    margin-top: 6px;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 6px;
+  }
+
+  .header.mobile-open .btn-signin,
+  .header.mobile-open .btn-signup {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Very small phones */
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 4px 6px !important;
+    height: 44px;
+  }
+
+  .logo-text {
+    font-size: 17px !important;
+  }
+
+  .nav-link {
+    font-size: 13px;
+  }
+}

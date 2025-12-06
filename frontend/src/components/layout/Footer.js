@@ -51,8 +51,9 @@ const Footer = () => {
             <ul className="footer-links">
               <li><Link to="/pujas" onClick={() => window.scrollTo(0, 0)}>Pujas</Link></li>
               <li><Link to="/astrology" onClick={() => window.scrollTo(0, 0)}>Astrology</Link></li>
-              <li><Link to="/ecommerce" onClick={() => window.scrollTo(0, 0)}>Store</Link></li>
-              <li><Link to="/tourism" onClick={() => window.scrollTo(0, 0)}>About Us</Link></li>
+              <li><Link to="/ecommerce" onClick={() => window.scrollTo(0, 0)}>Ecommerce</Link></li>
+              <li><Link to="/tourism" onClick={() => window.scrollTo(0, 0)}>Tourism</Link></li>
+              <li><a href="#" onClick={(e) => e.preventDefault()}>About Us</a></li>
             </ul>
           </div>
 

@@ -14,8 +14,10 @@ import "../styles/Home.css";
 function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [currentHeroImageIndex, setCurrentHeroImageIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const audioRef = useRef(null);
+  const heroCarouselIntervalRef = useRef(null);
 
   // Detect screen size for carousel
   useEffect(() => {
@@ -26,6 +28,29 @@ function Home() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Auto-rotate hero images
+  useEffect(() => {
+    startHeroCarousel();
+    
+    return () => {
+      if (heroCarouselIntervalRef.current) {
+        clearInterval(heroCarouselIntervalRef.current);
+      }
+    };
+  }, []);
+
+  const startHeroCarousel = () => {
+    if (heroCarouselIntervalRef.current) {
+      clearInterval(heroCarouselIntervalRef.current);
+    }
+    
+    heroCarouselIntervalRef.current = setInterval(() => {
+      setCurrentHeroImageIndex((prevIndex) => 
+        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Change image every 5 seconds
+  };
 
   const scrollToServices = () => {
     const servicesSection = document.getElementById('services-section');
@@ -50,7 +75,27 @@ function Home() {
     }
   };
 
-  // Carousel navigation functions
+  // Hero carousel navigation
+  const nextHeroImage = () => {
+    setCurrentHeroImageIndex((prevIndex) => 
+      prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
+    );
+    startHeroCarousel(); // Reset interval
+  };
+
+  const prevHeroImage = () => {
+    setCurrentHeroImageIndex((prevIndex) => 
+      prevIndex === 0 ? heroImages.length - 1 : prevIndex - 1
+    );
+    startHeroCarousel(); // Reset interval
+  };
+
+  const goToHeroImage = (index) => {
+    setCurrentHeroImageIndex(index);
+    startHeroCarousel(); // Reset interval
+  };
+
+  // Video carousel navigation functions
   const nextVideo = () => {
     setCurrentVideoIndex((prevIndex) => 
       prevIndex === videos.length - 1 ? 0 : prevIndex + 1
@@ -67,7 +112,7 @@ function Home() {
     setCurrentVideoIndex(index);
   };
 
-  // Auto-rotate carousel on mobile
+  // Auto-rotate video carousel on mobile
   useEffect(() => {
     if (!isMobile) return;
     
@@ -95,15 +140,85 @@ function Home() {
         />
       </div>
 
-      {/* ========================= HERO ========================= */}
-      <section className="hero">
-        <h1>Connect with the Divine, Anywhere</h1>
-        <p>Your spiritual journey begins with Sankalpam. Experience authentic rituals, expert guidance, and divine connections from the comfort of your home.</p>
-        <button className="btn-primary" onClick={scrollToServices}>
-          Explore Our Services
-          <FaArrowRight style={{ marginLeft: '10px' }} />
-        </button>
-      </section>
+      {/* ========================= HERO WITH EVENTS SIDEBAR ========================= */}
+      <div className="hero-events-container">
+        {/* Hero Section with Carousel */}
+        <section className="hero">
+          {/* Hero Image Carousel */}
+          <div className="hero-carousel">
+            <div className="hero-carousel-container">
+              <div className="hero-carousel-slide">
+                {heroImages.map((image, index) => (
+                  <div
+                    className={`hero-carousel-image ${index === currentHeroImageIndex ? 'active' : ''}`}
+                    key={index}
+                    style={{
+                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${image})`,
+                      transform: `translateX(${(index - currentHeroImageIndex) * 100}%)`,
+                    }}
+                  />
+                ))}
+              </div>
+              
+              {/* Hero Carousel Navigation Buttons */}
+              {/* <button className="hero-carousel-btn prev-btn" onClick={prevHeroImage}>
+                <FaChevronLeft />
+              </button>
+              
+              <button className="hero-carousel-btn next-btn" onClick={nextHeroImage}>
+                <FaChevronRight />
+              </button> */}
+
+            </div>
+            
+            {/* Hero Carousel Indicators */}
+            <div className="hero-carousel-indicators">
+              {heroImages.map((_, index) => (
+                <button
+                  key={index}
+                  className={`hero-carousel-indicator ${index === currentHeroImageIndex ? 'active' : ''}`}
+                  onClick={() => goToHeroImage(index)}
+                />
+              ))}
+            </div>
+          </div>
+          
+          {/* Hero Content */}
+          <div className="hero-content-mouli">
+            <h1>Connect with the Divine, Anywhere</h1>
+            <p>Your spiritual journey begins with Sankalpam. Experience authentic rituals, expert guidance, and divine connections from the comfort of your home.</p>
+            <button className="btn-primary" onClick={scrollToServices}>
+              Explore Our Services
+              <FaArrowRight style={{ marginLeft: '10px' }} />
+            </button>
+          </div>
+        </section>
+
+        {/* Events Sidebar for Laptop & Large Screens */}
+        <section className="events-sidebar">
+          <h2 className="events-sidebar-title">Upcoming Events</h2>
+          
+          <div className="events-sidebar-list">
+            {events.map((e, i) => (
+              <Link to={e.cta === "View Details" ? "/details" : "/register"} className="event-sidebar-card" key={i}>
+                <div className="event-sidebar-date">
+                  {e.date}
+                  <small>{e.month}</small>
+                </div>
+
+                <div className="event-sidebar-content">
+                  <h3>{e.title}</h3>
+                  <p>{e.desc}</p>
+                </div>
+
+                <span className="btn-primary">
+                  {e.cta}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
 
       {/* ========================= SERVICES ========================= */}
       <section className="section" id="services-section">
@@ -212,8 +327,8 @@ function Home() {
         </div>
       </section>
 
-      {/* ========================= EVENTS ========================= */}
-      <section className="section">
+      {/* ========================= EVENTS (Mobile version - kept for mobile view) ========================= */}
+      <section className="section mobile-events-section">
         <h2 className="section-title">Upcoming Events</h2>
 
         <div className="events-container">
@@ -246,6 +361,17 @@ function Home() {
 }
 
 export default Home;
+
+// ===========================
+// HERO IMAGES DATA
+// ===========================
+const heroImages = [
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuBjsL2OA0twT2tmNvxk_QYeJicbS5jkTLfB0OyVWqv21OBBXdUrI-EDL7xjEhLflMnPW1k3s9DneoTeMBzuzpY_C-wCHfd2YhpVcStM8q0cTHmswxwax1hIenWRPl5nWBpBsYpuwOv4egEsXpOUBQ1rc-M16vnwZV5PNCxBm8QzCAQ0DhsgsOPXoGkSswSs-NJonZQ4pJRd8zis8LSD-w5KfbppLoJhkRGLultiYYDw78yCIh4SFjwxkgM5y74j_hOO2y8Z0ApyUT8",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCpXX7EjaHEclR9khSbUlnV1ci2VcWxkwmNQxfqZyPm1WNA2q8vZe4nSoxugzDePSVzcncblP7xGEyZKRsEOgUXmLy0LrOzuB6dpwLa4eFReAi8aBvVPRblefhBN9YnJL184r9O5DiNPFOrkUvQBW8lAWGRCCYPSVh2-N7dzKnn-B4cgQa4tfu9hilgpTKf7eOGWoImNCxTf36kbc8T0JGYhtVsNo3FTzLZEV7bdW0EqwsQIFBolFbzXmtLfk2-hHhUr3e1OuXPo94",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuBLpEGJcbpu9LVHVw2qmEfC2dZ0iGTbCkefim5-5HTL603WFJ4VShvYuyLU4WRq2UKpw8gKOflwyO6hHtX90MwH2MOmfeuk0cxe2nxTSFVyt52BEFW4Te6k3iz6GWrRYeg5QiCS5BChpM1RHlvSe_jUQYTNOZhb6xbeQm8qQpMmR_p8-bMIQkQe1Q0NloB6LHKb5ns5sw0I9jr9U6mGT2MjE_Fy1c6TTuR85IkLUbN_znjIBhSBmBEUqyufwO9KtljkDsJ80Q7fAlw",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCcZMqFCQLMD4MnVbMsDJoPk8S0sMI5qphA7mxdrOxg77ZeHpUrPreEPSirSRWKt01-69v41-LKHJFBd7NrTdTwX91NLRz8AmLIEtm7BQA6l9OEW40I8ejT3TUkgqQ5FRy6LyayqkeyTvw2kaIW2MVBIVAUHx2jl7tXsZzDbgNi0KFvPcAUciNmgaILnwY257WEEp1AIodU0pDkVINUZIHu84PeYFtqqpUHpI9qGKbddTfvA4edzfOhpPiyL5IMQcZvg3rUEHWDpq0",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuB-i1K6KejjKCFT_Eu7GMB_rHO4kl69PzMrc41eCn3C1lyj1gzAX7gvVwbPuVFvgKaX_mwXFk27ExeIb_tOoiby7ADW7VzcETuve3y-YyOl2LJX7Q8D_BWzdXsErKbW1-wUa9fCZCy00KiVBRnA38Piy0RwjWf5OLD2G2Uq_f0f4Q008oPxH-LtIQBnkh-FH9S64zsDU0M13BJFuqKrYyk_Lhwn1rp1ZyrwC94nCuYvTFTEb7m7g4Oe92fyAmiFeKQw_7l8ccUIzo0"
+];
 
 // ===========================
 // SERVICE DATA
@@ -306,8 +432,8 @@ const events = [
     date: "10",
     month: "DEC",
     title: "Rudrabhishekam",
-    desc: "Holy ritual dedicated to Lord Shiva for peace, prosperity, and spiritual growth.",
-    cta: "View Details"
+    desc: `Holy ritual dedicated to Lord Shiva for peace, prosperity, and spiritual growth.`,
+    cta: "Register Now"
   }
 ];
 

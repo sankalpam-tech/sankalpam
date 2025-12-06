@@ -11,14 +11,315 @@ body {
 .home-wrapper {
   min-height: 100vh;
   background: 
-    linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
-    url("https://kirtankar.com/wp-content/uploads/2025/08/Dravidian-Temple-Architecture-A-Detailed-Guide-1200x650.jpg")
+  linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+  url("https://kirtankar.com/wp-content/uploads/2025/08/Dravidian-Temple-Architecture-A-Detailed-Guide-1200x650.jpg")
     center/cover fixed;
 }
 
 .section {
   padding: 60px 20px;
   text-align: center;
+}
+
+/* =========================================================
+   HERO WITH EVENTS SIDEBAR CONTAINER
+========================================================= */
+.hero-events-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+  align-items: flex-start;
+}
+
+/* =========================================================
+   HERO SECTION WITH CAROUSEL
+========================================================= */
+.hero {
+  flex: 1;
+  color: white;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Hero Carousel Container */
+.hero-carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.hero-carousel-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s ease-in-out;
+  opacity: 0;
+}
+
+.hero-carousel-image.active {
+  opacity: 1;
+  transform: translateX(0) !important;
+}
+
+/* Hero Content */
+.hero-content-mouli {
+  position: relative;
+  z-index: 2;
+  padding: 80px 40px;
+  text-align: center;
+  background: none !important;
+  border-radius: 20px;
+}
+
+.hero-content-mouli h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content-mouli p {
+  font-size: 20px;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+/* ------------------------------------------------------------------------------------------------- */
+/* Hero Carousel Navigation Buttons */
+.hero-carousel-btn {
+  /* position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(196, 30, 58, 0.8), rgba(160, 24, 48, 0.8));
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(196, 30, 58, 0.45);
+  transition: all 0.18s ease-out; */
+  display: none;
+}
+
+/* .hero-carousel-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 10px 22px rgba(196, 30, 58, 0.55);
+  background: linear-gradient(135deg, rgba(212, 35, 66, 0.9), rgba(196, 30, 58, 0.9));
+}
+
+.hero-carousel-btn.prev-btn {
+  left: 20px;
+}
+
+.hero-carousel-btn.next-btn {
+  right: 20px;
+} */
+
+/* ----------------------------------------------------------------------------------------------------- */
+
+/* Hero Carousel Indicators */
+.hero-carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.hero-carousel-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.18s ease-out;
+  padding: 0;
+}
+
+.hero-carousel-indicator.active {
+  background-color: #c41e3a;
+  transform: scale(1.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.hero-carousel-indicator:hover {
+  background-color: rgba(196, 30, 58, 0.8);
+}
+
+/* =========================================================
+   EVENTS SIDEBAR (For Laptop & Large Screens)
+========================================================= */
+.events-sidebar {
+  width: 400px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(221, 221, 221, 0.5);
+}
+
+.events-sidebar-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #221a10;
+  margin: 0 0 25px 0;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.events-sidebar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.events-sidebar-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.events-sidebar-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.events-sidebar-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #c41e3a, #a01830);
+  border-radius: 10px;
+}
+
+.event-sidebar-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #f9f9f9;
+  border: 1px solid rgba(221, 221, 221, 0.5);
+  padding: 20px;
+  border-radius: 15px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.event-sidebar-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #c41e3a;
+}
+
+.event-sidebar-date {
+  align-self: center;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, rgba(196, 30, 58, 0.1), rgba(160, 24, 48, 0.1));
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #c41e3a;
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.event-sidebar-date small {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+.event-sidebar-content {
+  text-align: center;
+}
+
+.event-sidebar-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.event-sidebar-card p {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+  font-size: 14px;
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.event-sidebar-card .btn-primary {
+  align-self: center;
+  background: transparent;
+  color: #c41e3a;
+  border: 1px solid #c41e3a;
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.15);
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  min-height: 40px;
+}
+
+.event-sidebar-card .btn-primary:hover {
+  background: linear-gradient(135deg, #c41e3a, #a01830);
+  color: white;
+  border-color: #c41e3a;
+}
+
+/* Hide mobile events section on desktop */
+.mobile-events-section {
+  display: none;
 }
 
 /* =========================================================
@@ -59,12 +360,6 @@ body {
 }
 
 section:nth-of-type(2) .section-title {
-  background: none;
-  border-color: transparent;
-  color: #221a10;
-}
-
-section:nth-of-type(3) .section-title {
   background: none;
   border-color: transparent;
   color: #221a10;
@@ -364,56 +659,6 @@ section:nth-of-type(3) .section-title {
 }
 
 /* =========================================================
-   HERO
-========================================================= */
-.hero {
-  padding: 140px 20px;
-  margin: 40px;
-  color: white;
-  border-radius: 20px;
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.7)
-    ),
-    url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjsL2OA0twT2tmNvxk_QYeJicbS5jkTLfB0OyVWqv21OBBXdUrI-EDL7xjEhLflMnPW1k3s9DneoTeMBzuzpY_C-wCHfd2YhpVcStM8q0cTHmswxwax1hIenWRPl5nWBpBsYpuwOv4egEsXpOUBQ1rc-M16vnwZV5PNCxBm8QzCAQ0DhsgsOPXoGkSswSs-NJonZQ4pJRd8zis8LSD-w5KfbppLoJhkRGLultiYYDw78yCIh4SFjwxkgM5y74j_hOO2y8Z0ApyUT8")
-    center/cover;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
-  pointer-events: none;
-}
-
-.hero h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  position: relative;
-  z-index: 1;
-}
-
-.hero p {
-  font-size: 20px;
-  margin-bottom: 30px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  position: relative;
-  z-index: 1;
-}
-
-/* =========================================================
    SIMPLE MUSIC PLAYER - ONLY PLAY/PAUSE BUTTON
 ========================================================= */
 .music-player {
@@ -555,7 +800,7 @@ section:nth-of-type(3) .section-title {
 }
 
 /* =========================================================
-   EVENTS — ONLY 3 VISIBLE, SCROLLABLE
+   EVENTS — ONLY 3 VISIBLE, SCROLLABLE (For Mobile)
 ========================================================= */
 .events-container {
   max-width: 1000px;
@@ -657,17 +902,27 @@ section:nth-of-type(3) .section-title {
    RESPONSIVE DESIGN
 ========================================================= */
 @media (max-width: 1024px) {
-  .hero {
-    margin: 20px 15px;
-    padding: 80px 20px;
+  .hero-events-container {
+    margin: 30px auto;
+    padding: 0 15px;
+    gap: 25px;
   }
   
-  .hero h1 {
-    font-size: 32px;
+  .hero-content {
+    padding: 60px 30px;
   }
   
-  .hero p {
+  .hero-content h1 {
+    font-size: 36px;
+  }
+  
+  .hero-content p {
     font-size: 18px;
+  }
+  
+  .events-sidebar {
+    width: 350px;
+    padding: 25px;
   }
   
   .section {
@@ -677,7 +932,6 @@ section:nth-of-type(3) .section-title {
   .section-title {
     font-size: 26px;
     margin-bottom: 30px;
-    padding: 16px 30px;
   }
   
   /* Music player responsive */
@@ -703,6 +957,21 @@ section:nth-of-type(3) .section-title {
   
   .video-row {
     animation: scrollVideos linear infinite 40s;
+  }
+  
+  /* Hero carousel buttons */
+  .hero-carousel-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+  }
+  
+  .hero-carousel-btn.prev-btn {
+    left: 15px;
+  }
+  
+  .hero-carousel-btn.next-btn {
+    right: 15px;
   }
 }
 
@@ -743,8 +1012,32 @@ section:nth-of-type(3) .section-title {
   }
 }
 
-/* MOBILE - 1 card per row, vertical layout & CAROUSEL */
+/* MOBILE - Show mobile events, hide sidebar */
 @media (max-width: 768px) {
+  .hero-events-container {
+    flex-direction: column;
+    margin: 20px 15px;
+    gap: 0;
+  }
+  
+  .hero {
+    margin-bottom: 30px;
+    min-height: 350px;
+  }
+  
+  .hero-content {
+    padding: 50px 20px;
+  }
+  
+  .events-sidebar {
+    display: none;
+  }
+  
+  /* Show mobile events section */
+  .mobile-events-section {
+    display: block;
+  }
+  
   .service-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -787,7 +1080,6 @@ section:nth-of-type(3) .section-title {
   
   .section-title {
     font-size: 24px;
-    padding: 14px 24px;
   }
   
   /* Video Section - Switch to Carousel on Mobile */
@@ -810,6 +1102,26 @@ section:nth-of-type(3) .section-title {
     height: 45px;
     font-size: 18px;
   }
+  
+  /* Hero carousel buttons smaller on mobile */
+  .hero-carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .hero-carousel-btn.prev-btn {
+    left: 10px;
+  }
+  
+  .hero-carousel-btn.next-btn {
+    right: 10px;
+  }
+  
+  .hero-carousel-indicator {
+    width: 10px;
+    height: 10px;
+  }
 }
 
 /* For screens 650px and below - CAROUSEL ONLY */
@@ -824,7 +1136,6 @@ section:nth-of-type(3) .section-title {
   
   .section-title {
     font-size: 22px;
-    padding: 12px 20px;
   }
   
   .carousel-container {
@@ -838,11 +1149,19 @@ section:nth-of-type(3) .section-title {
 
 @media (max-width: 480px) {
   .hero {
-    padding: 60px 15px;
+    margin: 15px 10px;
   }
   
-  .hero h1 {
+  .hero-content {
+    padding: 40px 15px;
+  }
+  
+  .hero-content h1 {
     font-size: 28px;
+  }
+  
+  .hero-content p {
+    font-size: 16px;
   }
   
   .btn-primary {
@@ -860,7 +1179,6 @@ section:nth-of-type(3) .section-title {
   
   .section-title {
     font-size: 22px;
-    padding: 10px 18px;
   }
   
   .carousel-container {
@@ -882,6 +1200,18 @@ section:nth-of-type(3) .section-title {
     height: 40px;
     font-size: 16px;
   }
+  
+  /* Hero carousel adjustments */
+  .hero-carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
+  }
+  
+  .hero-carousel-indicator {
+    width: 8px;
+    height: 8px;
+  }
 }
 
 /* For very small screens */
@@ -900,7 +1230,7 @@ section:nth-of-type(3) .section-title {
     font-size: 14px;
   }
   
-  .hero h1 {
+  .hero-content h1 {
     font-size: 24px;
   }
   
@@ -910,7 +1240,6 @@ section:nth-of-type(3) .section-title {
   
   .section-title {
     font-size: 20px;
-    padding: 10px 16px;
   }
   
   /* Music player responsive */
@@ -926,8 +1255,27 @@ section:nth-of-type(3) .section-title {
   }
 }
 
-/* LAPTOP and DESKTOP - INFINITE SCROLL ONLY */
+/* LAPTOP and DESKTOP - EVENTS SIDEBAR SHOWN */
 @media (min-width: 1025px) {
+  .hero-events-container {
+    max-width: 1400px;
+    margin: 50px auto;
+  }
+  
+  .hero {
+    flex: 2;
+    min-height: 450px;
+  }
+  
+  .hero-content {
+    padding: 100px 60px;
+  }
+  
+  .events-sidebar {
+    flex: 1;
+    width: 400px;
+  }
+  
   .service-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -991,6 +1339,10 @@ section:nth-of-type(3) .section-title {
   }
   
   .carousel-btn:hover {
+    transform: translateY(-50%);
+  }
+  
+  .hero-carousel-btn:hover {
     transform: translateY(-50%);
   }
 }

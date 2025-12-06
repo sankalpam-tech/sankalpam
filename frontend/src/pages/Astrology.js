@@ -310,53 +310,12 @@ const Astrology = () => {
 
       {/* Booking Modal */}
       {currentPage === "booking" && selectedService && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          zIndex: 9999,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          overflow: 'auto',
-          padding: '20px'
-        }}>
-          <div style={{
-            position: 'relative',
-            width: '100%',
-            maxWidth: '650px',
-            backgroundColor: '#fff',
-            borderRadius: '12px',
-            overflow: 'hidden',
-            maxHeight: '95vh',
-            overflowY: 'auto'
-          }}>
-            <button
-              onClick={handleCloseModal}
-              style={{
-                position: 'absolute',
-                top: '16px',
-                right: '16px',
-                width: '40px',
-                height: '40px',
-                border: 'none',
-                backgroundColor: '#c41e3a',
-                color: '#fff',
-                fontSize: '24px',
-                borderRadius: '50%',
-                cursor: 'pointer',
-                zIndex: 10000,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'background-color 0.3s'
-              }}
-              onMouseOver={(e) => e.target.style.backgroundColor = '#a01830'}
-              onMouseOut={(e) => e.target.style.backgroundColor = '#c41e3a'}
-            >
+        <div className="booking-modal-overlay" onClick={handleCloseModal}>
+          <div
+            className="booking-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="booking-modal-close" onClick={handleCloseModal}>
               ×
             </button>
             <BookingPage 

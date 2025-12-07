@@ -170,7 +170,7 @@
   min-width: 5.25rem;
   height: 2.5rem;
   padding: 0 1rem;
-  background-color: #f27f0d;
+  background-color: #c41e3a;
   color: white;
   font-size: 0.875rem;
   font-weight: bold;
@@ -181,7 +181,7 @@
 }
 
 .tourism-notify-button:hover {
-  background-color: #d97009;
+  background-color: #a01830;
 }
 
 .tourism-footer {

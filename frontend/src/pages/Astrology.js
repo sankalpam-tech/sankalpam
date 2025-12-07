@@ -1,18 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import BookingPage from "./Bookingpage";
 import astrologyBg from "../images/astrology.jpg";
+import "../styles/Astrology.css";
 
 const Astrology = () => {
+  const [selectedService, setSelectedService] = useState(null);
+  const [currentPage, setCurrentPage] = useState("home");
+
   // Preload background image
-  React.useEffect(() => {
+  useEffect(() => {
     const img = new Image();
     img.src = astrologyBg;
   }, []);
 
+  // Prevent body scroll when booking modal is open
+  useEffect(() => {
+    if (currentPage === "booking" && selectedService) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [currentPage, selectedService]);
+
   const handleBookConsultation = (service) => {
-    alert(`Booking ${service?.title || 'General Consultation'}. This will redirect to the booking form.`);
-    // TODO: Implement booking navigation
+    setSelectedService(service);
+    setCurrentPage("booking");
+  };
+
+  const handleCloseModal = () => {
+    setCurrentPage("home");
+    setSelectedService(null);
   };
 
   return (
@@ -109,13 +132,7 @@ const Astrology = () => {
             color: '#000'
           }}>Explore Our Astrology Services</h2>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '32px',
-            maxWidth: '1200px',
-            margin: '0 auto'
-          }}>
+          <div className="astrology-services-grid">
             {[
               {
                 title: "Personal Horoscope",
@@ -142,59 +159,22 @@ const Astrology = () => {
                 price: "₹2,499"
               }
             ].map((service, i) => (
-              <div key={i} style={{
-                backgroundColor: '#fff',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                textAlign: 'center',
-                display: 'flex',
-                flexDirection: 'column'
-              }}>
-                <div style={{
-                  width: '100%',
-                  height: '250px',
-                  backgroundColor: '#4a6560',
-                  backgroundImage: `url(${service.img})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }}></div>
-                <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                  <h3 style={{
-                    fontSize: '18px',
-                    fontWeight: '600',
-                    marginBottom: '12px',
-                    color: '#000'
-                  }}>{service.title}</h3>
-                  <p style={{
-                    fontSize: '14px',
-                    color: '#666',
-                    lineHeight: '1.5',
-                    marginBottom: '16px',
-                    flexGrow: 1
-                  }}>{service.desc}</p>
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginTop: 'auto'
-                  }}>
-                    <span style={{
-                      fontSize: '20px',
-                      fontWeight: 'bold',
-                      color: '#c41e3a'
-                    }}>{service.price}</span>
-                    <button onClick={() => handleBookConsultation(service)} style={{
-                      padding: '10px 20px',
-                      backgroundColor: '#c41e3a',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '6px',
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      cursor: 'pointer',
-                      transition: 'background-color 0.3s'
-                    }}>Book Now</button>
+              <div key={i} className="astrology-service-card">
+                <div 
+                  className="astrology-service-image"
+                  style={{ backgroundImage: `url(${service.img})` }}
+                ></div>
+                <div className="astrology-service-content">
+                  <h3 className="astrology-service-title">{service.title}</h3>
+                  <p className="astrology-service-desc">{service.desc}</p>
+                  <div className="astrology-service-footer">
+                    <span className="astrology-service-price">{service.price}</span>
+                    <button 
+                      onClick={() => handleBookConsultation(service)} 
+                      className="astrology-book-btn"
+                    >
+                      Book Now
+                    </button>
                   </div>
                 </div>
               </div>
@@ -327,6 +307,28 @@ const Astrology = () => {
       </main>
 
       <Footer />
+
+      {/* Booking Modal */}
+      {currentPage === "booking" && selectedService && (
+        <div className="booking-modal-overlay" onClick={handleCloseModal}>
+          <div
+            className="booking-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="booking-modal-close" onClick={handleCloseModal}>
+              ×
+            </button>
+            <BookingPage 
+              puja={{
+                name: selectedService?.title || 'Astrology Consultation',
+                price: selectedService?.price || '₹999'
+              }} 
+              onBack={handleCloseModal}
+              type="astrology"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

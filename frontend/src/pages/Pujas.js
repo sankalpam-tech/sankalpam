@@ -19,7 +19,8 @@ function Pujas() {
   const [bookingMode, setBookingMode] = useState("online");
   const [selectedPuja, setSelectedPuja] = useState(null);
   const [currentPage, setCurrentPage] = useState("home");
-  const [openDropdown, setOpenDropdown] = useState(null); // which card's "view more" is open
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // NEW
 
   // Preload background image
   useEffect(() => {
@@ -54,7 +55,7 @@ function Pujas() {
       name: "Maha Mrityunjaya Jaap",
       description: "For health and longevity.",
       price: "₹11000",
-      image:img8,
+      image: img8,
     },
     {
       id: 5,
@@ -88,7 +89,21 @@ function Pujas() {
 
   const onlinePujas = allPujas.slice(0, 4);
   const offlinePujas = allPujas.slice(4, 8);
-  const displayedPujas = bookingMode === "online" ? onlinePujas : offlinePujas;
+
+  // ------ SEARCH FILTERING ------
+  const filterPujas = (list) => {
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) return list;
+    return list.filter((puja) =>
+      `${puja.name} ${puja.description}`.toLowerCase().includes(term)
+    );
+  };
+
+  const filteredOnlinePujas = filterPujas(onlinePujas);
+  const filteredOfflinePujas = filterPujas(offlinePujas);
+  const displayedPujas =
+    bookingMode === "online" ? filteredOnlinePujas : filteredOfflinePujas;
+  // -------------------------------
 
   const inclusions = [
     "Puja Samagri",
@@ -120,15 +135,88 @@ function Pujas() {
     };
   }, [currentPage, selectedPuja]);
 
+  // Scroll animation: cards appear when scrolled down, disappear when scrolled up
+  useEffect(() => {
+    const cards = document.querySelectorAll(".scroll-animated");
+    if (!cards.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          } else {
+            entry.target.classList.remove("visible");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, [displayedPujas, searchTerm, bookingMode]);
+
+  // Single puja card (used for both desktop and mobile)
+  const renderPujaCard = (puja) => (
+    <div key={puja.id} className="puja-card scroll-animated">
+      <div className="puja-image-container">
+        <img src={puja.image} alt={puja.name} className="puja-image" />
+      </div>
+
+      <div className="puja-content">
+        <h3 className="puja-name">{puja.name}</h3>
+        <p className="puja-description">{puja.description}</p>
+
+        <div className="puja-dropdown-container">
+          <button
+            className="puja-dropdown-btn"
+            onClick={() =>
+              setOpenDropdown(openDropdown === puja.id ? null : puja.id)
+            }
+          >
+            View more
+          </button>
+        </div>
+
+        <div className="puja-footer">
+          <span className="puja-price">{puja.price}</span>
+          <button className="btn-book" onClick={() => handleBookNow(puja)}>
+            Book Now
+          </button>
+        </div>
+      </div>
+
+      {openDropdown === puja.id && (
+        <div className="puja-details-overlay">
+          <div className="puja-details-box">
+            <button
+              className="puja-details-close"
+              onClick={() => setOpenDropdown(null)}
+            >
+              ×
+            </button>
+            <h4 className="inclusions-title">What&apos;s included</h4>
+            <ul className="inclusions-list">
+              {inclusions.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div
       className="App pujas-page"
       style={{
- backgroundImage: `linear-gradient(
+        backgroundImage: `linear-gradient(
   rgba(255, 255, 255, 0.5),
   rgba(255, 255, 255, 0.5)
 ), url(${bgimg})`,
-
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
@@ -152,7 +240,29 @@ function Pujas() {
       {/* Header */}
       <Navbar activePage="pujas" />
 
-      {/* Hero section (card over background) */}
+      {/* Search bar below navbar */}
+      <div className="puja-search-wrapper">
+        <div className="puja-search-inner">
+          <div className="puja-search-box">
+            <span
+              className="puja-search-icon"
+              role="img"
+              aria-label="Search"
+            >
+              🔍
+            </span>
+            <input
+              type="text"
+              className="puja-search-input"
+              placeholder="Search for pujas..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Hero section */}
       <section className="hero-banner">
         <div className="hero-content">
           <h1 className="hero-title">Book Your Sacred Pujas Online</h1>
@@ -167,8 +277,8 @@ function Pujas() {
       {/* Puja Cards */}
       <section className="puja-offerings" id="pujas">
         <h2 className="section-title">Our Puja Offerings</h2>
-        
-        {/* Online/Offline Tabs - Modern Design */}
+
+        {/* Toggle: Online / Offline – visible on all devices */}
         <div className="booking-options">
           <div className="booking-tabs-container">
             <button
@@ -192,64 +302,17 @@ function Pujas() {
           </div>
         </div>
 
-        <div className="puja-grid">
-          {displayedPujas.map((puja) => (
-            <div key={puja.id} className="puja-card">
-              <div className="puja-image-container">
-                <img src={puja.image} alt={puja.name} className="puja-image" />
-              </div>
+        {searchTerm.trim() && displayedPujas.length === 0 && (
+          <p className="puja-search-empty">
+            No pujas found for &quot;{searchTerm}&quot; in{" "}
+            {bookingMode === "online" ? "Online" : "Offline"} Pujas.
+          </p>
+        )}
 
-              <div className="puja-content">
-                <h3 className="puja-name">{puja.name}</h3>
-                <p className="puja-description">{puja.description}</p>
-
-                <div className="puja-dropdown-container">
-                  <button
-                    className="puja-dropdown-btn"
-                    onClick={() =>
-                      setOpenDropdown(
-                        openDropdown === puja.id ? null : puja.id
-                      )
-                    }
-                  >
-                    View more
-                  </button>
-                </div>
-
-                <div className="puja-footer">
-                  <span className="puja-price">{puja.price}</span>
-                  <button
-                    className="btn-book"
-                    onClick={() => handleBookNow(puja)}
-                  >
-                    Book Now
-                  </button>
-                </div>
-              </div>
-
-              {/* Card‑local overlay, does not affect other cards */}
-              {openDropdown === puja.id && (
-                <div className="puja-details-overlay">
-                  <div className="puja-details-box">
-                    <button
-                      className="puja-details-close"
-                      onClick={() => setOpenDropdown(null)}
-                    >
-                      ×
-                    </button>
-                    <h4 className="inclusions-title">What&apos;s included</h4>
-                    <ul className="inclusions-list">
-                      {inclusions.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        {/* Grid for both desktop and mobile. */}
+        <div className="puja-grid">{displayedPujas.map(renderPujaCard)}</div>
       </section>
+
       <Footer />
     </div>
   );

@@ -16,6 +16,7 @@ function Home() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [currentHeroImageIndex, setCurrentHeroImageIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const pastEventsRef = useRef(null);
   const audioRef = useRef(null);
   const heroCarouselIntervalRef = useRef(null);
 
@@ -49,7 +50,7 @@ function Home() {
       setCurrentHeroImageIndex((prevIndex) => 
         prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
       );
-    }, 5000); // Change image every 5 seconds
+    }, 3000); // Change image every 3 seconds
   };
 
   const scrollToServices = () => {
@@ -94,6 +95,55 @@ function Home() {
     setCurrentHeroImageIndex(index);
     startHeroCarousel(); // Reset interval
   };
+
+  // Drag-to-scroll for Past Events (desktop/laptop)
+  useEffect(() => {
+    const container = pastEventsRef.current;
+    if (!container) return;
+
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    const handleMouseDown = (e) => {
+      // Only enable drag on non-touch devices
+      if ('ontouchstart' in window) return;
+      isDown = true;
+      container.classList.add('is-dragging');
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      container.classList.remove('is-dragging');
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      container.classList.remove('is-dragging');
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 1.2; // scroll speed factor
+      container.scrollLeft = scrollLeft - walk;
+    };
+
+    container.addEventListener('mousedown', handleMouseDown);
+    container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('mouseup', handleMouseUp);
+    container.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      container.removeEventListener('mousedown', handleMouseDown);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('mouseup', handleMouseUp);
+      container.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   // Video carousel navigation functions
   const nextVideo = () => {
@@ -144,53 +194,91 @@ function Home() {
       <div className="hero-events-container">
         {/* Hero Section with Carousel */}
         <section className="hero">
-          {/* Hero Image Carousel */}
-          <div className="hero-carousel">
-            <div className="hero-carousel-container">
-              <div className="hero-carousel-slide">
-                {heroImages.map((image, index) => (
-                  <div
-                    className={`hero-carousel-image ${index === currentHeroImageIndex ? 'active' : ''}`}
-                    key={index}
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${image})`,
-                      transform: `translateX(${(index - currentHeroImageIndex) * 100}%)`,
-                    }}
-                  />
-                ))}
-              </div>
-              
-              {/* Hero Carousel Navigation Buttons */}
-              {/* <button className="hero-carousel-btn prev-btn" onClick={prevHeroImage}>
-                <FaChevronLeft />
-              </button>
-              
-              <button className="hero-carousel-btn next-btn" onClick={nextHeroImage}>
-                <FaChevronRight />
-              </button> */}
+          <div className="hero-banner-wrapper">
+            <div className="hero-banner-container">
+              <div className="hero-carousel">
+                <div 
+                  className="hero-carousel-track"
+                  style={{
+                    transform: `translateX(-${25 * currentHeroImageIndex}%)`,
+                  }}
+                >
+                  {heroImages.map((src, idx) => (
+                    <div
+                      key={idx}
+                      className="hero-carousel-slide"
+                      style={{
+                        backgroundImage: `url(${src})`,
+                      }}
+                      aria-hidden={currentHeroImageIndex !== idx}
+                    >
+                      <div className="hero-carousel-overlay"></div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Content Overlay */}
+                <div className="hero-content">
+                  <h1 className="hero-title">Connect with the Divine, Anywhere</h1>
+                  <p className="hero-description">
+                    Your spiritual journey begins with Sankalpam. Experience authentic rituals, expert guidance, and divine connections from the comfort of your home.
+                  </p>
+                  <button className="btn-explore" onClick={scrollToServices}>
+                    Explore Our Services
+                    <FaArrowRight style={{ marginLeft: '10px' }} />
+                  </button>
+                </div>
 
-            </div>
-            
-            {/* Hero Carousel Indicators */}
-            <div className="hero-carousel-indicators">
-              {heroImages.map((_, index) => (
+                {/* Navigation Arrows */}
                 <button
-                  key={index}
-                  className={`hero-carousel-indicator ${index === currentHeroImageIndex ? 'active' : ''}`}
-                  onClick={() => goToHeroImage(index)}
-                />
-              ))}
+                  onClick={prevHeroImage}
+                  aria-label="Previous slide"
+                  className="hero-carousel-btn hero-carousel-btn-prev"
+                  onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)'}
+                  onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.85)'}
+                >
+                  {"<"}
+                </button>
+                <button
+                  onClick={nextHeroImage}
+                  aria-label="Next slide"
+                  className="hero-carousel-btn hero-carousel-btn-next"
+                  onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)'}
+                  onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.85)'}
+                >
+                  {">"}
+                </button>
+              </div>
             </div>
           </div>
-          
-          {/* Hero Content */}
-          <div className="hero-content-mouli">
-            <h1>Connect with the Divine, Anywhere</h1>
-            <p>Your spiritual journey begins with Sankalpam. Experience authentic rituals, expert guidance, and divine connections from the comfort of your home.</p>
-            <button className="btn-primary" onClick={scrollToServices}>
-              Explore Our Services
-              <FaArrowRight style={{ marginLeft: '10px' }} />
-            </button>
+
+          {/* Past Events Section */}
+          <div className="past-events-wrapper">
+            <h2 className="past-events-title">Past Events</h2>
+            <div className="past-events-container">
+              {/* Left Arrow for Scroll (Visual only for now or functional if implemented) */}
+              {/* <button className="scroll-btn left"><FaChevronLeft /></button> */}
+              
+              <div className="past-events-list" ref={pastEventsRef}>
+                {pastEvents.map((e, i) => (
+                  <div className="past-event-card" key={i}>
+                    <div className="past-event-date">
+                      <span className="date">{e.date}</span>
+                      <span className="month">{e.month}</span>
+                    </div>
+                    <div className="past-event-content">
+                      <h3>{e.title}</h3>
+                      <p>{e.desc}</p>
+                      <Link to="/highlights" className="view-highlights-btn">
+                        {e.cta} <FaArrowRight />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* <button className="scroll-btn right"><FaChevronRight /></button> */}
+            </div>
           </div>
         </section>
 
@@ -354,6 +442,33 @@ function Home() {
         </div>
       </section>
 
+      {/* ========================= PAST EVENTS (Mobile version) ========================= */}
+      <section className="section mobile-events-section">
+        <h2 className="section-title">Past Events</h2>
+
+        <div className="events-container">
+          <div className="events-list">
+            {pastEvents.map((e, i) => (
+              <Link to="/highlights" className="event-card" key={i}>
+                <div className="event-date">
+                  {e.date}
+                  <small>{e.month}</small>
+                </div>
+
+                <div className="event-content">
+                  <h3>{e.title}</h3>
+                  <p>{e.desc}</p>
+                </div>
+
+                <span className="btn-primary" style={{ background: 'transparent', color: '#c41e3a', border: '1px solid #c41e3a', padding: '8px 16px' }}>
+                  {e.cta}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer/>
 
     </div>
@@ -408,20 +523,6 @@ const serviceCards = [
 // ===========================
 const events = [
   {
-    date: "28",
-    month: "OCT",
-    title: "Diwali Lakshmi Puja",
-    desc: "A special Lakshmi Mata Puja for blessings of wealth and prosperity.",
-    cta: "View Details"
-  },
-  {
-    date: "15",
-    month: "NOV",
-    title: "Ganga Aarti Live",
-    desc: "Experience the sacred Ganga Aarti from Varanasi with interactive participation.",
-    cta: "Register Now"
-  },
-  {
     date: "04",
     month: "DEC",
     title: "Hanuman Chalisa Recital",
@@ -434,6 +535,51 @@ const events = [
     title: "Rudrabhishekam",
     desc: `Holy ritual dedicated to Lord Shiva for peace, prosperity, and spiritual growth.`,
     cta: "Register Now"
+  },
+  {
+    date: "14",
+    month: "JAN",
+    title: "Makara Sankranti Homam",
+    desc: "Special homam to invoke blessings for new beginnings and prosperity.",
+    cta: "Register Now"
+  },
+  {
+    date: "26",
+    month: "JAN",
+    title: "Vishwa Shanti Puja",
+    desc: "Group puja for peace, harmony, and universal well-being.",
+    cta: "Register Now"
+  }
+];
+
+const pastEvents = [
+  {
+    date: "15",
+    month: "SEP",
+    title: "Ganesh Chaturthi",
+    desc: "Grand celebration of Ganesh Chaturthi with special pujas.",
+    cta: "View Highlights"
+  },
+  {
+    date: "22",
+    month: "AUG",
+    title: "Varalakshmi Vratam",
+    desc: "Traditional Varalakshmi Vratam performed for prosperity.",
+    cta: "View Highlights"
+  },
+  {
+    date: "03",
+    month: "JUL",
+    title: "Guru Purnima Special",
+    desc: "Special satsang and puja dedicated to spiritual gurus.",
+    cta: "View Highlights"
+  },
+  {
+    date: "21",
+    month: "JUN",
+    title: "International Yoga Day",
+    desc: "Guided yoga and meditation session with Vedic chanting.",
+    cta: "View Highlights"
   }
 ];
 

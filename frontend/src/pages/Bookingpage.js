@@ -66,45 +66,44 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
                     </div>
                   </div>
 
-                  {/* Row 2 - Nakshatram and Rasi */}
+                  {/* Row 2 - Birth Time and Birth Place */}
                   <div className="bp-form-row">
                     <div className="bp-form-field">
                       <label>
-                        Nakshatram<span className="bp-required">*</span>
+                        Birth Time<span className="bp-required">*</span>
                       </label>
                       <input
-                        type="text"
-                        placeholder="Enter your Nakshatram"
+                        type="time"
                         required
                       />
                     </div>
                     <div className="bp-form-field">
                       <label>
-                        Rasi<span className="bp-required">*</span>
+                        Birth Place<span className="bp-required">*</span>
                       </label>
                       <input
                         type="text"
-                        placeholder="Enter your Rasi"
+                        placeholder="Enter your birth place"
                         required
                       />
                     </div>
                   </div>
 
-                  {/* Row 3 - Place and Phone */}
+                  {/* Row 3 - Father's Name and Phone */}
                   <div className="bp-form-row">
                     <div className="bp-form-field">
                       <label>
-                        Place<span className="bp-required">*</span>
+                        Father's Name<span className="bp-required">*</span>
                       </label>
                       <input
                         type="text"
-                        placeholder="Enter your place of birth"
+                        placeholder="Enter father's name"
                         required
                       />
                     </div>
                     <div className="bp-form-field">
                       <label>
-                        Phone Number<span className="bp-required">*</span>
+                        Your Phone Number<span className="bp-required">*</span>
                       </label>
                       <input
                         type="tel"

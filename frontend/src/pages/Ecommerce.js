@@ -925,7 +925,7 @@ const Ecommerce = () => {
           style={{
             backgroundColor: '#fff',
             borderRadius: '16px',
-            padding: '16px',
+            padding: '8px',
             marginBottom: '24px',
             boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
             minHeight: '260px',
@@ -964,21 +964,26 @@ const Ecommerce = () => {
             <button
               onClick={() => setSlideIndex((idx) => (idx - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
               aria-label="Previous slide"
+              onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,1)'}
+              onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.85)'}
               style={{
                 position: 'absolute',
                 top: '50%',
-                left: '12px',
+                left: '-16px',
                 transform: 'translateY(-50%)',
                 background: 'rgba(255,255,255,0.85)',
                 border: 'none',
                 borderRadius: '50%',
-                width: '36px',
-                height: '36px',
+                width: '40px',
+                height: '40px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
                 boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                fontSize: '18px',
+                paddingLeft: '8px',
+                transition: 'background 0.3s',
               }}
             >
               {"<"}
@@ -986,21 +991,26 @@ const Ecommerce = () => {
             <button
               onClick={() => setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length)}
               aria-label="Next slide"
+              onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,1)'}
+              onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.85)'}
               style={{
                 position: 'absolute',
                 top: '50%',
-                right: '12px',
+                right: '-16px',
                 transform: 'translateY(-50%)',
                 background: 'rgba(255,255,255,0.85)',
                 border: 'none',
                 borderRadius: '50%',
-                width: '36px',
-                height: '36px',
+                width: '40px',
+                height: '40px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
                 boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                fontSize: '18px',
+                paddingRight: '8px',
+                transition: 'background 0.3s',
               }}
             >
               {">"}

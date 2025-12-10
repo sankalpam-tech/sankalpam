@@ -283,8 +283,9 @@
   color: var(--bp-input-placeholder);
 }
 
-/* Date input calendar icon color */
-.bp-form-field input[type="date"]::-webkit-calendar-picker-indicator {
+/* Date and Time input calendar/clock icon color */
+.bp-form-field input[type="date"]::-webkit-calendar-picker-indicator,
+.bp-form-field input[type="time"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;
 }

@@ -75,6 +75,14 @@
   flex: 0 0 auto;
 }
 
+/* Profile Icon */
+.profile-icon-link:hover {
+  background-color: #c41e3a !important;
+  color: #fff !important;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(196, 30, 58, 0.3);
+}
+
 .btn-signin,
 .btn-signup {
   font-family: inherit;

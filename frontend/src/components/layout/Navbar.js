@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import '../../styles/Navbar.css';
 
 const Navbar = ({ activePage = 'home' }) => {
+  const { isAuthenticated } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Close menu on resize to desktop
@@ -208,66 +210,96 @@ const Navbar = ({ activePage = 'home' }) => {
             gap: '12px',
           }}
         >
-          <Link
-            to="/signin"
-            onClick={handleLinkClick}
-            style={{
-              textDecoration: 'none',
-              position: 'relative',
-              paddingBottom: '4px',
-              borderBottom:
-                activePage === 'signin'
-                  ? '2px solid #c41e3a'
-                  : '2px solid transparent',
-            }}
-          >
-            <button
-              className="btn-signin"
+          {isAuthenticated ? (
+            /* Profile Icon - Show when user is logged in */
+            <Link
+              to="/profile"
+              onClick={handleLinkClick}
+              className={`profile-icon-link ${activePage === 'profile' ? 'active' : ''}`}
               style={{
-                padding: '10px 24px',
-                backgroundColor: '#c41e3a',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '6px',
-                fontSize: '14px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'background-color 0.3s ease',
-              }}
-            >
-              Sign In
-            </button>
-          </Link>
-          <Link
-            to="/signup"
-            onClick={handleLinkClick}
-            style={{
-              textDecoration: 'none',
-              position: 'relative',
-              paddingBottom: '4px',
-              borderBottom:
-                activePage === 'signup'
-                  ? '2px solid #c41e3a'
-                  : '2px solid transparent',
-            }}
-          >
-            <button
-              className="btn-signup"
-              style={{
-                padding: '10px 24px',
-                backgroundColor: '#fff',
-                color: '#c41e3a',
-                border: '2px solid #c41e3a',
-                borderRadius: '6px',
-                fontSize: '14px',
-                fontWeight: '600',
-                cursor: 'pointer',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                backgroundColor: activePage === 'profile' ? '#c41e3a' : '#f5f5f5',
+                color: activePage === 'profile' ? '#fff' : '#c41e3a',
+                border: activePage === 'profile' ? 'none' : '2px solid #c41e3a',
                 transition: 'all 0.3s ease',
+                fontSize: '20px',
+                fontWeight: 'bold',
               }}
+              title="My Profile"
             >
-              Sign Up
-            </button>
-          </Link>
+              👤
+            </Link>
+          ) : (
+            /* Sign In / Sign Up buttons - Show when not logged in */
+            <>
+              <Link
+                to="/signin"
+                onClick={handleLinkClick}
+                style={{
+                  textDecoration: 'none',
+                  position: 'relative',
+                  paddingBottom: '4px',
+                  borderBottom:
+                    activePage === 'signin'
+                      ? '2px solid #c41e3a'
+                      : '2px solid transparent',
+                }}
+              >
+                <button
+                  className="btn-signin"
+                  style={{
+                    padding: '10px 24px',
+                    backgroundColor: '#c41e3a',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.3s ease',
+                  }}
+                >
+                  Sign In
+                </button>
+              </Link>
+              <Link
+                to="/signup"
+                onClick={handleLinkClick}
+                style={{
+                  textDecoration: 'none',
+                  position: 'relative',
+                  paddingBottom: '4px',
+                  borderBottom:
+                    activePage === 'signup'
+                      ? '2px solid #c41e3a'
+                      : '2px solid transparent',
+                }}
+              >
+                <button
+                  className="btn-signup"
+                  style={{
+                    padding: '10px 24px',
+                    backgroundColor: '#fff',
+                    color: '#c41e3a',
+                    border: '2px solid #c41e3a',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  Sign Up
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

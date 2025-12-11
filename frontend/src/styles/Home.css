@@ -16,6 +16,70 @@ body {
     center/cover fixed;
 }
 
+/* =========================================================
+   REGISTRATION ANNOUNCEMENT BANNER
+========================================================= */
+.registration-banner {
+  background: linear-gradient(135deg, #c41e3a 0%, #ff6b35 100%);
+  overflow: hidden;
+  padding: 12px 0;
+  position: sticky;
+  top: 60px;
+  z-index: 998;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.registration-banner-content {
+  display: flex;
+  animation: scroll-left 20s linear infinite;
+  white-space: nowrap;
+}
+
+.banner-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 0 40px;
+  display: inline-block;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Mobile responsiveness for banner */
+@media (max-width: 768px) {
+  .registration-banner {
+    top: 46px;
+    transform: translateZ(0);
+  }
+  
+  .banner-text {
+    font-size: 16px;
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-banner {
+    padding: 10px 0;
+  }
+  
+  .banner-text {
+    font-size: 14px;
+    padding: 0 20px;
+  }
+}
+
 .section {
   padding: 60px 20px;
   text-align: center;

@@ -91,11 +91,6 @@ function Home() {
     startHeroCarousel(); // Reset interval
   };
 
-  const goToHeroImage = (index) => {
-    setCurrentHeroImageIndex(index);
-    startHeroCarousel(); // Reset interval
-  };
-
   // Drag-to-scroll for Past Events (desktop/laptop)
   useEffect(() => {
     const container = pastEventsRef.current;
@@ -188,6 +183,20 @@ function Home() {
           src="/sankalpam2.mpeg"
           onEnded={() => setIsPlaying(false)}
         />
+      </div>
+
+      {/* ========================= REGISTRATION ANNOUNCEMENT BANNER ========================= */}
+      <div className="registration-banner">
+        <div className="registration-banner-content">
+          <span className="banner-text">🎉 Registration Opening Soon - Stay Tuned! 🎉</span>
+          <span className="banner-text">🎉 Registration Opening Soon - Stay Tuned! 🎉</span>
+          <span className="banner-text">🎉 Registration Opening Soon - Stay Tuned! 🎉</span>
+          <span className="banner-text">🎉 Registration Opening Soon - Stay Tuned! 🎉</span>
+          <span className="banner-text">🎉 Registration Opening Soon - Stay Tuned! 🎉</span>
+          <span className="banner-text">🎉 Registration Opening Soon - Stay Tuned! 🎉</span>
+          <span className="banner-text">🎉 Registration Opening Soon - Stay Tuned! 🎉</span>
+          <span className="banner-text">🎉 Registration Opening Soon - Stay Tuned! 🎉</span>
+        </div>
       </div>
 
       {/* ========================= HERO WITH EVENTS SIDEBAR ========================= */}

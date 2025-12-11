@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home';
 import Pujas from './pages/Pujas';
 import Astrology from './pages/Astrology';
@@ -8,6 +9,7 @@ import Ecommerce from './pages/Ecommerce';
 import Tourism from './pages/Tourism';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
 import './App.css';
 
 // Import background images for preloading
@@ -36,22 +38,25 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="App">
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/pujas" element={<Pujas />} />
-            <Route path="/astrology" element={<Astrology />} />
-            <Route path="/ecommerce" element={<Ecommerce />} />
-            <Route path="/tourism" element={<Tourism />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <div className="App">
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/pujas" element={<Pujas />} />
+              <Route path="/astrology" element={<Astrology />} />
+              <Route path="/ecommerce" element={<Ecommerce />} />
+              <Route path="/tourism" element={<Tourism />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </main>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import '../styles/Auth.css';
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     emailOrPhone: '',
     password: ''
@@ -22,7 +25,23 @@ const SignIn = () => {
     e.preventDefault();
     // Handle sign in logic here
     console.log('Sign in:', formData);
-    alert('Sign in functionality will be implemented with backend integration');
+    
+    // Simulate successful login (replace with actual API call)
+    const userData = {
+      name: formData.emailOrPhone.includes('@') 
+        ? formData.emailOrPhone.split('@')[0] 
+        : 'User',
+      email: formData.emailOrPhone.includes('@') 
+        ? formData.emailOrPhone 
+        : `${formData.emailOrPhone}@phone.com`,
+      phone: formData.emailOrPhone.includes('@') 
+        ? '+91 98765 43210' 
+        : formData.emailOrPhone,
+      avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuALhhL-qYGEBcC8GUWO91Tm-7k5xamOPslJY-NkC5UgF23olSjnkfa_rx5d3i0LRz42bu6LSEJOY5dw-7PIA2p0HE3VyAcs-RLcMVVNHa0j9tl42boRWN5qNcAerSDtygJFerU6FB42iSxeryQcucdwYd841korXE-wzVNv2iNcSMr2FFglAC_fKv24kJBSTWfXlVYJ-OyyS2jxArMsoJ3NDUAdlYje55oV4ETSWvUPErjYK5iYXXxO3anZWONKFol4o7O1p6rNC1g'
+    };
+    
+    login(userData);
+    navigate('/profile');
   };
 
   const handleGoogleSignIn = () => {

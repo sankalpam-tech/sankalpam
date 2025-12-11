@@ -10,6 +10,8 @@ import Tourism from './pages/Tourism';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
+import AboutUs from './pages/AboutUs';
+import FloatingButtons from './components/FloatingButtons';
 import './App.css';
 
 // Import background images for preloading
@@ -52,8 +54,10 @@ function App() {
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/about" element={<AboutUs />} />
             </Routes>
           </main>
+          <FloatingButtons />
         </div>
       </Router>
     </AuthProvider>

@@ -26,6 +26,19 @@ const SignIn = () => {
     // Handle sign in logic here
     console.log('Sign in:', formData);
     
+    // Check for admin credentials
+    if (formData.emailOrPhone === 'admin@sankalpam.com' && formData.password === 'admin123') {
+      const adminData = {
+        name: 'Admin',
+        email: 'admin@sankalpam.com',
+        phone: '+91 12345 67890',
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCXSWNSD-TfjJ3e-G0No5d816fUMAmtVaol6EVqBuAObNz7QpgCNniGjfDPBofaUl3o7dz6Jk1oOohR6P36QutU4l_xbP2a-tiKikIMARCJeEXBs3GEKM9ASE6v5QKmZSPzZuOvfyuecyar_zLUg0tYP4qAxy5yP_DB9vk_X6T2DMwiA_WUNVv3EOrIcLs_W8ez7RDhUl23eUkLPNmVIULHoyZ_kFmVRQm9h9tOTSQX1-IY-cvsG5MYcxxvZGVCKLY0ezdegnAIAnc'
+      };
+      login(adminData);
+      navigate('/admin');
+      return;
+    }
+    
     // Simulate successful login (replace with actual API call)
     const userData = {
       name: formData.emailOrPhone.includes('@') 

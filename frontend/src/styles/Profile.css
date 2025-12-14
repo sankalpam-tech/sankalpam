@@ -6,7 +6,10 @@
 
 .profile-main {
   flex: 1;
-  background: linear-gradient(135deg, #fef5e7 0%, #ffe8cc 100%);
+  background: 
+    linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+    url("https://kirtankar.com/wp-content/uploads/2025/08/Dravidian-Temple-Architecture-A-Detailed-Guide-1200x650.jpg")
+      center/cover fixed;
   padding: 60px 20px 40px;
 }
 
@@ -18,6 +21,11 @@
 /* Page Heading */
 .profile-heading {
   margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .heading-content {
@@ -35,6 +43,27 @@
   font-size: 1rem;
   color: #666;
   margin: 0;
+}
+
+/* Admin Badge */
+.admin-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #c41e3a 0%, #8b1526 100%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+}
+
+.badge-icon {
+  font-size: 1.2rem;
+}
+
+.badge-text {
+  font-size: 0.95rem;
 }
 
 /* Profile Header */
@@ -76,7 +105,8 @@
 }
 
 .profile-email,
-.profile-phone {
+.profile-phone,
+.profile-role {
   font-size: 1rem;
   color: #666;
   margin: 4px 0;
@@ -92,6 +122,17 @@
 
 .profile-phone::before {
   content: '☎';
+  font-size: 1.1rem;
+}
+
+.profile-role {
+  color: #c41e3a;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.profile-role::before {
+  content: '👤';
   font-size: 1.1rem;
 }
 
@@ -139,6 +180,15 @@
 
 .action-button:hover::after {
   transform: translateX(4px);
+}
+
+/* Admin Buttons */
+.admin-button {
+  background: linear-gradient(135deg, #c41e3a 0%, #8b1526 100%);
+}
+
+.admin-button:hover {
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
 }
 
 .action-button:active {

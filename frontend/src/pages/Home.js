@@ -10,15 +10,30 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import "../styles/Home.css";
+import promoImage from "../images/promo.jpg";
 
 function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [currentHeroImageIndex, setCurrentHeroImageIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [showPromoPopup, setShowPromoPopup] = useState(false);
   const pastEventsRef = useRef(null);
   const audioRef = useRef(null);
   const heroCarouselIntervalRef = useRef(null);
+
+  // Show promo popup on initial load
+  useEffect(() => {
+    const hasSeenPopup = sessionStorage.getItem('hasSeenPromoPopup');
+    if (!hasSeenPopup) {
+      setShowPromoPopup(true);
+      sessionStorage.setItem('hasSeenPromoPopup', 'true');
+    }
+  }, []);
+
+  const closePromoPopup = () => {
+    setShowPromoPopup(false);
+  };
 
   // Detect screen size for carousel
   useEffect(() => {
@@ -171,6 +186,22 @@ function Home() {
   return (
     <div className="home-wrapper">
       <Navbar/>
+
+      {/* ========================= PROMO POPUP ========================= */}
+      {showPromoPopup && (
+        <div className="promo-popup-overlay" onClick={closePromoPopup}>
+          <div className="promo-popup-content" onClick={(e) => e.stopPropagation()}>
+            <button className="promo-close-btn" onClick={closePromoPopup}>
+              ✕
+            </button>
+            <img 
+              src={promoImage} 
+              alt="Sankalpam Promo" 
+              className="promo-image"
+            />
+          </div>
+        </div>
+      )}
 
       {/* ========================= SIMPLE MUSIC PLAYER ========================= */}
       <div className="music-player">

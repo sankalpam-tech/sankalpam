@@ -986,13 +986,60 @@ body {
 
 .ecom-empty-cart {
   text-align: center;
-  padding: 60px 20px;
-  color: var(--ecom-text-muted);
+  padding: 40px 20px 60px;
+  color: #1f2933;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-height: 60vh;
+  justify-content: center;
+}
+
+.ecom-empty-cart-figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ecom-empty-cart-icon {
+  font-size: 120px;
+  line-height: 1;
 }
 
 .ecom-empty-cart p {
-  font-size: 18px;
-  margin-bottom: 20px;
+  font-size: 22px;
+  margin: 0;
+  font-weight: 700;
+  color: #111827;
+}
+
+.ecom-empty-btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 10px;
+  background: #2f6bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(47, 107, 255, 0.25);
+  transition: transform var(--ecom-transition-fast), box-shadow var(--ecom-transition-fast);
+}
+
+.ecom-empty-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px rgba(47, 107, 255, 0.3);
+}
+
+@media (max-width: 600px) {
+  .ecom-empty-cart-icon {
+    font-size: 96px;
+  }
+
+  .ecom-empty-cart p {
+    font-size: 20px;
+  }
 }
 
 .ecom-cart-items {

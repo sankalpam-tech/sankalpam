@@ -1166,10 +1166,10 @@ body {
    =========================== */
 
 .ecom-form-container {
-  max-width: 50%;
+  max-width: 960px;
   width: 100%;
-  margin: 40px auto;
-  padding: 20px;
+  margin: 32px auto;
+  padding: 0 16px 24px;
   flex: 1;
 }
 
@@ -1181,14 +1181,14 @@ body {
 
 .ecom-buying-form {
   background: #fff;
-  padding: 32px;
+  padding: 28px;
   border-radius: var(--ecom-radius-lg);
   box-shadow: var(--ecom-shadow-soft);
 }
 
 .ecom-form-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   margin-bottom: 16px;
 }
@@ -1522,6 +1522,48 @@ body {
 
   .ecom-order-details-card {
     padding: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .ecom-form-container {
+    max-width: 92%;
+    padding: 0 14px 20px;
+  }
+
+  .ecom-buying-form {
+    padding: 22px;
+  }
+
+  .ecom-form-row {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ecom-form-container {
+    max-width: 100%;
+    padding: 0 12px 18px;
+  }
+
+  .ecom-buying-form {
+    padding: 18px;
+  }
+
+  .ecom-form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .ecom-form-group input,
+  .ecom-form-group textarea {
+    font-size: 15px;
+  }
+
+  .ecom-pay-btn {
+    font-size: 15px;
+    padding: 12px;
   }
 }
 

@@ -1299,10 +1299,12 @@ const Ecommerce = () => {
                         <div
                           style={{
                             display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'flex-start',
-                            gap: '6px',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            gap: '8px',
                             marginTop: '8px',
+                            width: '100%',
                           }}
                         >
                           <button
@@ -1316,7 +1318,8 @@ const Ecommerce = () => {
                               fontSize: '13px',
                               fontWeight: '600',
                               cursor: 'pointer',
-                              width: 'fit-content',
+                              flex: 1,
+                              textAlign: 'center',
                             }}
                           >
                             Add to Cart
@@ -1332,7 +1335,8 @@ const Ecommerce = () => {
                               fontSize: '13px',
                               fontWeight: '600',
                               cursor: 'pointer',
-                              width: 'fit-content',
+                              flex: 1,
+                              textAlign: 'center',
                             }}
                           >
                             Buy Now

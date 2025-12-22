@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-<<<<<<< Updated upstream
-import { Link } from 'react-router-dom';
-=======
 import { Link, useNavigate } from 'react-router-dom';
 // import { useAuth } from '../context/AuthContext';
->>>>>>> Stashed changes
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import '../styles/Auth.css';
@@ -12,13 +8,10 @@ import { useAuth } from '../context/AuthContext';
 import axios from "axios";
 
 const SignIn = () => {
-<<<<<<< Updated upstream
-=======
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const { login } = useAuth();
 
->>>>>>> Stashed changes
   const [formData, setFormData] = useState({
     emailOrPhone: '',
     password: ''
@@ -37,9 +30,6 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Sign in:', formData);
-<<<<<<< Updated upstream
-    alert('Sign in functionality will be implemented with backend integration');
-=======
 
     // 🔑 ADMIN LOGIN CHECK (FROM .env)
     if (
@@ -77,7 +67,6 @@ const SignIn = () => {
     } catch (err) {
       window.alert(err.response?.data?.msg || "Signin failed");
     }
->>>>>>> Stashed changes
   };
 
   //--------------------------------------------------------

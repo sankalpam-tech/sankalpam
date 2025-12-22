@@ -20,28 +20,26 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import { StatusCodes } from 'http-status-codes';
 
-
-
 // DB & Error handler
 import { connectDB } from './config/db.js';
-import errorHandler from './middleware/errorHandler.js';
+// import errorHandler from './middleware/errorHandler.js';
 
 // Routes
 import authRoutes from './routes/authRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import pujaRoutes from './routes/pujaRoutes.js';
-import pujaCategoryRoutes from './routes/pujaCategoryRoutes.js';
-import bookingRoutes from './routes/bookingRoutes.js';
-import paymentRoutes from './routes/paymentRoutes.js';
-import tourRoutes from './routes/tourRoutes.js';
-import tourBookingRoutes from './routes/tourBookingRoutes.js';
-import tourReviewRoutes from './routes/tourReviewRoutes.js';
-import notificationRoutes from './routes/notificationRoutes.js';
-import notificationPreferenceRoutes from './routes/notificationPreferenceRoutes.js';
-import ecommerceRoutes from './routes/ecommerceRoutes.js';
-import astrologerRoutes from './routes/astrologerRoutes.js';
-import priestAssignmentRoutes from './routes/priestAssignmentRoutes.js';
-import priestAvailabilityRoutes from './routes/priestAvailabilityRoutes.js';
+// import userRoutes from './routes/userRoutes.js';
+// import pujaRoutes from './routes/pujaRoutes.js';
+// import pujaCategoryRoutes from './routes/pujaCategoryRoutes.js';
+// import bookingRoutes from './routes/bookingRoutes.js';
+// import paymentRoutes from './routes/paymentRoutes.js';
+// import tourRoutes from './routes/tourRoutes.js';
+// import tourBookingRoutes from './routes/tourBookingRoutes.js';
+// import tourReviewRoutes from './routes/tourReviewRoutes.js';
+// import notificationRoutes from './routes/notificationRoutes.js';
+// import notificationPreferenceRoutes from './routes/notificationPreferenceRoutes.js';
+// import ecommerceRoutes from './routes/ecommerceRoutes.js';
+// import astrologerRoutes from './routes/astrologerRoutes.js';
+// import priestAssignmentRoutes from './routes/priestAssignmentRoutes.js';
+// import priestAvailabilityRoutes from './routes/priestAvailabilityRoutes.js';
 
 // ================== APP INIT ==================
 const app = express();
@@ -80,7 +78,7 @@ app.use(passport.initialize());
 
 // ================== SANITIZATION ==================
 //app.use(mongoSanitize());
-// app.use(xss());
+//app.use(xss());
 
 app.use(
   hpp({
@@ -125,20 +123,20 @@ app.get('/api/v1', (req, res) => {
 // ✅ YOUR CODE (kept EXACTLY as it is)
 app.use('/auth', authRoutes);
 
-app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/pujas', pujaRoutes);
-app.use('/api/v1/puja-categories', pujaCategoryRoutes);
-app.use('/api/v1/bookings', bookingRoutes);
-app.use('/api/v1/payments', express.json(), paymentRoutes);
-app.use('/api/v1/ecommerce', ecommerceRoutes);
-app.use('/api/v1/astrologers', astrologerRoutes);
-app.use('/api/v1/priest-availability', priestAvailabilityRoutes);
-app.use('/api/v1/priest-assignments', priestAssignmentRoutes);
-app.use('/api/v1/tours', tourRoutes);
-app.use('/api/v1/tour-bookings', tourBookingRoutes);
-app.use('/api/v1/tour-reviews', tourReviewRoutes);
-app.use('/api/v1/notifications', notificationRoutes);
-app.use('/api/v1/notification-preferences', notificationPreferenceRoutes);
+// app.use('/api/v1/users', userRoutes);
+// app.use('/api/v1/pujas', pujaRoutes);
+// app.use('/api/v1/puja-categories', pujaCategoryRoutes);
+// app.use('/api/v1/bookings', bookingRoutes);
+// app.use('/api/v1/payments', express.json(), paymentRoutes);
+// app.use('/api/v1/ecommerce', ecommerceRoutes);
+// app.use('/api/v1/astrologers', astrologerRoutes);
+// app.use('/api/v1/priest-availability', priestAvailabilityRoutes);
+// app.use('/api/v1/priest-assignments', priestAssignmentRoutes);
+// app.use('/api/v1/tours', tourRoutes);
+// app.use('/api/v1/tour-bookings', tourBookingRoutes);
+// app.use('/api/v1/tour-reviews', tourReviewRoutes);
+// app.use('/api/v1/notifications', notificationRoutes);
+// app.use('/api/v1/notification-preferences', notificationPreferenceRoutes);
 
 // ================== 404 ==================
 app.use((req, res) => {
@@ -149,7 +147,7 @@ app.use((req, res) => {
 });
 
 // ================== ERROR HANDLER ==================
-app.use(errorHandler);
+// app.use(errorHandler);
 
 // ================== SERVER ==================
 const PORT = process.env.PORT || 5000;

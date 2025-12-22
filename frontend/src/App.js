@@ -9,7 +9,7 @@ import Tourism from './pages/Tourism';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
-import AboutUs from './pages/AboutUs';
+// import AboutUs from './pages/AboutUs';
 import Admin from './pages/Admin';
 import FloatingButtons from './components/FloatingButtons';
 import ForgotMail from "./pages/ForgotMail";

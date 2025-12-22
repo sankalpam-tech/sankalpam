@@ -8,6 +8,15 @@ import Ecommerce from './pages/Ecommerce';
 import Tourism from './pages/Tourism';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
+import AboutUs from './pages/AboutUs';
+import Admin from './pages/Admin';
+import FloatingButtons from './components/FloatingButtons';
+import ForgotMail from "./pages/ForgotMail";
+import Otp from "./pages/Otp";
+import ResetPass from "./pages/ResetPass";
+import OAuthSuccess from "./pages/OAuthSuccess";
+
 import './App.css';
 
 // Import background images for preloading
@@ -36,22 +45,32 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="App">
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/pujas" element={<Pujas />} />
-            <Route path="/astrology" element={<Astrology />} />
-            <Route path="/ecommerce" element={<Ecommerce />} />
-            <Route path="/tourism" element={<Tourism />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <div className="App">
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/pujas" element={<Pujas />} />
+              <Route path="/astrology" element={<Astrology />} />
+              <Route path="/ecommerce" element={<Ecommerce />} />
+              <Route path="/tourism" element={<Tourism />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/forgot" element={<ForgotMail />} />
+              <Route path="/oauth-success" element={<OAuthSuccess />} />
+              <Route path="/otp" element={<Otp />} />
+              <Route path="/reset" element={<ResetPass />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/admin" element={<Admin />} />
+            </Routes>
+          </main>
+          <FloatingButtons />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

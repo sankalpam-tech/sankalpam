@@ -19,7 +19,7 @@ const OAuthSuccess = () => {
       .catch(() => {
         navigate("/signin");
       });
-  }, []);
+  }, [login, navigate]);
 
   return <p>Signing you in with Google...</p>;
 };

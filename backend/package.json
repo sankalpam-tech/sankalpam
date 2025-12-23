@@ -1,14 +1,24 @@
 {
-  "name": "backend",
+  "name": "sankalpam-backend",
   "version": "1.0.0",
-  "description": "",
-   "type": "module",
-  "main": "index.js",
+  "description": "Backend for Sankalpam - A spiritual and religious services platform",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest --watchAll --verbose",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "sankalpam",
+    "puja",
+    "astrology",
+    "ecommerce",
+    "spiritual"
+  ],
+  "author": "Sankalpam Team",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -18,6 +28,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-async-handler": "^1.2.0",
     "express-mongo-sanitize": "^2.2.0",

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home';
-import { AuthProvider } from "./context/AuthContext";
+
 import Pujas from './pages/Pujas';
 import Astrology from './pages/Astrology';
 import Ecommerce from './pages/Ecommerce';
@@ -74,5 +75,5 @@ function App() {
     </AuthProvider>
   );
 }
-
+// test deploy testing
 export default App;

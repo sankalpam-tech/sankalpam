@@ -129,7 +129,7 @@ const Ecommerce = () => {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [currentView, setCurrentView] = useState("products"); // products, cart, buyingForm, payment, confirmation
+  const [currentView, setCurrentView] = useState("products"); // products, cart, wishlist, buyingForm, payment, confirmation
   const [expandedProductId, setExpandedProductId] = useState(null);
   const [isFilterBarVisible, setIsFilterBarVisible] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
@@ -316,12 +316,10 @@ const Ecommerce = () => {
 
   // Wishlist functions
   const toggleWishlist = (product) => {
-    const isInWishlist = wishlist.some((item) => item.id === product.id);
-    if (isInWishlist) {
-      setWishlist(wishlist.filter((item) => item.id !== product.id));
-    } else {
-      setWishlist([...wishlist, product]);
-    }
+    setWishlist((prev) => {
+      const exists = prev.some((item) => item.id === product.id);
+      return exists ? prev.filter((item) => item.id !== product.id) : [...prev, product];
+    });
   };
 
   const isInWishlist = (productId) => {
@@ -413,10 +411,15 @@ const Ecommerce = () => {
     setIsCartOpen(false);
   };
 
+  const goToWishlist = () => {
+    setCurrentView("wishlist");
+    setIsCartOpen(false);
+  };
+
   // Render different views
   if (currentView === "buyingForm") {
     return (
-      <div className="ecom-page">
+      <div className="ecom-page" style={{ background: '#FFF8E1' }}>
         <Navbar activePage="ecommerce" />
         <div className="ecom-form-container">
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
@@ -637,7 +640,7 @@ const Ecommerce = () => {
     );
   }
 
-  if (currentView === "cart") {
+  if (currentView === "wishlist") {
     return (
       <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#FFF8E1', minHeight: '100vh' }}>
         <Navbar activePage="ecommerce" />
@@ -659,13 +662,90 @@ const Ecommerce = () => {
             >
               ← 
             </button>
+            <h1 style={{ margin: 0 }}>Wishlist</h1>
+          </div>
+          {wishlist.length === 0 ? (
+            <div className="ecom-empty-cart">
+              <div className="ecom-empty-cart-figure" aria-hidden="true">
+                <span className="ecom-empty-cart-icon" role="img" aria-label="Empty wishlist">🤍</span>
+              </div>
+              <p>Your wishlist is empty!</p>
+              <button className="ecom-empty-btn" onClick={goToProducts}>
+                Browse products
+              </button>
+            </div>
+          ) : (
+            <div className="ecom-cart-items">
+              {wishlist.map((item) => (
+                <div key={item.id} className="ecom-cart-item">
+                  <img src={item.image} alt={item.name} />
+                  <div className="ecom-cart-item-details">
+                    <h3>{item.name}</h3>
+                    <p className="ecom-cart-item-category">{item.category}</p>
+                    <div className="ecom-cart-item-controls" style={{ justifyContent: 'space-between' }}>
+                      <span className="ecom-cart-item-price">
+                        {formatCurrency(item.price)}
+                      </span>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <button
+                          className="ecom-primary-btn"
+                          style={{ padding: '8px 12px', borderRadius: '12px' }}
+                          onClick={() => addToCart(item)}
+                        >
+                          Add to Cart
+                        </button>
+                        <button
+                          className="ecom-remove-btn"
+                          onClick={() => toggleWishlist(item)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  if (currentView === "cart") {
+    const isCartEmpty = cart.length === 0;
+    const cartBg = '#FFF8E1';
+    return (
+      <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: cartBg, minHeight: '100vh' }}>
+        <Navbar activePage="ecommerce" />
+        <div className="ecom-cart-container">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+            <button 
+              onClick={goToProducts}
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '24px',
+                cursor: 'pointer',
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                color: '#c41e3a'
+              }}
+              aria-label="Back to products"
+            >
+              ← 
+            </button>
             <h1 style={{ margin: 0 }}>Shopping Cart</h1>
           </div>
-          {cart.length === 0 ? (
+          {isCartEmpty ? (
             <div className="ecom-empty-cart">
-              <p>Your cart is empty</p>
-              <button className="ecom-primary-btn" onClick={goToProducts}>
-                Continue Shopping
+              <div className="ecom-empty-cart-figure" aria-hidden="true">
+                <span className="ecom-empty-cart-icon" role="img" aria-label="Empty cart">🛒</span>
+              </div>
+              <p>Your cart is empty!</p>
+              <button className="ecom-empty-btn" onClick={goToProducts}>
+                Shop now
               </button>
             </div>
           ) : (
@@ -851,7 +931,7 @@ const Ecommerce = () => {
                 position: 'relative',
               }}
               aria-label="Wishlist"
-              onClick={() => {}}
+              onClick={goToWishlist}
             >
               ❤️
               {wishlist.length > 0 && (
@@ -925,7 +1005,7 @@ const Ecommerce = () => {
           style={{
             backgroundColor: '#fff',
             borderRadius: '16px',
-            padding: '16px',
+            padding: '8px',
             marginBottom: '24px',
             boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
             minHeight: '260px',
@@ -964,21 +1044,26 @@ const Ecommerce = () => {
             <button
               onClick={() => setSlideIndex((idx) => (idx - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
               aria-label="Previous slide"
+              onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,1)'}
+              onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.85)'}
               style={{
                 position: 'absolute',
                 top: '50%',
-                left: '12px',
+                left: '-16px',
                 transform: 'translateY(-50%)',
                 background: 'rgba(255,255,255,0.85)',
                 border: 'none',
                 borderRadius: '50%',
-                width: '36px',
-                height: '36px',
+                width: '40px',
+                height: '40px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
                 boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                fontSize: '18px',
+                paddingLeft: '8px',
+                transition: 'background 0.3s',
               }}
             >
               {"<"}
@@ -986,21 +1071,26 @@ const Ecommerce = () => {
             <button
               onClick={() => setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length)}
               aria-label="Next slide"
+              onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,1)'}
+              onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.85)'}
               style={{
                 position: 'absolute',
                 top: '50%',
-                right: '12px',
+                right: '-16px',
                 transform: 'translateY(-50%)',
                 background: 'rgba(255,255,255,0.85)',
                 border: 'none',
                 borderRadius: '50%',
-                width: '36px',
-                height: '36px',
+                width: '40px',
+                height: '40px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
                 boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                fontSize: '18px',
+                paddingRight: '8px',
+                transition: 'background 0.3s',
               }}
             >
               {">"}
@@ -1209,10 +1299,12 @@ const Ecommerce = () => {
                         <div
                           style={{
                             display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'flex-start',
-                            gap: '6px',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            gap: '8px',
                             marginTop: '8px',
+                            width: '100%',
                           }}
                         >
                           <button
@@ -1226,7 +1318,8 @@ const Ecommerce = () => {
                               fontSize: '13px',
                               fontWeight: '600',
                               cursor: 'pointer',
-                              width: 'fit-content',
+                              flex: 1,
+                              textAlign: 'center',
                             }}
                           >
                             Add to Cart
@@ -1242,7 +1335,8 @@ const Ecommerce = () => {
                               fontSize: '13px',
                               fontWeight: '600',
                               cursor: 'pointer',
-                              width: 'fit-content',
+                              flex: 1,
+                              textAlign: 'center',
                             }}
                           >
                             Buy Now

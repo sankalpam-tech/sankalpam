@@ -17,6 +17,13 @@
   box-sizing: border-box;
   font-family: var(--font-family-base);
   background-color: var(--bg-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Base container (desktop first) */
@@ -73,6 +80,14 @@
   align-items: center;
   gap: 10px;
   flex: 0 0 auto;
+}
+
+/* Profile Icon */
+.profile-icon-link:hover {
+  background-color: #c41e3a !important;
+  color: #fff !important;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(196, 30, 58, 0.3);
 }
 
 .btn-signin,

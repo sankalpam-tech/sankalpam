@@ -5,14 +5,39 @@ import BookingPage from "./Bookingpage";
 import astrologyBg from "../images/astrology.jpg";
 import "../styles/Astrology.css";
 
+const HERO_IMAGES = [
+  "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1200",
+  "https://images.unsplash.com/photo-1532798442725-41036acc7489?w=1200",
+  "https://images.unsplash.com/photo-1509023464722-18d996393ca8?w=1200",
+  "https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=1200",
+];
+
 const Astrology = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [currentPage, setCurrentPage] = useState("home");
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Preload background image
   useEffect(() => {
     const img = new Image();
     img.src = astrologyBg;
+  }, []);
+
+  // Track viewport size for responsive behaviors
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Auto-rotate hero images
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length);
+    }, 3000);
+    return () => clearInterval(id);
   }, []);
 
   // Prevent body scroll when booking modal is open
@@ -54,71 +79,166 @@ const Astrology = () => {
       <main style={{ maxWidth: '1400px', margin: '0 auto', padding: '40px 20px' }}>
         {/* HERO SECTION */}
         <div style={{
-          backgroundColor: '#000',
+          backgroundColor: '#fff',
           borderRadius: '16px',
-          overflow: 'hidden',
-          marginBottom: '60px',
-          position: 'relative',
-          height: '400px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundImage: 'url(https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1200)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          padding: '8px',
+          marginBottom: '24px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          minHeight: '260px',
         }}>
           <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)'
-          }}></div>
-          <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 20px' }}>
-            <h1 style={{
-              color: '#fff',
-              fontSize: '48px',
-              fontWeight: 'bold',
-              marginBottom: '16px',
-              maxWidth: '800px',
-              lineHeight: '1.2'
+            position: 'relative',
+            overflow: 'hidden',
+            borderRadius: '12px',
+            height: isMobile ? '220px' : '320px',
+          }}>
+            <div style={{
+              display: 'flex',
+              height: '100%',
+              width: `${HERO_IMAGES.length * 100}%`,
+              transform: `translateX(-${(100 / HERO_IMAGES.length) * slideIndex}%)`,
+              transition: 'transform 0.6s ease',
             }}>
-              Unlock Your Destiny: Divine Guidance Through Vedic Astrology
-            </h1>
-            <p style={{
-              color: '#fff',
-              fontSize: '16px',
-              marginBottom: '32px',
-              maxWidth: '600px',
-              margin: '0 auto 32px'
+              {HERO_IMAGES.map((src, idx) => (
+                <div
+                  key={src}
+                  style={{
+                    flex: `0 0 ${100 / HERO_IMAGES.length}%`,
+                    backgroundImage: `url(${src})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    position: 'relative',
+                  }}
+                  aria-hidden={slideIndex !== idx}
+                >
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                  }}></div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Content Overlay */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1,
+              textAlign: 'center',
+              padding: '0 20px'
             }}>
-              Navigate life's journey with clarity and confidence. Our expert astrologers are here to illuminate your path.
-            </p>
-            <button onClick={() => handleBookConsultation()} style={{
-              padding: '14px 32px',
-              backgroundColor: '#c41e3a',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'background-color 0.3s, transform 0.2s, box-shadow 0.2s ease',
-              boxShadow: '0 10px 22px rgba(220, 38, 38, 0.35)'
-            }}
-            onMouseOver={(e) => {
-              e.target.style.backgroundColor = '#b91c1c';
-              e.target.style.transform = 'translateY(-2px)';
-              e.target.style.boxShadow = '0 14px 30px rgba(220, 38, 38, 0.45)';
-            }}
-            onMouseOut={(e) => {
-              e.target.style.backgroundColor = '#c41e3a';
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 10px 22px rgba(220, 38, 38, 0.35)';
-            }}
-            >Book a Consultation</button>
+              <h1 className="astrology-hero-title" style={{
+                color: '#fff',
+                fontSize: '48px',
+                fontWeight: 'bold',
+                marginBottom: '16px',
+                maxWidth: '800px',
+                lineHeight: '1.2'
+              }}>
+                Unlock Your Destiny: Divine Guidance Through Vedic Astrology
+              </h1>
+              <p className="astrology-hero-description" style={{
+                color: '#fff',
+                fontSize: '16px',
+                marginBottom: '32px',
+                maxWidth: '600px',
+                margin: '0 auto 32px'
+              }}>
+                Navigate life's journey with clarity and confidence. Our expert astrologers are here to illuminate your path.
+              </p>
+              <button className="astrology-hero-button" onClick={() => handleBookConsultation()} style={{
+                padding: '14px 32px',
+                backgroundColor: '#c41e3a',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'background-color 0.3s, transform 0.2s, box-shadow 0.2s ease',
+                boxShadow: '0 10px 22px rgba(220, 38, 38, 0.35)'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = '#b91c1c';
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 14px 30px rgba(220, 38, 38, 0.45)';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = '#c41e3a';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 10px 22px rgba(220, 38, 38, 0.35)';
+              }}
+              >Book a Consultation</button>
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={() => setSlideIndex((idx) => (idx - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
+              aria-label="Previous slide"
+              onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,1)'}
+              onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.85)'}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '-16px',
+                transform: 'translateY(-50%)',
+                background: 'rgba(255,255,255,0.85)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                zIndex: 2,
+                fontSize: '18px',
+                paddingLeft: '8px',
+                transition: 'background 0.3s',
+              }}
+            >
+              {"<"}
+            </button>
+            <button
+              onClick={() => setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length)}
+              aria-label="Next slide"
+              onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,1)'}
+              onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.85)'}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '-16px',
+                transform: 'translateY(-50%)',
+                background: 'rgba(255,255,255,0.85)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                zIndex: 2,
+                fontSize: '18px',
+                paddingRight: '8px',
+                transition: 'background 0.3s',
+              }}
+            >
+              {">"}
+            </button>
           </div>
         </div>
 

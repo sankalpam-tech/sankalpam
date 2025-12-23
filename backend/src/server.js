@@ -1,10 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config(); // ✅ YOUR CODE (env loading)
-
-//YOUR CODE 
-import './config/passport.js';   // 🔥 force execution
-import passport from 'passport';
-// ================== IMPORTS ==================
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -17,149 +10,200 @@ import mongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
 import hpp from 'hpp';
 import compression from 'compression';
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'; // 🔥 YOUR CODE (cookie support)
+
+import './config/passport.js'; // 🔥 YOUR CODE (force passport strategy execution)
+import passport from 'passport'; // 🔥 YOUR CODE
+
+// import 'express-async-errors';
 import { StatusCodes } from 'http-status-codes';
 
-// DB & Error handler
+// Import config
 import { connectDB } from './config/db.js';
-// import errorHandler from './middleware/errorHandler.js';
+import errorHandler from './middleware/errorHandler.js';
 
-// Routes
+// Import routes
 import authRoutes from './routes/authRoutes.js';
-// import userRoutes from './routes/userRoutes.js';
-// import pujaRoutes from './routes/pujaRoutes.js';
-// import pujaCategoryRoutes from './routes/pujaCategoryRoutes.js';
-// import bookingRoutes from './routes/bookingRoutes.js';
-// import paymentRoutes from './routes/paymentRoutes.js';
-// import tourRoutes from './routes/tourRoutes.js';
-// import tourBookingRoutes from './routes/tourBookingRoutes.js';
-// import tourReviewRoutes from './routes/tourReviewRoutes.js';
-// import notificationRoutes from './routes/notificationRoutes.js';
-// import notificationPreferenceRoutes from './routes/notificationPreferenceRoutes.js';
-// import ecommerceRoutes from './routes/ecommerceRoutes.js';
-// import astrologerRoutes from './routes/astrologerRoutes.js';
-// import priestAssignmentRoutes from './routes/priestAssignmentRoutes.js';
-// import priestAvailabilityRoutes from './routes/priestAvailabilityRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import pujaRoutes from './routes/pujaRoutes.js';
+import pujaCategoryRoutes from './routes/pujaCategoryRoutes.js';
+import bookingRoutes from './routes/bookingRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
+import tourRoutes from './routes/tourRoutes.js';
+import tourBookingRoutes from './routes/tourBookingRoutes.js';
+import tourReviewRoutes from './routes/tourReviewRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
+import notificationPreferenceRoutes from './routes/notificationPreferenceRoutes.js';
+import ecommerceRoutes from './routes/ecommerceRoutes.js';
+import astrologerRoutes from './routes/astrologerRoutes.js';
+import priestAssignmentRoutes from './routes/priestAssignmentRoutes.js';
+import priestAvailabilityRoutes from './routes/priestAvailabilityRoutes.js';
 
-// ================== APP INIT ==================
+// Initialize express
 const app = express();
 
-// dirname for ES modules
+// Get current directory name (alternative to __dirname in ES modules)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ================== DATABASE ==================
-connectDB(); // (existing developer code)
+// Load environment variables
+import dotenv from 'dotenv';
+dotenv.config(); // 🔥 YOUR CODE (explicit env loading)
 
-// ================== SECURITY ==================
+// Connect to Database
+connectDB();
+
+// Set security HTTP headers
 app.use(helmet());
 
+// Development logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+// Limit requests from same API
 const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again later'
+  max: 100, // 100 requests per windowMs
+  windowMs: 60 * 60 * 1000, // 1 hour
+  message: 'Too many requests from this IP, please try again in an hour!'
 });
 app.use('/api', limiter);
 
-// ================== BODY PARSER ==================
+// Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-// ✅ YOUR CODE (cookie support for auth)
+// 🔥 YOUR CODE (cookie parsing for auth)
 app.use(cookieParser());
 
-// ================== PASSPORT ==================
-// ✅ YOUR CODE (passport initialization)
+// 🔥 YOUR CODE (passport initialization)
 app.use(passport.initialize());
 
-// ================== SANITIZATION ==================
-//app.use(mongoSanitize());
-//app.use(xss());
+// Data sanitization against NoSQL query injection
+// app.use(mongoSanitize());
 
+// Data sanitization against XSS
+// app.use(xss());
+
+// Prevent parameter pollution
 app.use(
   hpp({
-    whitelist: ['duration', 'ratingsQuantity', 'ratingsAverage', 'price']
+    whitelist: [
+      'duration',
+      'ratingsQuantity',
+      'ratingsAverage',
+      'maxGroupSize',
+      'difficulty',
+      'price'
+    ]
   })
 );
 
-// ================== CORS ==================
-// ✅ YOUR CODE (your frontend origins preserved)
-app.use(
-  cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173'],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  })
-);
+// Enable CORS with specific configuration
+const corsOptions = {
+  origin: true, // Reflect the request origin
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+};
 
-// ================== PERFORMANCE ==================
+// Apply CORS to all routes
+app.use(cors(corsOptions));
+
+// Compress all responses
 app.use(compression());
 
-// ================== STATIC ==================
+// Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ================== WEBHOOK ==================
-app.use(
-  '/api/v1/payments/webhook/razorpay',
-  express.raw({ type: 'application/json' })
-);
+// Configure webhook middleware for raw body (needed for Razorpay webhook verification)
+app.use('/api/v1/payments/webhook/razorpay', express.raw({ type: 'application/json' }));
 
-// ================== ROOT ==================
+// Mount routers
 app.get('/api/v1', (req, res) => {
   res.status(StatusCodes.OK).json({
     success: true,
     message: 'Welcome to Sankalpam API',
-    version: '1.0.0'
+    version: '1.0.0',
+    documentation: '/api/v1/docs', // Will be added with Swagger in next phases
+    endpoints: [
+      // 🔥 YOUR CODE (auth is NOT under /api/v1)
+      { path: '/auth', description: 'Authentication endpoints (login, signup, OAuth)' },
+
+      { path: '/api/v1/users', description: 'User management endpoints' },
+      { path: '/api/v1/astrologers', description: 'Astrologer management endpoints' },
+      { path: '/api/v1/pujas', description: 'Puja services endpoints' },
+      { path: '/api/v1/puja-categories', description: 'Puja categories endpoints' },
+      { path: '/api/v1/priest-availability', description: 'Priest availability management' },
+      { path: '/api/v1/priest-assignments', description: 'Priest assignment management' },
+      { path: '/api/v1/bookings', description: 'Puja booking endpoints' },
+      { path: '/api/v1/payments', description: 'Payment processing endpoints' },
+      { path: '/api/v1/ecommerce', description: 'E-commerce endpoints (products, categories, cart, orders)' },
+      { path: '/api/v1/tours', description: 'Tour packages endpoints' },
+      { path: '/api/v1/tour-bookings', description: 'Tour booking endpoints' },
+      { path: '/api/v1/tour-reviews', description: 'Tour review endpoints' },
+      { path: '/api/v1/notifications', description: 'Notification endpoints' },
+      { path: '/api/v1/notification-preferences', description: 'Notification preference endpoints' }
+    ]
   });
 });
 
-// ================== ROUTES ==================
-
-// ✅ YOUR CODE (kept EXACTLY as it is)
+// 🔥 YOUR CODE (auth routes kept separate)
 app.use('/auth', authRoutes);
 
-// app.use('/api/v1/users', userRoutes);
-// app.use('/api/v1/pujas', pujaRoutes);
-// app.use('/api/v1/puja-categories', pujaCategoryRoutes);
-// app.use('/api/v1/bookings', bookingRoutes);
-// app.use('/api/v1/payments', express.json(), paymentRoutes);
-// app.use('/api/v1/ecommerce', ecommerceRoutes);
-// app.use('/api/v1/astrologers', astrologerRoutes);
-// app.use('/api/v1/priest-availability', priestAvailabilityRoutes);
-// app.use('/api/v1/priest-assignments', priestAssignmentRoutes);
-// app.use('/api/v1/tours', tourRoutes);
-// app.use('/api/v1/tour-bookings', tourBookingRoutes);
-// app.use('/api/v1/tour-reviews', tourReviewRoutes);
-// app.use('/api/v1/notifications', notificationRoutes);
-// app.use('/api/v1/notification-preferences', notificationPreferenceRoutes);
+// Define API routes
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/pujas', pujaRoutes);
+app.use('/api/v1/puja-categories', pujaCategoryRoutes);
+app.use('/api/v1/bookings', bookingRoutes);
+app.use('/api/v1/payments', express.json(), paymentRoutes);
 
-// ================== 404 ==================
-app.use((req, res) => {
+// E-commerce routes
+console.log('Mounting ecommerce routes...');
+app.use('/api/v1/ecommerce', ecommerceRoutes);
+console.log('E-commerce routes mounted successfully');
+
+// Astrologer and Priest related routes
+app.use('/api/v1/astrologers', astrologerRoutes);
+app.use('/api/v1/priest-availability', priestAvailabilityRoutes);
+app.use('/api/v1/priest-assignments', priestAssignmentRoutes);
+
+// Tour related routes
+app.use('/api/v1/tours', tourRoutes);
+app.use('/api/v1/tour-bookings', tourBookingRoutes);
+app.use('/api/v1/tour-reviews', tourReviewRoutes);
+
+// Notification related routes
+app.use('/api/v1/notifications', notificationRoutes);
+app.use('/api/v1/notification-preferences', notificationPreferenceRoutes);
+
+// Handle 404
+app.use((req, res, next) => {
   res.status(StatusCodes.NOT_FOUND).json({
     success: false,
     message: `Not Found - ${req.originalUrl}`
   });
 });
 
-// ================== ERROR HANDLER ==================
-// app.use(errorHandler);
+// Error handling middleware
+app.use(errorHandler);
 
-// ================== SERVER ==================
+// Set port
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
+// Start server
+const server = app.listen(
+  PORT,
   console.log(
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  );
-});
+  )
+);
 
-process.on('unhandledRejection', err => {
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
   console.log(`Error: ${err.message}`.red);
+  // Close server & exit process
   server.close(() => process.exit(1));
 });
 

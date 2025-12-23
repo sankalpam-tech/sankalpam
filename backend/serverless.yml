@@ -9,12 +9,14 @@ provider:
   stage: prod
   timeout: 30
   environment:
-    NODE_ENV: production
+    NODE_ENV: ${env:NODE_ENV}
     MONGODB_URI: ${env:MONGODB_URI}
-    # JWT_SECRET: ${env:JWT_SECRET}
-    # COOKIE_SECRET: ${env:COOKIE_SECRET}
-    # RAZORPAY_KEY_ID: ${env:RAZORPAY_KEY_ID}
-    # RAZORPAY_KEY_SECRET: ${env:RAZORPAY_KEY_SECRET}
+    JWT_SECRET: ${env:JWT_SECRET}
+    JWT_EXPIRE: ${env:JWT_EXPIRE}
+    GOOGLE_CLIENT_ID: ${env:GOOGLE_CLIENT_ID}
+    GOOGLE_CLIENT_SECRET: ${env:GOOGLE_CLIENT_SECRET}
+    MAIL_USER: ${env:MAIL_USER}
+    MAIL_PASS: ${env:MAIL_PASS}
 
 functions:
   api:

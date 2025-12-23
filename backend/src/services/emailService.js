@@ -5,7 +5,7 @@ import ejs from 'ejs';
 import fs from 'fs/promises';
 
 // Load environment variables
-config();
+// config();
 
 // Create transporter
 const transporter = nodemailer.createTransport({

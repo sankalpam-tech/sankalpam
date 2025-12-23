@@ -10,7 +10,7 @@ provider:
   timeout: 30
   environment:
     NODE_ENV: ${env:NODE_ENV}
-    MONGODB_URI: ${env:MONGODB_URI}
+    MONGO_URI: ${env:MONGODB_URI}
     JWT_SECRET: ${env:JWT_SECRET}
     JWT_EXPIRE: ${env:JWT_EXPIRE}
     GOOGLE_CLIENT_ID: ${env:GOOGLE_CLIENT_ID}

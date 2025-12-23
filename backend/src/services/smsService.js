@@ -13,7 +13,7 @@ const client = twilio(
 /**
  * Send an SMS message
  * @param {Object} options - SMS options
- * @param {string} options.to - Recipient phone number (E.164 format: +1234567890)
+ * @param {string} options.to - Recipient phone number (E.164 format: +91 9121718321)
  * @param {string} options.body - Message body
  * @param {string} [options.from] - Sender phone number (default: TWILIO_PHONE_NUMBER)
  * @returns {Promise<Object>} - Result of sending the SMS

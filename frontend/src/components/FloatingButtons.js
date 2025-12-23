@@ -8,11 +8,11 @@ const FloatingButtons = () => {
   const [showTooltip, setShowTooltip] = useState({ whatsapp: false, call: false });
 
   // WhatsApp number and message
-  const whatsappNumber = '+917981617359'; // Replace with actual number
+  const whatsappNumber = '+919121718321'; // Replace with actual number
   const whatsappMessage = encodeURIComponent('Hi, I would like to know more about Sankalpam services.');
   
   // Phone number for calling
-  const phoneNumber = '+917981617359'; // Replace with actual number
+  const phoneNumber = '+919121718321'; // Replace with actual number
 
   const handleWhatsAppClick = () => {
     window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');

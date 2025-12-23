@@ -563,10 +563,10 @@ const serviceCards = [
 // ===========================
 const events = [
   {
-    date: "04",
-    month: "DEC",
-    title: "Hanuman Chalisa Recital",
-    desc: "Participate in a powerful devotional event with 108 Hanuman Chalisa recitations.",
+    date: "15",
+    month: "FEB",
+    title: "Masa shivaratri",
+    desc: "Participate in a powerful devotional event with us in the khasi.",
     cta: "Register Now"
   },
   {

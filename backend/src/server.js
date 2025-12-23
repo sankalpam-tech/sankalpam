@@ -39,8 +39,8 @@ import astrologerRoutes from './routes/astrologerRoutes.js';
 import priestAssignmentRoutes from './routes/priestAssignmentRoutes.js';
 import priestAvailabilityRoutes from './routes/priestAvailabilityRoutes.js';
 
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 // Init app
 const app = express();

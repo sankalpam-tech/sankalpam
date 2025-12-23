@@ -1,0 +1,25 @@
+service: sankalpam-backend
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1
+  stage: prod
+  timeout: 30
+  environment:
+    NODE_ENV: production
+    MONGODB_URI: ${env:MONGODB_URI}
+    # JWT_SECRET: ${env:JWT_SECRET}
+    # COOKIE_SECRET: ${env:COOKIE_SECRET}
+    # RAZORPAY_KEY_ID: ${env:RAZORPAY_KEY_ID}
+    # RAZORPAY_KEY_SECRET: ${env:RAZORPAY_KEY_SECRET}
+
+functions:
+  api:
+    handler: src/server.handler
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: ANY

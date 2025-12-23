@@ -28,8 +28,8 @@ jobs:
       - name: Build frontend
         working-directory: frontend
         env:
-          REACT_APP_API_URL: ${env:REACT_APP_API_URL}
-          REACT_APP_AUTH_URL: ${env:REACT_APP_AUTH_URL}
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          REACT_APP_AUTH_URL: ${{ secrets.REACT_APP_AUTH_URL }}
           REACT_APP_ENV: production
         run: npm run build
 

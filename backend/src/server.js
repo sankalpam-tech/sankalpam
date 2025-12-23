@@ -50,7 +50,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // 🔥 DB CONNECTION (cached internally)
-await connectDB();
+connectDB();
 
 // Security headers
 app.use(helmet());

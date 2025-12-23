@@ -13,6 +13,11 @@ import Profile from './pages/Profile';
 import AboutUs from './pages/AboutUs';
 import Admin from './pages/Admin';
 import FloatingButtons from './components/FloatingButtons';
+import ForgotMail from "./pages/ForgotMail";
+import Otp from "./pages/Otp";
+import ResetPass from "./pages/ResetPass";
+import OAuthSuccess from "./pages/OAuthSuccess";
+
 import './App.css';
 
 // Import background images for preloading
@@ -54,6 +59,10 @@ function App() {
               <Route path="/tourism" element={<Tourism />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/forgot" element={<ForgotMail />} />
+              <Route path="/oauth-success" element={<OAuthSuccess />} />
+              <Route path="/otp" element={<Otp />} />
+              <Route path="/reset" element={<ResetPass />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/admin" element={<Admin />} />

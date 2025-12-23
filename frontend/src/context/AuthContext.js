@@ -1,52 +1,58 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true); // 🔑 important
 
-  // Check localStorage for existing session on mount
+  // 🔑 CHECK LOGIN USING COOKIE (RUNS ON EVERY TAB)
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
+    const checkAuth = async () => {
       try {
-        const userData = JSON.parse(storedUser);
-        setUser(userData);
+        const res = await fetch("http://localhost:5000/auth/me", {
+          credentials: "include", // 🔑 sends cookie
+        });
+
+        if (!res.ok) throw new Error("Not logged in");
+
+        const data = await res.json();
+        setUser(data.user);
         setIsAuthenticated(true);
-      } catch (error) {
-        console.error('Error parsing stored user data:', error);
-        localStorage.removeItem('user');
+      } catch (err) {
+        setUser(null);
+        setIsAuthenticated(false);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
+
+    checkAuth();
   }, []);
 
   const login = (userData) => {
     setUser(userData);
     setIsAuthenticated(true);
-    localStorage.setItem('user', JSON.stringify(userData));
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await fetch("http://localhost:5000/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
     setUser(null);
     setIsAuthenticated(false);
-    localStorage.removeItem('user');
   };
 
-  const value = {
-    user,
-    isAuthenticated,
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, login, logout, loading }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };

@@ -10,6 +10,11 @@ import mongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
 import hpp from 'hpp';
 import compression from 'compression';
+import cookieParser from 'cookie-parser'; // 🔥 YOUR CODE (cookie support)
+
+import './config/passport.js'; // 🔥 YOUR CODE (force passport strategy execution)
+import passport from 'passport'; // 🔥 YOUR CODE
+
 // import 'express-async-errors';
 import { StatusCodes } from 'http-status-codes';
 
@@ -43,7 +48,7 @@ const __dirname = path.dirname(__filename);
 
 // Load environment variables
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config(); // 🔥 YOUR CODE (explicit env loading)
 
 // Connect to Database
 connectDB();
@@ -68,11 +73,17 @@ app.use('/api', limiter);
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
+// 🔥 YOUR CODE (cookie parsing for auth)
+app.use(cookieParser());
+
+// 🔥 YOUR CODE (passport initialization)
+app.use(passport.initialize());
+
 // Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
+// app.use(mongoSanitize());
 
 // Data sanitization against XSS
-app.use(xss());
+// app.use(xss());
 
 // Prevent parameter pollution
 app.use(
@@ -117,7 +128,9 @@ app.get('/api/v1', (req, res) => {
     version: '1.0.0',
     documentation: '/api/v1/docs', // Will be added with Swagger in next phases
     endpoints: [
-      { path: '/api/v1/auth', description: 'Authentication endpoints' },
+      // 🔥 YOUR CODE (auth is NOT under /api/v1)
+      { path: '/auth', description: 'Authentication endpoints (login, signup, OAuth)' },
+
       { path: '/api/v1/users', description: 'User management endpoints' },
       { path: '/api/v1/astrologers', description: 'Astrologer management endpoints' },
       { path: '/api/v1/pujas', description: 'Puja services endpoints' },
@@ -136,8 +149,10 @@ app.get('/api/v1', (req, res) => {
   });
 });
 
+// 🔥 YOUR CODE (auth routes kept separate)
+app.use('/auth', authRoutes);
+
 // Define API routes
-app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/pujas', pujaRoutes);
 app.use('/api/v1/puja-categories', pujaCategoryRoutes);

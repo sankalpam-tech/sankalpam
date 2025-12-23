@@ -287,71 +287,15 @@ body {
   max-width: 600px;
 }
 
-.btn-explore {
-  background-color: #c41e3a;
-  color: white;
-  border: none;
-  padding: 0.875rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s ease;
-  box-shadow: 0 10px 22px rgba(220, 38, 38, 0.35);
-  display: inline-flex;
-  align-items: center;
-}
-
-.btn-explore:hover {
-  background-color: #b91c1c;
-  transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(220, 38, 38, 0.45);
-}
-
+/* ------------------------------------------------------------------------------------------------- */
+/* Hero Carousel Navigation Buttons */
 .hero-carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255,255,255,0.85);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  z-index: 2;
-  transition: background 0.3s;
-  font-size: 18px;
-  color: #333;
-}
-
-.hero-carousel-btn-prev {
-  left: -16px;
-  padding-left: 8px;
-}
-
-.hero-carousel-btn-next {
-  right: -16px;
-  padding-right: 8px;
-}
-
-/* Old styles kept for backward compatibility */
-.hero-content-mouli {
   display: none;
 }
 
-.hero-carousel-image {
-  display: none;
-}
+/* ----------------------------------------------------------------------------------------------------- */
 
-.hero-carousel-container {
-  display: none;
-}
-
-/* Hero Carousel Indicators - hide for now */
+/* Hero Carousel Indicators */
 .hero-carousel-indicators {
   display: none;
 }
@@ -1315,25 +1259,7 @@ section:nth-of-type(2) .section-title {
   
   .hero {
     margin-bottom: 30px;
-  }
-
-  .hero-carousel {
-    height: 280px;
-  }
-
-  .hero-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .hero-description {
-    font-size: 0.875rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .btn-explore {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
+    min-height: 280px; /* REDUCED FROM 350px to 280px */
   }
   
   .hero-content-mouli {
@@ -1471,31 +1397,8 @@ section:nth-of-type(2) .section-title {
 /* REDUCED HERO HEIGHT FOR SMALLER SCREENS */
 @media (max-width: 480px) {
   .hero {
-    margin: 0;
-  }
-
-  .hero-events-container {
-    padding: 0 20px;
-    margin: 20px auto;
-  }
-
-  .hero-carousel {
-    height: 220px;
-  }
-
-  .hero-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .hero-description {
-    font-size: 0.8125rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .btn-explore {
-    padding: 0.65rem 1.25rem;
-    font-size: 0.8125rem;
+    margin: 15px 10px;
+    min-height: 250px; /* ADDED min-height reduction */
   }
   
   .hero-content-mouli {
@@ -1565,16 +1468,8 @@ section:nth-of-type(2) .section-title {
 
 /* For very small screens - FURTHER REDUCED HERO HEIGHT */
 @media (max-width: 360px) {
-  .hero-carousel {
-    height: 200px;
-  }
-  
-  .hero-title {
-    font-size: 1.125rem;
-  }
-
-  .hero-description {
-    font-size: 0.75rem;
+  .hero {
+    min-height: 220px; /* FURTHER REDUCED */
   }
   
   .hero-content-mouli {

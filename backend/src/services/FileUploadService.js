@@ -1,6 +1,6 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
-import { config } from 'dotenv';
+// import { config } from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';

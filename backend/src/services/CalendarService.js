@@ -1,6 +1,6 @@
 import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
-import { config } from 'dotenv';
+// import { config } from 'dotenv';
 import Booking from '../models/Booking.js';
 import { sendNotification } from './notificationService.js';
 

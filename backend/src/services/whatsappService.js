@@ -1,5 +1,5 @@
 import twilio from 'twilio';
-import { config } from 'dotenv';
+// import { config } from 'dotenv';
 
 // Load environment variables
 config();

@@ -1,7 +1,7 @@
-import Razorpay from 'razorpay';
-import dotenv from 'dotenv';
+// import Razorpay from 'razorpay';
+// import dotenv from 'dotenv';
 
-dotenv.config();
+// dotenv.config();
 
 let razorpayInstance = null;
 

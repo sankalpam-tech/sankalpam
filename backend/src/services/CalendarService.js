@@ -5,7 +5,7 @@ import Booking from '../models/Booking.js';
 import { sendNotification } from './notificationService.js';
 
 // Load environment variables
-config();
+// config();
 
 // Configure OAuth2 client
 const oauth2Client = new OAuth2Client(

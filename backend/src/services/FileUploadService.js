@@ -7,7 +7,7 @@ import { promisify } from 'util';
 import sharp from 'sharp';
 
 // Load environment variables
-config();
+// config();
 
 // Configure AWS
 AWS.config.update({

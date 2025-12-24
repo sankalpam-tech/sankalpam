@@ -162,7 +162,7 @@ router.get(
       sameSite: "lax",
     });
 
-    res.redirect("http://localhost:3000/oauth-success");
+    res.redirect("https://backend.sankalpam.world/oauth-success");
   }
 );
 

@@ -6,7 +6,6 @@ import Footer from '../components/layout/Footer';
 import '../styles/Auth.css';
 import { useAuth } from '../context/AuthContext';
 import axios from "axios";
-import OAuthSuccess from './OAuthSuccess';
 
 const SignIn = () => {
   axios.defaults.withCredentials = true;

@@ -1,4 +1,5 @@
-import { body, param, query } from 'express-validator';
+import pkg from 'express-validator';
+const { body, param, query } = pkg;
 import Product from '../../models/Product.js';
 import ProductCategory from '../../models/ProductCategory.js';
 import Cart from '../../models/Cart.js';

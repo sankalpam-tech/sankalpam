@@ -150,7 +150,14 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        © 2025 Sankalpam. All Rights Reserved
+        <span>© 2025 Sankalpam. All Rights Reserved</span>
+        <div className="footer-bottom-links">
+          <Link to="/privacy-policy" onClick={() => window.scrollTo(0, 0)}>Privacy Policy</Link>
+          <span className="footer-link-separator">|</span>
+          <Link to="/terms-of-service" onClick={() => window.scrollTo(0, 0)}>Terms of Service</Link>
+          <span className="footer-link-separator">|</span>
+          <Link to="/refund-policy" onClick={() => window.scrollTo(0, 0)}>Refund Policy</Link>
+        </div>
       </div>
     </footer>
   );

@@ -7,16 +7,19 @@ import '../styles/Admin.css';
 
 const Admin = () => {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, logout,loading } = useAuth();
   const [activeTab, setActiveTab] = useState('pujas');
   const [searchTerm, setSearchTerm] = useState('');
 
   // Check if user is admin
   React.useEffect(() => {
-    if (!user || user.email !== 'admin@sankalpam.com') {
-      navigate('/signin');
-    }
-  }, [user, navigate]);
+  if (loading) return; // ⛔ wait for /me
+
+  if (!user || user.role !== 'admin') {
+    navigate('/signin');
+  }
+}, [user, loading, navigate]);
+
 
   const handleLogout = () => {
     logout();
@@ -87,6 +90,12 @@ const Admin = () => {
     };
     return statusMap[status] || '';
   };
+
+  // ⛔ Wait until auth check finishes
+if (loading) {
+  return <p>Checking permissions...</p>;
+}
+
 
   return (
     <div className="admin-page-wrapper">

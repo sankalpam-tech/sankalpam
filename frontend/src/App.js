@@ -13,6 +13,9 @@ import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
 import AboutUs from './pages/AboutUs';
 import Admin from './pages/Admin';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import RefundPolicy from './pages/RefundPolicy';
 import FloatingButtons from './components/FloatingButtons';
 import ForgotMail from "./pages/ForgotMail";
 import Otp from "./pages/Otp";
@@ -67,6 +70,9 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/about" element={<AboutUs />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/refund-policy" element={<RefundPolicy />} />
             </Routes>
           </main>
           <FloatingButtons />
@@ -75,5 +81,5 @@ function App() {
     </AuthProvider>
   );
 }
-// test deploy testing
+// test deploy testing////
 export default App;

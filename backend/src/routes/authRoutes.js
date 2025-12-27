@@ -86,6 +86,8 @@ router.post("/signin", async (req, res) => {
   try {
     const { emailOrPhone, password } = req.body;
 
+    console.log( emailOrPhone, password)
+
     const user = await User.findOne({
       $or: [{ email: emailOrPhone }, { phone: emailOrPhone }],
     }).select("+password");
@@ -129,8 +131,10 @@ router.post("/signin", async (req, res) => {
         name: user.name,
         email: user.email,
         phone: user.phone,
+        role:user.email === "admin123@gmail.com" ? "admin" : "user",
         photo: user.photo || null,
       },
+
     });
   } catch (err) {
     console.log("Signin error:", err);
@@ -162,7 +166,7 @@ router.get(
       sameSite: "lax",
     });
 
-    res.redirect("http://localhost:3000/oauth-success");
+    res.redirect("https://sankalpam.world/oauth-success");
   }
 );
 
@@ -249,6 +253,7 @@ router.get("/me", verifyToken, async (req, res) => {
       name: user.name,
       email: user.email,
       phone: user.phone,
+      role:user.email === "admin123@gmail.com" ? "admin" : "user",
       photo: user.photo || null,
     },
   });

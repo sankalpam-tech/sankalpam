@@ -1,8 +1,8 @@
 import twilio from 'twilio';
-import { config } from 'dotenv';
+// import { config } from 'dotenv';
 
 // Load environment variables
-config();
+// config();
 
 // Initialize Twilio client
 const client = twilio(

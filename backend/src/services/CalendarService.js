@@ -1,11 +1,11 @@
 import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
-import { config } from 'dotenv';
+// import { config } from 'dotenv';
 import Booking from '../models/Booking.js';
 import { sendNotification } from './notificationService.js';
 
 // Load environment variables
-config();
+// config();
 
 // Configure OAuth2 client
 const oauth2Client = new OAuth2Client(

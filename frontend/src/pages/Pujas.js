@@ -49,56 +49,56 @@ function Pujas() {
       id: 1,
       name: "Satyanarayana Puja",
       description: "For prosperity and well-being.",
-      price: "₹5100",
+      price: "₹****",
       image: img1,
     },
     {
       id: 2,
       name: "Griha Pravesh Puja",
       description: "For blessings in a new home.",
-      price: "₹7500",
+      price: "₹****",
       image: img2,
     },
     {
       id: 3,
       name: "Lakshmi Ganesh Puja",
       description: "For wealth and success.",
-      price: "₹4100",
+      price: "₹****",
       image: img3,
     },
     {
       id: 4,
       name: "Maha Mrityunjaya Jaap",
       description: "For health and longevity.",
-      price: "₹11000",
+      price: "₹****",
       image: img8,
     },
     {
       id: 5,
       name: "Rudrabhishek Puja",
       description: "For divine blessings and peace.",
-      price: "₹4500",
+      price: "₹****",
       image: img4,
     },
     {
       id: 6,
       name: "Lakshmi Kubera Puja",
       description: "For prosperity and stability.",
-      price: "₹6500",
+      price: "₹****",
       image: img5,
     },
     {
       id: 7,
       name: "Ganapati Homam",
       description: "For new beginnings and success.",
-      price: "₹3800",
+      price: "₹****",
       image: img6,
     },
     {
       id: 8,
       name: "Navagraha Puja",
       description: "For balancing planetary influences.",
-      price: "₹5100",
+      price: "₹****",
       image: img7,
     },
   ];
@@ -129,8 +129,9 @@ function Pujas() {
   ];
 
   const handleBookNow = (puja) => {
-    setSelectedPuja(puja);
-    setCurrentPage("booking");
+   alert('this feature is coming soon!');
+    // setSelectedPuja(puja);
+    // setCurrentPage("booking");
   };
 
   const handleCloseModal = () => {

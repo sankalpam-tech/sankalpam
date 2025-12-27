@@ -31,21 +31,7 @@ const SignIn = () => {
     e.preventDefault();
     console.log('Sign in:', formData);
 
-    // 🔑 ADMIN LOGIN CHECK (FROM .env)
-    if (
-      formData.emailOrPhone === process.env.REACT_APP_ADMIN_EMAIL &&
-      formData.password === process.env.REACT_APP_ADMIN_PASSWORD
-    ) {
-      login({
-        name: "Admin",
-        email: process.env.REACT_APP_ADMIN_EMAIL,
-        role: "admin",
-      });
 
-      window.alert("Admin logged in successfully");
-      navigate("/profile");
-      return;
-    }
 
     // 🔐 NORMAL USER LOGIN
     try {
@@ -54,10 +40,27 @@ const SignIn = () => {
         formData,
         { withCredentials: true }
       );
+      
+      console.log("signin page",res.data)
 
       const { verify, msg, user } = res.data;
 
       if (verify) {
+
+        // 🔑 ADMIN LOGIN CHECK (FROM .env)
+        if (
+          res.data.user.role === "admin") {
+          login({
+            name: "Admin",
+            email: res.data.user.role,
+            role: "admin",
+          });
+
+          window.alert("Admin logged in successfully");
+          navigate("/admin");
+          return;
+        }
+
         login(user);
         window.alert(msg);
         navigate("/profile");

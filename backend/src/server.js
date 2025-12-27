@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import serverless from 'serverless-http';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -9,19 +10,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import 'colors';
 import rateLimit from 'express-rate-limit';
-import mongoSanitize from 'express-mongo-sanitize';
-import xss from 'xss-clean';
 import hpp from 'hpp';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import serverless from 'serverless-http';
-
-import './config/passport.js';
 import passport from 'passport';
-
+import dotenv from 'dotenv';
 import { StatusCodes } from 'http-status-codes';
 
-// Config & DB
+import './config/passport.js';
 import { connectDB } from './config/db.js';
 import errorHandler from './middleware/errorHandler.js';
 
@@ -42,56 +38,50 @@ import astrologerRoutes from './routes/astrologerRoutes.js';
 import priestAssignmentRoutes from './routes/priestAssignmentRoutes.js';
 import priestAvailabilityRoutes from './routes/priestAvailabilityRoutes.js';
 
+<<<<<<< HEAD
+=======
+dotenv.config();
+>>>>>>> abdul
 
-// Init app
 const app = express();
 
 // Resolve __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 🔥 DB CONNECTION (cached internally)
+// Connect DB (Lambda-safe – runs once per container)
 connectDB();
 
-// Security headers
+// Security
 app.use(helmet());
 
-// Logging
+// Logging (disable noisy logs in Lambda prod)
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Rate limiting
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!'
-});
-app.use('/api', limiter);
+// Rate limiter
+app.use(
+  '/api',
+  rateLimit({
+    max: 100,
+    windowMs: 60 * 60 * 1000,
+    message: 'Too many requests from this IP, please try again later'
+  })
+);
 
 // Body parsing
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-// Cookies & Auth
+// Cookies + Passport
 app.use(cookieParser());
 app.use(passport.initialize());
 
-// Sanitization (optional but recommended)
-// app.use(mongoSanitize());
-// app.use(xss());
-
-// Prevent HTTP param pollution
+// HPP
 app.use(
   hpp({
-    whitelist: [
-      'duration',
-      'ratingsQuantity',
-      'ratingsAverage',
-      'maxGroupSize',
-      'difficulty',
-      'price'
-    ]
+    whitelist: ['duration', 'ratingsQuantity', 'ratingsAverage', 'price']
   })
 );
 
@@ -99,9 +89,7 @@ app.use(
 app.use(
   cors({
     origin: true,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    credentials: true
   })
 );
 
@@ -111,22 +99,20 @@ app.use(compression());
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Razorpay webhook (raw body)
+// Razorpay webhook (RAW body)
 app.use(
   '/api/v1/payments/webhook/razorpay',
   express.raw({ type: 'application/json' })
 );
 
-// Root API
+// Routes
 app.get('/api/v1', (req, res) => {
   res.status(StatusCodes.OK).json({
     success: true,
-    message: 'Welcome to Sankalpam API',
-    version: '1.0.0'
+    message: 'Welcome to Sankalpam API'
   });
 });
 
-// Routes
 app.use('/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/pujas', pujaRoutes);
@@ -154,5 +140,17 @@ app.use((req, res) => {
 // Error handler
 app.use(errorHandler);
 
-// ✅ LAMBDA EXPORT (VERY IMPORTANT)
+/* ============================
+   🚀 LOCAL vs LAMBDA START
+============================ */
+
+if (process.env.IS_LAMBDA !== 'true') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`.yellow.bold);
+  });
+}
+
+// 🔥 Lambda handler export
 export const handler = serverless(app);
+export default app;

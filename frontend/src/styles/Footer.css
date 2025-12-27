@@ -189,6 +189,35 @@
   padding: 12px 16px;
   font-size: 14px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-bottom-links a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  font-size: 14px;
+}
+
+.footer-bottom-links a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.footer-link-separator {
+  color: #ffffff;
+  opacity: 0.7;
 }
 
 @media (max-width: 900px) {
@@ -229,6 +258,19 @@
 }
 
 @media (max-width: 560px) {
+  .footer-bottom {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .footer-bottom-links {
+    gap: 6px;
+  }
+
+  .footer-bottom-links a {
+    font-size: 13px;
+  }
+
   .footer-inner {
     padding: 28px 16px 26px;
     gap: 26px;

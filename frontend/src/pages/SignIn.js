@@ -31,6 +31,8 @@ const SignIn = () => {
     e.preventDefault();
     console.log('Sign in:', formData);
 
+
+
     // 🔐 NORMAL USER LOGIN
     try {
       const res = await axios.post(
@@ -39,16 +41,18 @@ const SignIn = () => {
         { withCredentials: true }
       );
       
-      console.log("signin page", res.data);
+      console.log("signin page",res.data)
 
       const { verify, msg, user } = res.data;
 
       if (verify) {
-        // 🔑 ADMIN LOGIN CHECK (FROM BACKEND)
-        if (res.data.user.role === "admin") {
+
+        // 🔑 ADMIN LOGIN CHECK (FROM .env)
+        if (
+          res.data.user.role === "admin") {
           login({
             name: "Admin",
-            email: res.data.user.email,
+            email: res.data.user.role,
             role: "admin",
           });
 

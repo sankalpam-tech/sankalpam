@@ -13,7 +13,7 @@ const Admin = () => {
 
   // Check if user is admin
   React.useEffect(() => {
-    if (!user || user.email !== 'admin@sankalpam.com') {
+    if (!user || user.email !== 'admin123@gmail.com') {
       navigate('/signin');
     }
   }, [user, navigate]);

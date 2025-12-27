@@ -31,7 +31,7 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-async-handler": "^1.2.0",
-    "express-mongo-sanitize": "^2.2.0",
+    "express-mongo-sanitize": "^2.0.0",
     "express-rate-limit": "^8.2.1",
     "express-validator": "^7.0.1",
     "firebase-admin": "^13.6.0",
@@ -53,6 +53,7 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
+    "@express-rate-limit/tsconfig": "^1.0.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",

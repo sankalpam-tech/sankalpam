@@ -1,6 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import express from 'express';
 import serverless from 'serverless-http';
 import cors from 'cors';
@@ -38,10 +35,7 @@ import astrologerRoutes from './routes/astrologerRoutes.js';
 import priestAssignmentRoutes from './routes/priestAssignmentRoutes.js';
 import priestAvailabilityRoutes from './routes/priestAvailabilityRoutes.js';
 
-<<<<<<< HEAD
-=======
 dotenv.config();
->>>>>>> abdul
 
 const app = express();
 

@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "../styles/MahaShivaratri.css";
 
-import hero from "../images/hero.jpg";
 import img1 from "../images/mahaabhishekam.jpg";
 import img2 from "../images/eventhomam.jpg";
 import img3 from "../images/Ganga-aarti.jpg";
 
-const EVENT_DATE = new Date("2025-02-15T23:00:00");
+/* 🔒 RELIABLE DATE (IST) */
+const EVENT_DATE = new Date(2025, 1, 15, 23, 0, 0); // Feb 15 11:00 PM
+
+const GALLERY_IMAGES = [img1, img2, img3];
 
 const CONTENT = {
   en: {
-    metaTitle: "Maha Shivaratri Special Pooja in Kashi | Live Video & Prasadam",
-    metaDesc:
-      "Participate in Maha Shivaratri Special Pooja at Kashi with live video, Rudrabhishekam, Homams, Ganga Aarti & prasadam delivery.",
     title: "Maha Shivaratri Special Pooja",
     location: "Kashi (Varanasi)",
+    price: "₹1,611",
+    priceNote: "Per Participation",
     liveNote: "🔴 Live Pooja Video will be provided to all registered devotees.",
     about:
       "Maha Shivaratri is the most sacred night dedicated to Lord Shiva. This pooja is performed at the holy Kashi Kshetra following complete Vedic traditions.",
@@ -37,33 +38,32 @@ const CONTENT = {
     faq: [
       {
         q: "Can I participate without being present at Kashi?",
-        a: "Yes. Physical presence is not required. You can participate remotely.",
+        a: "Yes. Physical presence is not required.",
       },
       {
-        q: "Will live video of the pooja be provided?",
-        a: "Yes. Live pooja video will be provided to all registered devotees.",
+        q: "Will live video be provided?",
+        a: "Yes. Live pooja video will be provided.",
       },
       {
         q: "Who performs the pooja?",
-        a: "Experienced Vedic priests perform the rituals as per Shastra.",
+        a: "Experienced Vedic priests perform the rituals.",
       },
       {
         q: "Is there any registration fee?",
-        a: "Participation is free / donation based.",
+        a: "The pooja participation amount is ₹1,611.",
       },
     ],
     register: "Register Now",
   },
 
   te: {
-    metaTitle: "కాశీలో మహాశివరాత్రి ప్రత్యేక పూజ | ప్రత్యక్ష వీడియో & ప్రసాదం",
-    metaDesc:
-      "కాశీ క్షేత్రంలో మహాశివరాత్రి ప్రత్యేక పూజలో పాల్గొని ప్రత్యక్ష వీడియో, రుద్రాభిషేకం, హోమములు పొందండి.",
     title: "మహాశివరాత్రి ప్రత్యేక పూజ",
     location: "కాశీ (వారణాసి)",
+    price: "₹1,611",
+    priceNote: "ప్రతి పాల్గొనేవారికి",
     liveNote: "🔴 నమోదు చేసిన భక్తులందరికీ పూజ ప్రత్యక్ష వీడియో అందించబడుతుంది.",
     about:
-      "మహాశివరాత్రి పరమశివునికి అంకితమైన పవిత్రమైన రాత్రి. కాశీ క్షేత్రంలో సంపూర్ణ వైదిక విధానంలో పూజ నిర్వహించబడుతుంది.",
+      "మహాశివరాత్రి పరమశివునికి అంకితమైన పవిత్రమైన రాత్రి. ఈ పూజ కాశీ క్షేత్రంలో సంపూర్ణ వైదిక విధానంలో నిర్వహించబడుతుంది.",
     benefits: [
       "కర్మ దోష నివారణ",
       "శివానుగ్రహం",
@@ -87,15 +87,15 @@ const CONTENT = {
       },
       {
         q: "పూజ ప్రత్యక్ష వీడియో ఇస్తారా?",
-        a: "అవును. నమోదు చేసిన భక్తులకు ప్రత్యక్ష వీడియో అందించబడుతుంది.",
+        a: "అవును. ప్రత్యక్ష వీడియో అందించబడుతుంది.",
       },
       {
         q: "పూజ ఎవరు నిర్వహిస్తారు?",
-        a: "అనుభవజ్ఞులైన వేద పండితులు నిర్వహిస్తారు.",
+        a: "అనుభవజ్ఞులైన వేద పండితులు.",
       },
       {
-        q: "నమోదు ఫీజు ఉందా?",
-        a: "పాల్గొనడం ఉచితం / దక్షిణ ఆధారితం.",
+        q: "నమోదు ఫీజు ఎంత?",
+        a: "పూజ పాల్గొనుటకు మొత్తం ₹1,611.",
       },
     ],
     register: "పూజలో పాల్గొనండి",
@@ -106,9 +106,11 @@ export default function MahaShivaratri() {
   const [lang, setLang] = useState("en");
   const [openFaq, setOpenFaq] = useState(null);
   const [time, setTime] = useState({});
+  const [currentImage, setCurrentImage] = useState(0);
 
+  /* Countdown */
   useEffect(() => {
-    const i = setInterval(() => {
+    const t = setInterval(() => {
       const diff = EVENT_DATE - new Date();
       setTime({
         d: Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24))),
@@ -117,27 +119,47 @@ export default function MahaShivaratri() {
         s: Math.max(0, Math.floor((diff / 1000) % 60)),
       });
     }, 1000);
-    return () => clearInterval(i);
+    return () => clearInterval(t);
+  }, []);
+
+  /* Auto image slider */
+  useEffect(() => {
+    const slider = setInterval(() => {
+      setCurrentImage((prev) =>
+        prev === GALLERY_IMAGES.length - 1 ? 0 : prev + 1
+      );
+    }, 3000);
+    return () => clearInterval(slider);
   }, []);
 
   const t = CONTENT[lang];
 
   return (
     <div className="vm-page">
-
-      {/* Language Toggle */}
+      {/* Language */}
       <div className="vm-lang">
         <button onClick={() => setLang("en")} className={lang === "en" ? "active" : ""}>EN</button>
         <button onClick={() => setLang("te")} className={lang === "te" ? "active" : ""}>తెలుగు</button>
       </div>
 
-      {/* Hero */}
+      {/* Image Carousel */}
       <div className="vm-hero">
-        <img src={hero} alt="Maha Shivaratri" />
+        <img
+          src={GALLERY_IMAGES[currentImage]}
+          className="vm-main-image"
+          alt="Maha Shivaratri"
+        />
+
         <div className="vm-gallery">
-          <img src={img1} alt="Rudrabhishekam" />
-          <img src={img2} alt="Homam" />
-          <img src={img3} alt="Ganga Aarti" />
+          {GALLERY_IMAGES.map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              className={i === currentImage ? "active" : ""}
+              onClick={() => setCurrentImage(i)}
+              alt="gallery"
+            />
+          ))}
         </div>
       </div>
 
@@ -146,9 +168,14 @@ export default function MahaShivaratri() {
         <h1>{t.title}</h1>
         <p>{t.location}</p>
         <div className="live-note">{t.liveNote}</div>
+
+        <div className="vm-price-box">
+          <div className="vm-price">{t.price}</div>
+          <div className="vm-price-note">{t.priceNote}</div>
+        </div>
       </div>
 
-      {/* Timer */}
+      {/* Countdown */}
       <div className="vm-timer">
         <div><span>{time.d}</span>Days</div>
         <div><span>{time.h}</span>Hrs</div>
@@ -177,10 +204,9 @@ export default function MahaShivaratri() {
         <p>{t.prasadam}</p>
       </section>
 
-      {/* FAQ ACCORDION */}
+      {/* FAQ */}
       <section className="vm-section">
         <h2>FAQs</h2>
-
         {t.faq.map((f, i) => (
           <div className="faq-accordion" key={i}>
             <div
@@ -190,12 +216,7 @@ export default function MahaShivaratri() {
               {f.q}
               <span>{openFaq === i ? "−" : "+"}</span>
             </div>
-
-            {openFaq === i && (
-              <div className="faq-answer">
-                {f.a}
-              </div>
-            )}
+            {openFaq === i && <div className="faq-answer">{f.a}</div>}
           </div>
         ))}
       </section>

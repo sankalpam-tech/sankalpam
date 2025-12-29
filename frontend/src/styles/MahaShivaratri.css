@@ -6,6 +6,7 @@
   color: #2c2c2c;
 }
 
+/* Language */
 .vm-lang {
   text-align: right;
   padding: 12px;
@@ -22,8 +23,11 @@
   color: #fff;
 }
 
-.vm-hero img {
+/* Images */
+.vm-main-image {
   width: 100%;
+  height: 420px;
+  object-fit: cover;
   border-radius: 12px;
 }
 .vm-gallery {
@@ -34,8 +38,15 @@
 .vm-gallery img {
   width: 32%;
   border-radius: 8px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.vm-gallery img.active {
+  opacity: 1;
+  border: 2px solid #8b1c1c;
 }
 
+/* Title */
 .vm-title {
   padding: 20px;
 }
@@ -43,18 +54,37 @@
   color: #8b1c1c;
 }
 .live-note {
-  margin-top: 8px;
+  margin-top: 6px;
   font-weight: bold;
   color: #c62828;
 }
 
+/* Price */
+.vm-price-box {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 10px 18px;
+  background: #fff3e0;
+  border: 1px solid #e0b77a;
+  border-radius: 8px;
+}
+.vm-price {
+  font-size: 26px;
+  font-weight: bold;
+  color: #8b1c1c;
+}
+.vm-price-note {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Countdown */
 .vm-timer {
   display: flex;
   justify-content: space-around;
   background: #f4e6d0;
   padding: 15px;
   font-weight: bold;
-  text-align: center;
 }
 .vm-timer span {
   display: block;
@@ -62,6 +92,7 @@
   color: #8b1c1c;
 }
 
+/* Sections */
 .vm-section {
   padding: 25px;
 }
@@ -72,10 +103,9 @@
   color: #8b1c1c;
 }
 
-/* FAQ Accordion */
+/* FAQ */
 .faq-accordion {
   border-bottom: 1px solid #d8c6a1;
-  margin-bottom: 10px;
 }
 .faq-question {
   display: flex;
@@ -86,10 +116,10 @@
   color: #8b1c1c;
 }
 .faq-answer {
-  padding: 10px 0 15px;
-  line-height: 1.6;
+  padding-bottom: 15px;
 }
 
+/* CTA */
 .vm-cta {
   position: sticky;
   bottom: 0;

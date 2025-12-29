@@ -163,10 +163,30 @@
   border-radius: 24px;
   padding: 20px 24px;
   text-align: left;
-  padding-left: 200px;
   box-shadow: var(--bp-shadow-soft);
   border: 1px solid rgba(255, 255, 255, 0.03);
   margin-bottom: 32px;
+}
+
+.bp-puja-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bp-puja-hero img {
+  width: 140px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.bp-puja-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
 }
 
 .bp-puja-name {
@@ -182,6 +202,15 @@
   margin: 0;
   font-size: 13px;
   color: var(--bp-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bp-puja-location {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--bp-muted-strong);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -459,6 +488,16 @@
   .bp-puja-card {
     padding: 20px;
     padding-left: 20px;
+  }
+
+  .bp-puja-card-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bp-puja-hero img {
+    width: 100%;
+    height: auto;
   }
 
   /* QR Code responsive styles */

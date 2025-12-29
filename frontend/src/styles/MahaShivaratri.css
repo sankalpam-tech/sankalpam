@@ -1,0 +1,247 @@
+.vm-page {
+  max-width: 1100px;
+  margin: auto;
+  background: #fffaf2;
+  font-family: "Segoe UI", sans-serif;
+  color: #2c2c2c;
+}
+
+/* Language */
+.vm-lang {
+  text-align: right;
+  padding: 12px;
+}
+.vm-lang button {
+  margin-left: 8px;
+  padding: 6px 14px;
+  border: 1px solid #8b1c1c;
+  background: transparent;
+  cursor: pointer;
+}
+.vm-lang .active {
+  background: #8b1c1c;
+  color: #fff;
+}
+
+/* Images */
+.vm-hero {
+  padding: 20px;
+}
+.vm-main-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Title */
+.vm-title {
+  padding: 20px;
+}
+.vm-title h1 {
+  color: #8b1c1c;
+}
+.live-note {
+  margin-top: 6px;
+  font-weight: bold;
+  color: #c62828;
+}
+
+/* Price */
+.vm-price-box {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 10px 18px;
+  background: #fff3e0;
+  border: 1px solid #e0b77a;
+  border-radius: 8px;
+}
+.vm-price {
+  font-size: 26px;
+  font-weight: bold;
+  color: #8b1c1c;
+}
+.vm-price-note {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Countdown */
+.vm-timer {
+  display: flex;
+  justify-content: space-around;
+  background: #f4e6d0;
+  padding: 15px;
+  font-weight: bold;
+}
+.vm-timer span {
+  display: block;
+  font-size: 22px;
+  color: #8b1c1c;
+}
+
+/* Sections */
+.vm-section {
+  padding: 25px;
+}
+.vm-section.light {
+  background: #fdf3e7;
+}
+.vm-section h2 {
+  color: #8b1c1c;
+}
+
+/* Inline Lists */
+.vm-inline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 800px;
+}
+.vm-inline-list li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  text-align: left;
+  width: 100%;
+}
+/* Bullet points for unordered lists */
+.vm-section ul.vm-inline-list li::before {
+  content: "•";
+  color: #8b1c1c;
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+/* Numbers for ordered lists */
+.vm-section ol.vm-inline-list {
+  counter-reset: item;
+}
+.vm-section ol.vm-inline-list li {
+  counter-increment: item;
+}
+.vm-section ol.vm-inline-list li::before {
+  content: counter(item) ".";
+  color: #8b1c1c;
+  font-weight: bold;
+  margin-right: 10px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* FAQ */
+.faq-accordion {
+  border-bottom: 1px solid #d8c6a1;
+}
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 12px 0;
+  color: #8b1c1c;
+}
+.faq-answer {
+  padding-bottom: 15px;
+}
+
+/* CTA */
+.vm-cta {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding: 15px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+.vm-cta button {
+  background: #8b1c1c;
+  color: #fff;
+  padding: 14px 36px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.vm-cta button:hover {
+  background: #6d1515;
+  transform: scale(1.05);
+}
+
+/* Booking Modal */
+.booking-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.booking-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  max-height: 95vh;
+  overflow-y: auto;
+  background: transparent;
+}
+
+.booking-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  color: #333;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.booking-modal-close:hover {
+  background-color: white;
+  transform: scale(1.1);
+}
+
+/* Custom scrollbar for modal */
+.booking-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.booking-modal-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.booking-modal-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.booking-modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

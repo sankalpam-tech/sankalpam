@@ -17,6 +17,13 @@
   box-sizing: border-box;
   font-family: var(--font-family-base);
   background-color: var(--bg-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Base container (desktop first) */
@@ -73,6 +80,14 @@
   align-items: center;
   gap: 10px;
   flex: 0 0 auto;
+}
+
+/* Profile Icon */
+.profile-icon-link:hover {
+  background-color: #c41e3a !important;
+  color: #fff !important;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(196, 30, 58, 0.3);
 }
 
 .btn-signin,
@@ -157,15 +172,16 @@
     min-height: 46px;
     display: flex;
     align-items: center;
-    justify-content: space-between !important;
+    justify-content: center !important;
     gap: 8px;
     flex-wrap: nowrap;
+    position: relative;
   }
 
   .logo-section {
     flex: 0 0 auto;
     gap: 6px;
-    margin-left: -200px;
+    margin-left: 0;
   }
 
   .logo-icon {
@@ -185,6 +201,13 @@
     flex: 0 0 auto;
     position: absolute;
     right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .header.mobile-open .hamburger {
+    top: 11px;
+    transform: none;
   }
 
   .nav-links,
@@ -199,7 +222,8 @@
 
   .header.mobile-open .header-container {
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center !important;
     height: auto;
     padding-bottom: 8px !important;
   }
@@ -215,21 +239,26 @@
     padding-top: 6px;
     border-top: 1px solid #f0f0f0;
     flex-direction: column;
-    align-items: flex-start !important;
+    align-items: center !important;
     gap: 8px;
   }
 
   .header.mobile-open .header-right {
     margin-top: 6px;
     flex-direction: column;
-    align-items: stretch !important;
+    align-items: center !important;
     gap: 6px;
+    justify-content: center;
   }
 
   .header.mobile-open .btn-signin,
   .header.mobile-open .btn-signup {
     width: 100%;
     text-align: center;
+  }
+
+  .header.mobile-open .profile-icon-link {
+    margin: 0 auto;
   }
 }
 

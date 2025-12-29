@@ -15,12 +15,20 @@ import img5 from "../images/Lakshmi-Kuberan-Pooja.jpg";
 import img7 from "../images/navgraha-puja.webp";
 import img8 from "../images/OIP.jpg";
 
+const HERO_IMAGES = [
+  img1, // Satyanarayana Puja
+  img2, // Griha Pravesh
+  img4, // Rudrabhishek
+  img6, // Ganapati Homam
+];
+
 function Pujas() {
   const [bookingMode, setBookingMode] = useState("online");
   const [selectedPuja, setSelectedPuja] = useState(null);
   const [currentPage, setCurrentPage] = useState("home");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [searchTerm, setSearchTerm] = useState(""); // NEW
+  const [slideIndex, setSlideIndex] = useState(0);
 
   // Preload background image
   useEffect(() => {
@@ -28,61 +36,69 @@ function Pujas() {
     img.src = bgimg;
   }, []);
 
+  // Auto-rotate hero images
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length);
+    }, 3000);
+    return () => clearInterval(id);
+  }, []);
+
   const allPujas = [
     {
       id: 1,
       name: "Satyanarayana Puja",
       description: "For prosperity and well-being.",
-      price: "₹5100",
+      price: "₹***",
       image: img1,
     },
     {
       id: 2,
       name: "Griha Pravesh Puja",
       description: "For blessings in a new home.",
-      price: "₹7500",
+      price: "₹***",
       image: img2,
     },
     {
       id: 3,
       name: "Lakshmi Ganesh Puja",
       description: "For wealth and success.",
-      price: "₹4100",
+      price: "₹***",
       image: img3,
     },
     {
       id: 4,
       name: "Maha Mrityunjaya Jaap",
       description: "For health and longevity.",
-      price: "₹11000",
+      price: "₹***",
       image: img8,
     },
     {
       id: 5,
       name: "Rudrabhishek Puja",
       description: "For divine blessings and peace.",
-      price: "₹4500",
+      price: "₹***",
       image: img4,
     },
     {
       id: 6,
       name: "Lakshmi Kubera Puja",
       description: "For prosperity and stability.",
-      price: "₹6500",
+      price: "₹***",
       image: img5,
     },
     {
       id: 7,
       name: "Ganapati Homam",
       description: "For new beginnings and success.",
-      price: "₹3800",
+      price: "₹***",
       image: img6,
     },
     {
       id: 8,
       name: "Navagraha Puja",
       description: "For balancing planetary influences.",
-      price: "₹5100",
+      price: "₹***",
       image: img7,
     },
   ];
@@ -113,6 +129,7 @@ function Pujas() {
   ];
 
   const handleBookNow = (puja) => {
+    // alert("this feature is coming soon!");
     setSelectedPuja(puja);
     setCurrentPage("booking");
   };
@@ -244,11 +261,7 @@ function Pujas() {
       <div className="puja-search-wrapper">
         <div className="puja-search-inner">
           <div className="puja-search-box">
-            <span
-              className="puja-search-icon"
-              role="img"
-              aria-label="Search"
-            >
+            <span className="puja-search-icon" role="img" aria-label="Search">
               🔍
             </span>
             <input
@@ -263,14 +276,61 @@ function Pujas() {
       </div>
 
       {/* Hero section */}
-      <section className="hero-banner">
-        <div className="hero-content">
-          <h1 className="hero-title">Book Your Sacred Pujas Online</h1>
-          <p className="hero-description">
-            Experience the sanctity and convenience of performing authentic
-            Hindu rituals from the comfort of your home.
-          </p>
-          <button className="btn-explore">Explore Pujas</button>
+      <section className="hero-banner-wrapper">
+        <div className="hero-banner-container">
+          <div className="hero-carousel">
+            <div
+              className="hero-carousel-track"
+              style={{
+                transform: `translateX(-${25 * slideIndex}%)`,
+              }}
+            >
+              {HERO_IMAGES.map((src, idx) => (
+                <div
+                  key={idx}
+                  className="hero-carousel-slide"
+                  style={{
+                    backgroundImage: `url(${src})`,
+                  }}
+                  aria-hidden={slideIndex !== idx}
+                >
+                  <div className="hero-carousel-overlay"></div>
+                </div>
+              ))}
+            </div>
+
+            {/* Content Overlay */}
+            <div className="hero-content">
+              <h1 className="hero-title">Book Your Sacred Pujas Online</h1>
+              <p className="hero-description">
+                Experience the sanctity and convenience of performing authentic
+                Hindu rituals from the comfort of your home.
+              </p>
+              <button className="btn-explore">Explore Pujas</button>
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={() =>
+                setSlideIndex(
+                  (idx) => (idx - 1 + HERO_IMAGES.length) % HERO_IMAGES.length
+                )
+              }
+              aria-label="Previous slide"
+              className="hero-carousel-btn hero-carousel-btn-prev"
+            >
+              {"<"}
+            </button>
+            <button
+              onClick={() =>
+                setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length)
+              }
+              aria-label="Next slide"
+              className="hero-carousel-btn hero-carousel-btn-next"
+            >
+              {">"}
+            </button>
+          </div>
         </div>
       </section>
 

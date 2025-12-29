@@ -17,7 +17,7 @@
   --bp-radius-full: 999px;
   --bp-shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.9);
   --bp-shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.75);
-  border-radius:20px;
+  border-radius: 20px;
 
   min-height: 100vh;
   display: flex;
@@ -163,10 +163,30 @@
   border-radius: 24px;
   padding: 20px 24px;
   text-align: left;
-  padding-left: 200px;
   box-shadow: var(--bp-shadow-soft);
   border: 1px solid rgba(255, 255, 255, 0.03);
   margin-bottom: 32px;
+}
+
+.bp-puja-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bp-puja-hero img {
+  width: 140px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.bp-puja-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
 }
 
 .bp-puja-name {
@@ -182,6 +202,15 @@
   margin: 0;
   font-size: 13px;
   color: var(--bp-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bp-puja-location {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--bp-muted-strong);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -283,8 +312,9 @@
   color: var(--bp-input-placeholder);
 }
 
-/* Date input calendar icon color */
-.bp-form-field input[type="date"]::-webkit-calendar-picker-indicator {
+/* Date and Time input calendar/clock icon color */
+.bp-form-field input[type="date"]::-webkit-calendar-picker-indicator,
+.bp-form-field input[type="time"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;
 }
@@ -358,6 +388,83 @@
   color: #4a2c1b;
 }
 
+/* QR Code Section */
+.bp-qr-section {
+  margin: 20px 0;
+}
+
+.bp-qr-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--bp-text);
+  margin-bottom: 16px;
+  display: block;
+  text-align: center;
+}
+
+.bp-qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background: var(--bp-card-soft);
+  border-radius: var(--bp-radius-xl);
+  border: 1px solid var(--bp-input-border);
+}
+
+.bp-qr-image {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bp-qr-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 179, 35, 0.4);
+}
+
+.bp-qr-image:active {
+  transform: scale(0.98);
+}
+
+.bp-upi-details {
+  text-align: center;
+  padding: 16px;
+  background: rgba(255, 179, 35, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 179, 35, 0.2);
+  width: 100%;
+  max-width: 350px;
+}
+
+.bp-upi-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bp-accent);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.bp-upi-id,
+.bp-upi-number {
+  font-size: 14px;
+  color: var(--bp-muted-strong);
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+.bp-upi-id strong,
+.bp-upi-number strong {
+  color: var(--bp-text);
+  font-weight: 600;
+}
+
 /* Responsive */
 
 @media (max-width: 900px) {
@@ -381,5 +488,40 @@
   .bp-puja-card {
     padding: 20px;
     padding-left: 20px;
+  }
+
+  .bp-puja-card-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bp-puja-hero img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* QR Code responsive styles */
+  .bp-qr-container {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .bp-qr-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .bp-upi-details {
+    padding: 12px;
+    max-width: 100%;
+  }
+
+  .bp-upi-name {
+    font-size: 16px;
+  }
+
+  .bp-upi-id,
+  .bp-upi-number {
+    font-size: 13px;
   }
 }

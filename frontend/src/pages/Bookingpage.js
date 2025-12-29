@@ -1,7 +1,19 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "../styles/Bookingpage.css";
+import QRImage from "../images/QR.jpg";
+import heroImg from "../images/mahaabhishekam.jpg";
 
 function Bookingpage({ puja, onBack, type = "puja" }) {
+  const location = useLocation();
+  const eventData = location.state || {};
+
+  // Use eventData if coming from navigation, otherwise use puja props
+  const eventName = eventData.eventName || puja?.name || "Satyanarayan Puja";
+  const eventPrice = eventData.price || puja?.price || "₹2501";
+  const eventLocation = eventData.location;
+  const eventImage = puja?.image || heroImg; // Use puja image if available, fallback to default
+
   const isAstrology = type === "astrology";
 
   return (
@@ -17,20 +29,30 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
           {/* Selected Puja Card */}
           <div className="bp-puja-card">
             <div className="bp-puja-card-inner">
-              <h2 className="bp-puja-name">
-                {puja?.name || "Satyanarayan Puja"}
-              </h2>
-              <p className="bp-puja-subtitle">
-                {isAstrology ? "You are booking this consultation" : "You are booking this puja"}
-              </p>
-              <p className="bp-puja-cost">Cost: {puja?.price || "₹2501"}</p>
+              <div className="bp-puja-hero">
+                <img src={eventImage} alt="Puja" />
+              </div>
+              <div className="bp-puja-details">
+                <h2 className="bp-puja-name">{eventName}</h2>
+                <p className="bp-puja-subtitle">
+                  {isAstrology
+                    ? "You are booking this consultation"
+                    : "You are booking this puja"}
+                </p>
+                {eventLocation && (
+                  <p className="bp-puja-location">📍 {eventLocation}</p>
+                )}
+                <p className="bp-puja-cost">Cost: {eventPrice}</p>
+              </div>
             </div>
           </div>
 
           {/* Form */}
           <section className="bp-form-section">
             <h2 className="bp-form-title">
-              {isAstrology ? "Enter Your Details" : "Enter Your Details for the Sankalpam"}
+              {isAstrology
+                ? "Enter Your Details"
+                : "Enter Your Details for the Sankalpam"}
             </h2>
 
             <form
@@ -59,52 +81,45 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
                       <label>
                         Date of Birth<span className="bp-required">*</span>
                       </label>
+                      <input type="date" required />
+                    </div>
+                  </div>
+
+                  {/* Row 2 - Birth Time and Birth Place */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field">
+                      <label>
+                        Birth Time<span className="bp-required">*</span>
+                      </label>
+                      <input type="time" required />
+                    </div>
+                    <div className="bp-form-field">
+                      <label>
+                        Birth Place<span className="bp-required">*</span>
+                      </label>
                       <input
-                        type="date"
+                        type="text"
+                        placeholder="Enter your birth place"
                         required
                       />
                     </div>
                   </div>
 
-                  {/* Row 2 - Nakshatram and Rasi */}
+                  {/* Row 3 - Father's Name and Phone */}
                   <div className="bp-form-row">
                     <div className="bp-form-field">
                       <label>
-                        Nakshatram<span className="bp-required">*</span>
+                        Father's Name<span className="bp-required">*</span>
                       </label>
                       <input
                         type="text"
-                        placeholder="Enter your Nakshatram"
+                        placeholder="Enter father's name"
                         required
                       />
                     </div>
                     <div className="bp-form-field">
                       <label>
-                        Rasi<span className="bp-required">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Enter your Rasi"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  {/* Row 3 - Place and Phone */}
-                  <div className="bp-form-row">
-                    <div className="bp-form-field">
-                      <label>
-                        Place<span className="bp-required">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Enter your place of birth"
-                        required
-                      />
-                    </div>
-                    <div className="bp-form-field">
-                      <label>
-                        Phone Number<span className="bp-required">*</span>
+                        Your Phone Number<span className="bp-required">*</span>
                       </label>
                       <input
                         type="tel"
@@ -205,15 +220,62 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
                       />
                     </div>
                   </div>
+
+                  {/* QR Code Section */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field bp-full-width bp-qr-section">
+                      <label className="bp-qr-label">Scan QR Code to Pay</label>
+                      <div className="bp-qr-container">
+                        <img
+                          src={QRImage}
+                          alt="UPI Payment QR Code"
+                          className="bp-qr-image"
+                          onClick={() => {
+                            const link = document.createElement("a");
+                            link.href = QRImage;
+                            link.download = "Sankalpam_UPI_QR_Code.jpg";
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                          }}
+                          style={{ cursor: "pointer" }}
+                          title="Click to download QR code"
+                        />
+                        <div className="bp-upi-details">
+                          <p className="bp-upi-name">SREENIVASULU</p>
+                          <p className="bp-upi-id">
+                            <strong>UPI ID:</strong> sir8456@axisbank
+                          </p>
+                          <p className="bp-upi-number">
+                            <strong>UPI Number:</strong> 9493168456
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Transaction ID Field */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field bp-full-width">
+                      <label>
+                        Enter Transaction ID
+                        <span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter your transaction ID after payment"
+                        required
+                      />
+                    </div>
+                  </div>
                 </>
               )}
 
               {/* Pay button */}
               <div className="bp-pay-wrapper">
                 <button type="submit" className="bp-pay-btn">
-                  Pay Now
+                  Submit Now
                 </button>
-                <p className="bp-pay-note">Secure payment powered by Stripe</p>
               </div>
             </form>
           </section>

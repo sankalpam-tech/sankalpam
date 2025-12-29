@@ -24,26 +24,14 @@
 }
 
 /* Images */
+.vm-hero {
+  padding: 20px;
+}
 .vm-main-image {
   width: 100%;
   height: 420px;
   object-fit: cover;
   border-radius: 12px;
-}
-.vm-gallery {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-.vm-gallery img {
-  width: 32%;
-  border-radius: 8px;
-  cursor: pointer;
-  opacity: 0.6;
-}
-.vm-gallery img.active {
-  opacity: 1;
-  border: 2px solid #8b1c1c;
 }
 
 /* Title */
@@ -101,6 +89,51 @@
 }
 .vm-section h2 {
   color: #8b1c1c;
+}
+
+/* Inline Lists */
+.vm-inline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 800px;
+}
+.vm-inline-list li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  text-align: left;
+  width: 100%;
+}
+/* Bullet points for unordered lists */
+.vm-section ul.vm-inline-list li::before {
+  content: "•";
+  color: #8b1c1c;
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+/* Numbers for ordered lists */
+.vm-section ol.vm-inline-list {
+  counter-reset: item;
+}
+.vm-section ol.vm-inline-list li {
+  counter-increment: item;
+}
+.vm-section ol.vm-inline-list li::before {
+  content: counter(item) ".";
+  color: #8b1c1c;
+  font-weight: bold;
+  margin-right: 10px;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 /* FAQ */

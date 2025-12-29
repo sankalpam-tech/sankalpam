@@ -149,18 +149,6 @@ export default function MahaShivaratri() {
           className="vm-main-image"
           alt="Maha Shivaratri"
         />
-
-        <div className="vm-gallery">
-          {GALLERY_IMAGES.map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              className={i === currentImage ? "active" : ""}
-              onClick={() => setCurrentImage(i)}
-              alt="gallery"
-            />
-          ))}
-        </div>
       </div>
 
       {/* Title */}
@@ -191,12 +179,12 @@ export default function MahaShivaratri() {
 
       <section className="vm-section light">
         <h2>Pooja Benefits</h2>
-        <ul>{t.benefits.map((b, i) => <li key={i}>{b}</li>)}</ul>
+        <ul className="vm-inline-list">{t.benefits.map((b, i) => <li key={i}>{b}</li>)}</ul>
       </section>
 
       <section className="vm-section">
         <h2>Pooja Procedure</h2>
-        <ol>{t.procedure.map((p, i) => <li key={i}>{p}</li>)}</ol>
+        <ol className="vm-inline-list">{t.procedure.map((p, i) => <li key={i}>{p}</li>)}</ol>
       </section>
 
       <section className="vm-section light">

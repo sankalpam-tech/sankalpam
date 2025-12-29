@@ -143,7 +143,9 @@ export const deleteCategory = asyncHandler(async (req, res) => {
     throw new Error(`Cannot delete category with ${productCount} associated products`);
   }
   
-  await category.remove();
+  // await category.remove();
+  await category.deleteOne();
+
   
   res.json({
     success: true,
@@ -157,38 +159,33 @@ export const deleteCategory = asyncHandler(async (req, res) => {
  * @access  Public
  */
 export const getCategoryTree = asyncHandler(async (req, res) => {
-  try {
-    const categories = await ProductCategory.find({ isActive: true })
-      .select('name slug parentCategory displayOrder')
-      .sort({ displayOrder: 1, name: 1 })
-      .lean();
-    
-    const buildTree = (parentId = null) => {
-      return categories
-        .filter(cat => (cat.parentCategory ? cat.parentCategory.toString() : null) === (parentId ? parentId.toString() : null))
-        .map(cat => ({
-          ...cat,
-          parentCategory: undefined, // Remove parentCategory from the output
-          subcategories: buildTree(cat._id)
-        }));
-    };
-    
-    const categoryTree = buildTree();
-    
-    res.json({
-      success: true,
-      count: categoryTree.length,
-      data: categoryTree
-    });
-  } catch (error) {
-    console.error('Error fetching category tree:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Error fetching category tree',
-      error: error.message
-    });
-  }
+  const categories = await ProductCategory.find({})
+    .select('name slug parent')
+    .sort({ name: 1 })
+    .lean();
+
+  const buildTree = (parentId = null) => {
+    return categories
+      .filter(cat =>
+        parentId
+          ? String(cat.parent) === String(parentId)
+          : !cat.parent
+      )
+      .map(cat => ({
+        ...cat,
+        children: buildTree(cat._id)
+      }));
+  };
+
+  const categoryTree = buildTree(null);
+
+  res.json({
+    success: true,
+    count: categoryTree.length,
+    data: categoryTree
+  });
 });
+
 
 /**
  * @desc    Upload category image

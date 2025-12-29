@@ -141,7 +141,8 @@ export const createProduct = asyncHandler(async (req, res) => {
     category,
     stock: stock || 0,
     sku: productSku,
-    slug: `${name.toLowerCase().replace(/\s+/g, '-')}-${uuidv4().substring(0, 6)}`
+    slug: `${name.toLowerCase().replace(/\s+/g, '-')}-${uuidv4().substring(0, 6)}`,
+    createdBy: req.user._id 
   });
   
   await product.save();

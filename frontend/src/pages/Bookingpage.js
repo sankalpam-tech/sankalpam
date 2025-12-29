@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Bookingpage.css";
+import QRImage from "../images/QR.jpg";
 
 function Bookingpage({ puja, onBack, type = "puja" }) {
   const isAstrology = type === "astrology";
@@ -21,7 +22,9 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
                 {puja?.name || "Satyanarayan Puja"}
               </h2>
               <p className="bp-puja-subtitle">
-                {isAstrology ? "You are booking this consultation" : "You are booking this puja"}
+                {isAstrology
+                  ? "You are booking this consultation"
+                  : "You are booking this puja"}
               </p>
               <p className="bp-puja-cost">Cost: {puja?.price || "₹2501"}</p>
             </div>
@@ -30,7 +33,9 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
           {/* Form */}
           <section className="bp-form-section">
             <h2 className="bp-form-title">
-              {isAstrology ? "Enter Your Details" : "Enter Your Details for the Sankalpam"}
+              {isAstrology
+                ? "Enter Your Details"
+                : "Enter Your Details for the Sankalpam"}
             </h2>
 
             <form
@@ -59,10 +64,7 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
                       <label>
                         Date of Birth<span className="bp-required">*</span>
                       </label>
-                      <input
-                        type="date"
-                        required
-                      />
+                      <input type="date" required />
                     </div>
                   </div>
 
@@ -72,10 +74,7 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
                       <label>
                         Birth Time<span className="bp-required">*</span>
                       </label>
-                      <input
-                        type="time"
-                        required
-                      />
+                      <input type="time" required />
                     </div>
                     <div className="bp-form-field">
                       <label>
@@ -200,6 +199,54 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
                       <textarea
                         rows="3"
                         placeholder="Enter your full address for Prasadam delivery"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* QR Code Section */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field bp-full-width bp-qr-section">
+                      <label className="bp-qr-label">Scan QR Code to Pay</label>
+                      <div className="bp-qr-container">
+                        <img
+                          src={QRImage}
+                          alt="UPI Payment QR Code"
+                          className="bp-qr-image"
+                          onClick={() => {
+                            const link = document.createElement("a");
+                            link.href = QRImage;
+                            link.download = "Sankalpam_UPI_QR_Code.jpg";
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                          }}
+                          style={{ cursor: "pointer" }}
+                          title="Click to download QR code"
+                        />
+                        <div className="bp-upi-details">
+                          <p className="bp-upi-name">SREENIVASULU</p>
+                          <p className="bp-upi-id">
+                            <strong>UPI ID:</strong> sir8456@axisbank
+                          </p>
+                          <p className="bp-upi-number">
+                            <strong>UPI Number:</strong> 9493168456
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Transaction ID Field */}
+                  <div className="bp-form-row">
+                    <div className="bp-form-field bp-full-width">
+                      <label>
+                        Enter Transaction ID
+                        <span className="bp-required">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Enter your transaction ID after payment"
                         required
                       />
                     </div>

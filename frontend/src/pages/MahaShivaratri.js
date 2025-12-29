@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/MahaShivaratri.css";
-
+import hero from "../images/hero.jpg";
 import img1 from "../images/mahaabhishekam.jpg";
 import img2 from "../images/eventhomam.jpg";
 import img3 from "../images/Ganga-aarti.jpg";

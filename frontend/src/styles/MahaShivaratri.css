@@ -16,6 +16,7 @@
   padding: 6px 14px;
   border: 1px solid #8b1c1c;
   background: transparent;
+  cursor: pointer;
 }
 .vm-lang .active {
   background: #8b1c1c;
@@ -37,6 +38,7 @@
 .vm-gallery img {
   width: 32%;
   border-radius: 8px;
+  cursor: pointer;
   opacity: 0.6;
 }
 .vm-gallery img.active {
@@ -52,19 +54,19 @@
   color: #8b1c1c;
 }
 .live-note {
-  margin-top: 8px;
-  color: #c62828;
+  margin-top: 6px;
   font-weight: bold;
+  color: #c62828;
 }
 
 /* Price */
 .vm-price-box {
-  margin: 10px 0;
+  margin-top: 12px;
+  display: inline-block;
   padding: 10px 18px;
   background: #fff3e0;
   border: 1px solid #e0b77a;
   border-radius: 8px;
-  display: inline-block;
 }
 .vm-price {
   font-size: 26px;
@@ -73,21 +75,20 @@
 }
 .vm-price-note {
   font-size: 13px;
+  color: #555;
 }
 
-/* Timer */
+/* Countdown */
 .vm-timer {
-  background: #f4e6d0;
-  padding: 15px;
   display: flex;
   justify-content: space-around;
-  text-align: center;
+  background: #f4e6d0;
+  padding: 15px;
   font-weight: bold;
 }
-.vm-timer-label {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 8px;
+.vm-timer span {
+  display: block;
+  font-size: 22px;
   color: #8b1c1c;
 }
 
@@ -109,8 +110,9 @@
 .faq-question {
   display: flex;
   justify-content: space-between;
-  padding: 12px 0;
+  cursor: pointer;
   font-weight: bold;
+  padding: 12px 0;
   color: #8b1c1c;
 }
 .faq-answer {
@@ -133,4 +135,5 @@
   border-radius: 30px;
   border: none;
   font-size: 16px;
+  cursor: pointer;
 }

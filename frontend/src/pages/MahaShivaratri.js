@@ -5,10 +5,10 @@ import img1 from "../images/mahaabhishekam.jpg";
 import img2 from "../images/eventhomam.jpg";
 import img3 from "../images/Ganga-aarti.jpg";
 
-/* 🔥 BOOKING CLOSE TIME (NOT EVENT TIME) */
-const BOOKING_CLOSE_DATE = new Date(2025, 1, 20, 23, 59, 59); // Feb 20, 11:59 PM IST
+/* 🔒 RELIABLE DATE (IST) */
+const EVENT_DATE = new Date(2025, 1, 15, 23, 0, 0); // Feb 15 11:00 PM
 
-const IMAGES = [img1, img2, img3];
+const GALLERY_IMAGES = [img1, img2, img3];
 
 const CONTENT = {
   en: {
@@ -16,15 +16,7 @@ const CONTENT = {
     location: "Kashi (Varanasi)",
     price: "₹1,611",
     priceNote: "Per Participation",
-    bookingLabel: "Booking closes in",
     liveNote: "🔴 Live Pooja Video will be provided to all registered devotees.",
-    headings: {
-      about: "About Pooja",
-      benefits: "Pooja Benefits",
-      procedure: "Pooja Procedure",
-      prasadam: "Prasadam",
-      faq: "FAQs",
-    },
     about:
       "Maha Shivaratri is the most sacred night dedicated to Lord Shiva. This pooja is performed at the holy Kashi Kshetra following complete Vedic traditions.",
     benefits: [
@@ -57,11 +49,11 @@ const CONTENT = {
         a: "Experienced Vedic priests perform the rituals.",
       },
       {
-        q: "What is the participation amount?",
+        q: "Is there any registration fee?",
         a: "The pooja participation amount is ₹1,611.",
       },
     ],
-    register: "Book Puja",
+    register: "Register Now",
   },
 
   te: {
@@ -69,15 +61,7 @@ const CONTENT = {
     location: "కాశీ (వారణాసి)",
     price: "₹1,611",
     priceNote: "ప్రతి పాల్గొనేవారికి",
-    bookingLabel: "బుకింగ్ ముగిసే సమయం",
     liveNote: "🔴 నమోదు చేసిన భక్తులందరికీ పూజ ప్రత్యక్ష వీడియో అందించబడుతుంది.",
-    headings: {
-      about: "పూజ వివరాలు",
-      benefits: "పూజ ఫలితాలు",
-      procedure: "పూజ విధానం",
-      prasadam: "ప్రసాదం",
-      faq: "తరచూ అడిగే ప్రశ్నలు",
-    },
     about:
       "మహాశివరాత్రి పరమశివునికి అంకితమైన పవిత్రమైన రాత్రి. ఈ పూజ కాశీ క్షేత్రంలో సంపూర్ణ వైదిక విధానంలో నిర్వహించబడుతుంది.",
     benefits: [
@@ -110,24 +94,24 @@ const CONTENT = {
         a: "అనుభవజ్ఞులైన వేద పండితులు.",
       },
       {
-        q: "పూజ రుసుము ఎంత?",
-        a: "ఈ పూజకు పాల్గొనుటకు మొత్తం ₹1,611.",
+        q: "నమోదు ఫీజు ఎంత?",
+        a: "పూజ పాల్గొనుటకు మొత్తం ₹1,611.",
       },
     ],
-    register: "పూజ బుక్ చేయండి",
+    register: "పూజలో పాల్గొనండి",
   },
 };
 
 export default function MahaShivaratri() {
   const [lang, setLang] = useState("en");
-  const [faqOpen, setFaqOpen] = useState(null);
+  const [openFaq, setOpenFaq] = useState(null);
   const [time, setTime] = useState({});
-  const [imageIndex, setImageIndex] = useState(0);
+  const [currentImage, setCurrentImage] = useState(0);
 
   /* Countdown */
   useEffect(() => {
-    const timer = setInterval(() => {
-      const diff = BOOKING_CLOSE_DATE - new Date();
+    const t = setInterval(() => {
+      const diff = EVENT_DATE - new Date();
       setTime({
         d: Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24))),
         h: Math.max(0, Math.floor((diff / (1000 * 60 * 60)) % 24)),
@@ -135,22 +119,24 @@ export default function MahaShivaratri() {
         s: Math.max(0, Math.floor((diff / 1000) % 60)),
       });
     }, 1000);
-    return () => clearInterval(timer);
+    return () => clearInterval(t);
   }, []);
 
-  /* Image auto slide */
+  /* Auto image slider */
   useEffect(() => {
-    const slide = setInterval(() => {
-      setImageIndex((prev) => (prev === IMAGES.length - 1 ? 0 : prev + 1));
+    const slider = setInterval(() => {
+      setCurrentImage((prev) =>
+        prev === GALLERY_IMAGES.length - 1 ? 0 : prev + 1
+      );
     }, 3000);
-    return () => clearInterval(slide);
+    return () => clearInterval(slider);
   }, []);
 
   const t = CONTENT[lang];
 
   return (
     <div className="vm-page">
-      {/* Language Toggle */}
+      {/* Language */}
       <div className="vm-lang">
         <button onClick={() => setLang("en")} className={lang === "en" ? "active" : ""}>EN</button>
         <button onClick={() => setLang("te")} className={lang === "te" ? "active" : ""}>తెలుగు</button>
@@ -158,15 +144,20 @@ export default function MahaShivaratri() {
 
       {/* Image Carousel */}
       <div className="vm-hero">
-        <img src={IMAGES[imageIndex]} className="vm-main-image" alt="Pooja" />
+        <img
+          src={GALLERY_IMAGES[currentImage]}
+          className="vm-main-image"
+          alt="Maha Shivaratri"
+        />
+
         <div className="vm-gallery">
-          {IMAGES.map((img, i) => (
+          {GALLERY_IMAGES.map((img, i) => (
             <img
               key={i}
               src={img}
-              className={i === imageIndex ? "active" : ""}
-              onClick={() => setImageIndex(i)}
-              alt="thumb"
+              className={i === currentImage ? "active" : ""}
+              onClick={() => setCurrentImage(i)}
+              alt="gallery"
             />
           ))}
         </div>
@@ -176,53 +167,56 @@ export default function MahaShivaratri() {
       <div className="vm-title">
         <h1>{t.title}</h1>
         <p>{t.location}</p>
+        <div className="live-note">{t.liveNote}</div>
+
         <div className="vm-price-box">
           <div className="vm-price">{t.price}</div>
           <div className="vm-price-note">{t.priceNote}</div>
         </div>
-        <div className="live-note">{t.liveNote}</div>
       </div>
 
       {/* Countdown */}
       <div className="vm-timer">
-        <div className="vm-timer-label">{t.bookingLabel}</div>
         <div><span>{time.d}</span>Days</div>
         <div><span>{time.h}</span>Hrs</div>
         <div><span>{time.m}</span>Min</div>
         <div><span>{time.s}</span>Sec</div>
       </div>
 
-      {/* Content Sections */}
+      {/* Sections */}
       <section className="vm-section">
-        <h2>{t.headings.about}</h2>
+        <h2>About Pooja</h2>
         <p>{t.about}</p>
       </section>
 
       <section className="vm-section light">
-        <h2>{t.headings.benefits}</h2>
+        <h2>Pooja Benefits</h2>
         <ul>{t.benefits.map((b, i) => <li key={i}>{b}</li>)}</ul>
       </section>
 
       <section className="vm-section">
-        <h2>{t.headings.procedure}</h2>
+        <h2>Pooja Procedure</h2>
         <ol>{t.procedure.map((p, i) => <li key={i}>{p}</li>)}</ol>
       </section>
 
       <section className="vm-section light">
-        <h2>{t.headings.prasadam}</h2>
+        <h2>Prasadam</h2>
         <p>{t.prasadam}</p>
       </section>
 
       {/* FAQ */}
       <section className="vm-section">
-        <h2>{t.headings.faq}</h2>
+        <h2>FAQs</h2>
         {t.faq.map((f, i) => (
           <div className="faq-accordion" key={i}>
-            <div className="faq-question" onClick={() => setFaqOpen(faqOpen === i ? null : i)}>
+            <div
+              className="faq-question"
+              onClick={() => setOpenFaq(openFaq === i ? null : i)}
+            >
               {f.q}
-              <span>{faqOpen === i ? "−" : "+"}</span>
+              <span>{openFaq === i ? "−" : "+"}</span>
             </div>
-            {faqOpen === i && <div className="faq-answer">{f.a}</div>}
+            {openFaq === i && <div className="faq-answer">{f.a}</div>}
           </div>
         ))}
       </section>

@@ -1,0 +1,73 @@
+.pooja-details-page {
+  font-family: Arial, sans-serif;
+  color: #2c2c2c;
+  max-width: 900px;
+  margin: auto;
+  padding: 16px;
+}
+
+.hero-section {
+  position: relative;
+  text-align: center;
+}
+
+.hero-img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.hero-text {
+  margin-top: -80px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.price {
+  color: #ffdd00;
+  font-weight: bold;
+}
+
+.overview-section,
+.benefits-section,
+.program-section,
+.process-section,
+.faq-section {
+  margin-top: 30px;
+}
+
+.benefits-section ul {
+  list-style: square inside;
+}
+
+.program-block {
+  background: #f9f9ff;
+  border-left: 5px solid #6a1b9a;
+  margin: 10px 0;
+  padding: 10px 12px;
+}
+
+.faq-item {
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.cta-section {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.cta-btn {
+  background: #6a1b9a;
+  color: #fff;
+  padding: 14px 25px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background: #4a136b;
+}

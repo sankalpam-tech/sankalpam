@@ -1,5 +1,5 @@
 import React from "react";
-import "./MahaShivaratriPage.css";
+import "./MahaShivaratri.css";
 
 const MahaShivaratri = () => {
   return (

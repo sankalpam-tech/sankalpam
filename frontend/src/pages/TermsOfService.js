@@ -11,7 +11,7 @@ const TermsOfService = () => {
         <div className="about-us-container">
           <h1>Terms of Service</h1>
           <div style={{ textAlign: 'left', maxWidth: '800px', margin: '0 auto', lineHeight: '1.8' }}>
-            <p><strong>Last Updated: January 2025</strong></p>
+            <p><strong>Last Updated: 28/12/2025</strong></p>
             
             <h2>1. Acceptance of Terms</h2>
             <p>

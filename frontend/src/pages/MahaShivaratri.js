@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/MahaShivaratri.css";
-import hero from "../images/hero.jpg";
+import imgmain from "../images/hero.jpg";
 import img1 from "../images/mahaabhishekam.jpg";
 import img2 from "../images/eventhomam.jpg";
 import img3 from "../images/Ganga-aarti.jpg";
@@ -8,7 +8,7 @@ import img3 from "../images/Ganga-aarti.jpg";
 /* 🔒 RELIABLE DATE (IST) */
 const EVENT_DATE = new Date(2025, 1, 15, 23, 0, 0); // Feb 15 11:00 PM
 
-const GALLERY_IMAGES = [img1, img2, img3];
+const GALLERY_IMAGES = [img1,imgmain, img2, img3];
 
 const CONTENT = {
   en: {

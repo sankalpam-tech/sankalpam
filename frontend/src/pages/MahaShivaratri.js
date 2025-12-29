@@ -17,6 +17,13 @@ const CONTENT = {
     price: "₹1,611",
     priceNote: "Per Participation",
     liveNote: "🔴 Live Pooja Video will be provided to all registered devotees.",
+    headings: {
+      about: "About Pooja",
+      benefits: "Pooja Benefits",
+      procedure: "Pooja Procedure",
+      prasadam: "Prasadam",
+      faq: "FAQs",
+    },  
     about:
       "Maha Shivaratri is the most sacred night dedicated to Lord Shiva. This pooja is performed at the holy Kashi Kshetra following complete Vedic traditions.",
     benefits: [
@@ -62,6 +69,13 @@ const CONTENT = {
     price: "₹1,611",
     priceNote: "ప్రతి పాల్గొనేవారికి",
     liveNote: "🔴 నమోదు చేసిన భక్తులందరికీ పూజ ప్రత్యక్ష వీడియో అందించబడుతుంది.",
+    headings: {
+      about: "పూజ వివరాలు",
+      benefits: "పూజ ఫలితాలు",
+      procedure: "పూజ విధానం",
+      prasadam: "ప్రసాదం",
+      faq: "తరచూ అడిగే ప్రశ్నలు",
+    },
     about:
       "మహాశివరాత్రి పరమశివునికి అంకితమైన పవిత్రమైన రాత్రి. ఈ పూజ కాశీ క్షేత్రంలో సంపూర్ణ వైదిక విధానంలో నిర్వహించబడుతుంది.",
     benefits: [
@@ -173,22 +187,22 @@ export default function MahaShivaratri() {
 
       {/* Sections */}
       <section className="vm-section">
-        <h2>About Pooja</h2>
+        <h2>{t.headings.about}</h2>
         <p>{t.about}</p>
       </section>
 
       <section className="vm-section light">
-        <h2>Pooja Benefits</h2>
-        <ul className="vm-inline-list">{t.benefits.map((b, i) => <li key={i}>{b}</li>)}</ul>
+        <h2>{t.headings.benefits}</h2>
+        <ul>{t.benefits.map((b, i) => <li key={i}>{b}</li>)}</ul>
       </section>
 
       <section className="vm-section">
-        <h2>Pooja Procedure</h2>
-        <ol className="vm-inline-list">{t.procedure.map((p, i) => <li key={i}>{p}</li>)}</ol>
+        <h2>{t.headings.procedure}</h2>
+        <ol>{t.procedure.map((p, i) => <li key={i}>{p}</li>)}</ol>
       </section>
 
       <section className="vm-section light">
-        <h2>Prasadam</h2>
+        <h2>{t.headings.prasadam}</h2>
         <p>{t.prasadam}</p>
       </section>
 

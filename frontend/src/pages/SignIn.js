@@ -31,33 +31,36 @@ const SignIn = () => {
     e.preventDefault();
     console.log('Sign in:', formData);
 
-    // 🔑 ADMIN LOGIN CHECK (FROM .env)
-    if (
-      formData.emailOrPhone === process.env.REACT_APP_ADMIN_EMAIL &&
-      formData.password === process.env.REACT_APP_ADMIN_PASSWORD
-    ) {
-      login({
-        name: "Admin",
-        email: process.env.REACT_APP_ADMIN_EMAIL,
-        role: "admin",
-      });
 
-      window.alert("Admin logged in successfully");
-      navigate("/profile");
-      return;
-    }
 
     // 🔐 NORMAL USER LOGIN
     try {
       const res = await axios.post(
-        "https://backend.sankalpam.world/auth/signin",
+        "http://localhost:5000/auth/signin",
         formData,
         { withCredentials: true }
       );
+      
+      console.log("signin page",res.data)
 
       const { verify, msg, user } = res.data;
 
       if (verify) {
+
+        // 🔑 ADMIN LOGIN CHECK (FROM .env)
+        if (
+          res.data.user.role === "admin") {
+          login({
+            name: "Admin",
+            email: res.data.user.role,
+            role: "admin",
+          });
+
+          window.alert("Admin logged in successfully");
+          navigate("/admin");
+          return;
+        }
+
         login(user);
         window.alert(msg);
         navigate("/profile");
@@ -72,7 +75,7 @@ const SignIn = () => {
   //--------------------------------------------------------
 
   const handleGoogleSignIn = async () => {
-    window.location.href = "https://backend.sankalpam.world/auth/google";
+    window.location.href = "http://localhost:5000/auth/google";
   };
 
   return (

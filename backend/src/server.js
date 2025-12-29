@@ -39,8 +39,8 @@ import astrologerRoutes from './routes/astrologerRoutes.js';
 import priestAssignmentRoutes from './routes/priestAssignmentRoutes.js';
 import priestAvailabilityRoutes from './routes/priestAvailabilityRoutes.js';
 
-// import dotenv from 'dotenv';
-// dotenv.config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 // Init app
 const app = express();
@@ -154,4 +154,8 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 // ✅ LAMBDA EXPORT (VERY IMPORTANT)
-export const handler = serverless(app);
+// export const handler = serverless(app);
+
+app.listen(5000,()=>{
+  console.log("server running at 5000")
+})

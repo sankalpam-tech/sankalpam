@@ -60,7 +60,7 @@ const Otp = () => {
         try {
             setLoading(true);
 
-            const res=await axios.post("https://backend.sankalpam.world/auth/otp/verify", {
+            const res=await axios.post("http://localhost:5000/auth/otp/verify", {
                 otp: enteredOtp,
                 emailOrPhone: recoveryValue,
             });
@@ -89,7 +89,7 @@ const Otp = () => {
         try {
             setLoading(true);
 
-            await axios.post("https://backend.sankalpam.world/auth/otp", {
+            await axios.post("http://localhost:5000/auth/otp", {
                 emailOrPhone: recoveryValue,
             });
 

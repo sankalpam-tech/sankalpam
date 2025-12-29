@@ -163,18 +163,6 @@ export default function MahaShivaratri() {
           className="vm-main-image"
           alt="Maha Shivaratri"
         />
-
-        <div className="vm-gallery">
-          {GALLERY_IMAGES.map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              className={i === currentImage ? "active" : ""}
-              onClick={() => setCurrentImage(i)}
-              alt="gallery"
-            />
-          ))}
-        </div>
       </div>
 
       {/* Title */}

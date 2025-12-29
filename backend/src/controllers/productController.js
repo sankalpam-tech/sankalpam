@@ -204,7 +204,7 @@ export const deleteProduct = asyncHandler(async (req, res) => {
   
   // TODO: Check if product is in any orders before deleting
   
-  await product.remove();
+  await product.deleteOne();
   
   res.json({
     success: true,

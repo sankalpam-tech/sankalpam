@@ -1,5 +1,6 @@
 import React from "react";
-import "./MahaShivaratri.css";
+import "../styles/MahaShivaratri.css";
+
 
 const MahaShivaratri = () => {
   return (

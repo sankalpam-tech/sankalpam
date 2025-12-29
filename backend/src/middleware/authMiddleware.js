@@ -29,7 +29,15 @@ export const protect = async (req, res, next) => {
   try {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id).select('-password');
+    req.user = await User.findById(decoded.userId).select('-password');
+
+    if (!req.user) {
+  return res.status(StatusCodes.UNAUTHORIZED).json({
+    success: false,
+    message: 'User not found for this token',
+  });
+}
+
     next();
   } catch (err) {
     console.error(err);
@@ -52,3 +60,6 @@ export const authorize = (...roles) => {
     next();
   };
 };
+
+
+  

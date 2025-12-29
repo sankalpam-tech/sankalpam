@@ -1,73 +1,109 @@
-.pooja-details-page {
-  font-family: Arial, sans-serif;
-  color: #2c2c2c;
-  max-width: 900px;
+.vm-page {
+  max-width: 1100px;
   margin: auto;
-  padding: 16px;
+  background: #fffaf2;
+  font-family: "Segoe UI", sans-serif;
+  color: #2c2c2c;
 }
 
-.hero-section {
-  position: relative;
-  text-align: center;
+.vm-lang {
+  text-align: right;
+  padding: 12px;
+}
+.vm-lang button {
+  margin-left: 8px;
+  padding: 6px 14px;
+  border: 1px solid #8b1c1c;
+  background: transparent;
+  cursor: pointer;
+}
+.vm-lang .active {
+  background: #8b1c1c;
+  color: #fff;
 }
 
-.hero-img {
+.vm-hero img {
   width: 100%;
   border-radius: 12px;
 }
-
-.hero-text {
-  margin-top: -80px;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  padding: 12px;
+.vm-gallery {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.vm-gallery img {
+  width: 32%;
   border-radius: 8px;
 }
 
-.price {
-  color: #ffdd00;
+.vm-title {
+  padding: 20px;
+}
+.vm-title h1 {
+  color: #8b1c1c;
+}
+.live-note {
+  margin-top: 8px;
   font-weight: bold;
+  color: #c62828;
 }
 
-.overview-section,
-.benefits-section,
-.program-section,
-.process-section,
-.faq-section {
-  margin-top: 30px;
-}
-
-.benefits-section ul {
-  list-style: square inside;
-}
-
-.program-block {
-  background: #f9f9ff;
-  border-left: 5px solid #6a1b9a;
-  margin: 10px 0;
-  padding: 10px 12px;
-}
-
-.faq-item {
-  border-top: 1px solid #ddd;
-  padding: 10px 0;
-}
-
-.cta-section {
+.vm-timer {
+  display: flex;
+  justify-content: space-around;
+  background: #f4e6d0;
+  padding: 15px;
+  font-weight: bold;
   text-align: center;
-  margin: 30px 0;
+}
+.vm-timer span {
+  display: block;
+  font-size: 22px;
+  color: #8b1c1c;
 }
 
-.cta-btn {
-  background: #6a1b9a;
-  color: #fff;
-  padding: 14px 25px;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 24px;
+.vm-section {
+  padding: 25px;
+}
+.vm-section.light {
+  background: #fdf3e7;
+}
+.vm-section h2 {
+  color: #8b1c1c;
+}
+
+/* FAQ Accordion */
+.faq-accordion {
+  border-bottom: 1px solid #d8c6a1;
+  margin-bottom: 10px;
+}
+.faq-question {
+  display: flex;
+  justify-content: space-between;
   cursor: pointer;
+  font-weight: bold;
+  padding: 12px 0;
+  color: #8b1c1c;
+}
+.faq-answer {
+  padding: 10px 0 15px;
+  line-height: 1.6;
 }
 
-.cta-btn:hover {
-  background: #4a136b;
+.vm-cta {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding: 15px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+.vm-cta button {
+  background: #8b1c1c;
+  color: #fff;
+  padding: 14px 36px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }

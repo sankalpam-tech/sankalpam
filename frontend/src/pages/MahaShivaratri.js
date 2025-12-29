@@ -1,121 +1,214 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import "../styles/MahaShivaratri.css";
 
+import hero from "../images/hero.jpg";
+import img1 from "../images/mahaabhishekam.jpg";
+import img2 from "../images/eventhomam.jpg";
+import img3 from "../images/ganga-aarti.jpg";
 
-const MahaShivaratri = () => {
+const EVENT_DATE = new Date("2025-02-15T23:00:00");
+
+const CONTENT = {
+  en: {
+    metaTitle: "Maha Shivaratri Special Pooja in Kashi | Live Video & Prasadam",
+    metaDesc:
+      "Participate in Maha Shivaratri Special Pooja at Kashi with live video, Rudrabhishekam, Homams, Ganga Aarti & prasadam delivery.",
+    title: "Maha Shivaratri Special Pooja",
+    location: "Kashi (Varanasi)",
+    liveNote: "🔴 Live Pooja Video will be provided to all registered devotees.",
+    about:
+      "Maha Shivaratri is the most sacred night dedicated to Lord Shiva. This pooja is performed at the holy Kashi Kshetra following complete Vedic traditions.",
+    benefits: [
+      "Removal of negative karma and doshas",
+      "Blessings of Lord Shiva",
+      "Peace, prosperity and good health",
+      "Spiritual upliftment",
+    ],
+    procedure: [
+      "Guru Vandana & Ganapati Puja",
+      "Ekadasha Rudrabhishekam with Panchamritas",
+      "Laksha Bilva Archana",
+      "Rudra, Chandi, Kalabhairava & Navagraha Homams",
+      "Ganga Aarti at Rajghat",
+      "Lingodbhava Kala Maha Rudrabhishekam",
+    ],
+    prasadam:
+      "Sacred theertha prasadam will be sent by post to all registered devotees.",
+    faq: [
+      {
+        q: "Can I participate without being present at Kashi?",
+        a: "Yes. Physical presence is not required. You can participate remotely.",
+      },
+      {
+        q: "Will live video of the pooja be provided?",
+        a: "Yes. Live pooja video will be provided to all registered devotees.",
+      },
+      {
+        q: "Who performs the pooja?",
+        a: "Experienced Vedic priests perform the rituals as per Shastra.",
+      },
+      {
+        q: "Is there any registration fee?",
+        a: "Participation is free / donation based.",
+      },
+    ],
+    register: "Register Now",
+  },
+
+  te: {
+    metaTitle: "కాశీలో మహాశివరాత్రి ప్రత్యేక పూజ | ప్రత్యక్ష వీడియో & ప్రసాదం",
+    metaDesc:
+      "కాశీ క్షేత్రంలో మహాశివరాత్రి ప్రత్యేక పూజలో పాల్గొని ప్రత్యక్ష వీడియో, రుద్రాభిషేకం, హోమములు పొందండి.",
+    title: "మహాశివరాత్రి ప్రత్యేక పూజ",
+    location: "కాశీ (వారణాసి)",
+    liveNote: "🔴 నమోదు చేసిన భక్తులందరికీ పూజ ప్రత్యక్ష వీడియో అందించబడుతుంది.",
+    about:
+      "మహాశివరాత్రి పరమశివునికి అంకితమైన పవిత్రమైన రాత్రి. కాశీ క్షేత్రంలో సంపూర్ణ వైదిక విధానంలో పూజ నిర్వహించబడుతుంది.",
+    benefits: [
+      "కర్మ దోష నివారణ",
+      "శివానుగ్రహం",
+      "ఆరోగ్యం, శాంతి, ఐశ్వర్యం",
+      "ఆధ్యాత్మిక పురోగతి",
+    ],
+    procedure: [
+      "గురువందనం & గణపతి పూజ",
+      "ఏకాదశ రుద్రాభిషేకం",
+      "లక్ష బిల్వార్చన",
+      "రుద్ర, చండీ, కాలభైరవ, నవగ్రహ హోమములు",
+      "గంగా హారతి",
+      "లింగోద్భవ కాల రుద్రాభిషేకం",
+    ],
+    prasadam:
+      "పూజ అనంతరం తీర్థ ప్రసాదాలు పోస్టు ద్వారా పంపబడును.",
+    faq: [
+      {
+        q: "కాశీలో ప్రత్యక్షంగా ఉండాలా?",
+        a: "అవసరం లేదు. దూరంగా నుండే పాల్గొనవచ్చు.",
+      },
+      {
+        q: "పూజ ప్రత్యక్ష వీడియో ఇస్తారా?",
+        a: "అవును. నమోదు చేసిన భక్తులకు ప్రత్యక్ష వీడియో అందించబడుతుంది.",
+      },
+      {
+        q: "పూజ ఎవరు నిర్వహిస్తారు?",
+        a: "అనుభవజ్ఞులైన వేద పండితులు నిర్వహిస్తారు.",
+      },
+      {
+        q: "నమోదు ఫీజు ఉందా?",
+        a: "పాల్గొనడం ఉచితం / దక్షిణ ఆధారితం.",
+      },
+    ],
+    register: "పూజలో పాల్గొనండి",
+  },
+};
+
+export default function MahaShivaratri() {
+  const [lang, setLang] = useState("en");
+  const [openFaq, setOpenFaq] = useState(null);
+  const [time, setTime] = useState({});
+
+  useEffect(() => {
+    const i = setInterval(() => {
+      const diff = EVENT_DATE - new Date();
+      setTime({
+        d: Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24))),
+        h: Math.max(0, Math.floor((diff / (1000 * 60 * 60)) % 24)),
+        m: Math.max(0, Math.floor((diff / (1000 * 60)) % 60)),
+        s: Math.max(0, Math.floor((diff / 1000) % 60)),
+      });
+    }, 1000);
+    return () => clearInterval(i);
+  }, []);
+
+  const t = CONTENT[lang];
+
   return (
-    <div className="pooja-details-page">
+    <div className="vm-page">
+      <Helmet>
+        <title>{t.metaTitle}</title>
+        <meta name="description" content={t.metaDesc} />
+      </Helmet>
+
+      {/* Language Toggle */}
+      <div className="vm-lang">
+        <button onClick={() => setLang("en")} className={lang === "en" ? "active" : ""}>EN</button>
+        <button onClick={() => setLang("te")} className={lang === "te" ? "active" : ""}>తెలుగు</button>
+      </div>
 
       {/* Hero */}
-      <section className="hero-section">
-        <img 
-          src="https://example.com/hero-maha-shivaratri.jpg" 
-          alt="Maha Shivaratri Celebration" 
-          className="hero-img"
-        />
-        <div className="hero-text">
-          <h1>🌺 Maha Shivaratri Spiritual Celebration 🌺</h1>
-          <p>At the Sacred Kashi — Feb 15</p>
-          <p className="price">Special Event — Free / Donate Your Blessings</p>
+      <div className="vm-hero">
+        <img src={hero} alt="Maha Shivaratri" />
+        <div className="vm-gallery">
+          <img src={img1} alt="Rudrabhishekam" />
+          <img src={img2} alt="Homam" />
+          <img src={img3} alt="Ganga Aarti" />
         </div>
+      </div>
+
+      {/* Title */}
+      <div className="vm-title">
+        <h1>{t.title}</h1>
+        <p>{t.location}</p>
+        <div className="live-note">{t.liveNote}</div>
+      </div>
+
+      {/* Timer */}
+      <div className="vm-timer">
+        <div><span>{time.d}</span>Days</div>
+        <div><span>{time.h}</span>Hrs</div>
+        <div><span>{time.m}</span>Min</div>
+        <div><span>{time.s}</span>Sec</div>
+      </div>
+
+      {/* Sections */}
+      <section className="vm-section">
+        <h2>About Pooja</h2>
+        <p>{t.about}</p>
       </section>
 
-      {/* Overview */}
-      <section className="overview-section">
-        <h2>About the Event</h2>
-        <p>
-          Join this sacred Maha Shivaratri celebration in Kashi with
-          complete Vedic rituals, Rudrabhishekam, Homams, Ganga Aarti
-          and Lingodbhava observance — conducted by learned priests
-          with devotion and purity.
-        </p>
+      <section className="vm-section light">
+        <h2>Pooja Benefits</h2>
+        <ul>{t.benefits.map((b, i) => <li key={i}>{b}</li>)}</ul>
       </section>
 
-      {/* Benefits */}
-      <section className="benefits-section">
-        <h2>✨ Event Benefits</h2>
-        <ul>
-          <li>Invoke Lord Shiva’s Blessings for peace and prosperity</li>
-          <li>Experience powerful Rudrabhishekam & Homams</li>
-          <li>Receive Theertha Prasad mailed to your home</li>
-          <li>Participate even remotely</li>
-          <li>Enhance spiritual growth & inner peace</li>
-        </ul>
+      <section className="vm-section">
+        <h2>Pooja Procedure</h2>
+        <ol>{t.procedure.map((p, i) => <li key={i}>{p}</li>)}</ol>
       </section>
 
-      {/* Detailed Program */}
-      <section className="program-section">
-        <h2>🕉️ Detailed Program</h2>
-
-        <div className="program-block">
-          <h3>🌅 6:00 AM</h3>
-          <p>Ganapati Puja, Punyahavachanam, Guru Vandana & Raksha Bandhanam</p>
-        </div>
-
-        <div className="program-block">
-          <h3>⏰ 7:30 AM</h3>
-          <p>Mahaanayas Parayanam & Ekadasha Rudrabhishekam</p>
-        </div>
-
-        <div className="program-block">
-          <h3>⏰ 9:00 AM</h3>
-          <p>Laksha Bilvarchan, Rudra Trishati, Neerajan & Theertha Prasad</p>
-        </div>
-
-        <div className="program-block">
-          <h3>🕉️ 11:00 AM</h3>
-          <p>Rudra Homam, Chandi Homam, Kalabhairava Homam & Navagraha Homam</p>
-        </div>
-
-        <div className="program-block">
-          <h3>🌇 5:30 PM</h3>
-          <p>Ganga Aarti at Rajghat</p>
-        </div>
-
-        <div className="program-block">
-          <h3>🌙 11:00 PM</h3>
-          <p>Lingodbhava Kala Maha Shivaratri Rudrabhishekam</p>
-        </div>
+      <section className="vm-section light">
+        <h2>Prasadam</h2>
+        <p>{t.prasadam}</p>
       </section>
 
-      {/* Process */}
-      <section className="process-section">
-        <h2>🛕 Ritual Process</h2>
-        <p>
-          The event includes Vedic chanting, homams, floral offerings,
-          sacred fire rituals, and Ganga Aarti. All rituals are
-          performed as per shastra and tradition to invoke Lord Shiva’s
-          divine grace.
-        </p>
-      </section>
+      {/* FAQ ACCORDION */}
+      <section className="vm-section">
+        <h2>FAQs</h2>
 
-      {/* FAQ */}
-      <section className="faq-section">
-        <h2>Frequently Asked Questions</h2>
+        {t.faq.map((f, i) => (
+          <div className="faq-accordion" key={i}>
+            <div
+              className="faq-question"
+              onClick={() => setOpenFaq(openFaq === i ? null : i)}
+            >
+              {f.q}
+              <span>{openFaq === i ? "−" : "+"}</span>
+            </div>
 
-        <div className="faq-item">
-          <h4>Can I participate remotely?</h4>
-          <p>Yes, you can participate from anywhere & receive Theertha Prasad.</p>
-        </div>
-
-        <div className="faq-item">
-          <h4>Will I receive proof of rituals?</h4>
-          <p>Yes — video/photo proofs are shared where available.</p>
-        </div>
-
-        <div className="faq-item">
-          <h4>Is there any charge?</h4>
-          <p>Participation is free — donations are welcome.</p>
-        </div>
+            {openFaq === i && (
+              <div className="faq-answer">
+                {f.a}
+              </div>
+            )}
+          </div>
+        ))}
       </section>
 
       {/* CTA */}
-      <section className="cta-section">
-        <button className="cta-btn">Participate / Register Now</button>
-      </section>
-
+      <div className="vm-cta">
+        <button>{t.register}</button>
+      </div>
     </div>
   );
-};
-
-export default MahaShivaratri;
+}

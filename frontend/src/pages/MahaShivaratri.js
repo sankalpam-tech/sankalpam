@@ -5,7 +5,7 @@ import "../styles/MahaShivaratri.css";
 import hero from "../images/hero.jpg";
 import img1 from "../images/mahaabhishekam.jpg";
 import img2 from "../images/eventhomam.jpg";
-import img3 from "../images/ganga-aarti.jpg";
+import img3 from "../images/Ganga-aarti.jpg";
 
 const EVENT_DATE = new Date("2025-02-15T23:00:00");
 

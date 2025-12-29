@@ -124,10 +124,6 @@ export default function MahaShivaratri() {
 
   return (
     <div className="vm-page">
-      <Helmet>
-        <title>{t.metaTitle}</title>
-        <meta name="description" content={t.metaDesc} />
-      </Helmet>
 
       {/* Language Toggle */}
       <div className="vm-lang">

@@ -319,7 +319,7 @@ productSchema.virtual('lowStock').get(function() {
 });
 
 // Create slug from name before saving
-productSchema.pre('save', async function(next) {
+productSchema.pre('save', async function() {
   if (this.isModified('name') && !this.slug) {
     this.slug = slugify(this.name, {
       lower: true,
@@ -354,7 +354,7 @@ productSchema.pre('save', async function(next) {
     this.seoDescription = this.shortDescription.substring(0, 200);
   }
   
-  next();
+  ;
 });
 
 // Update product rating when a new review is added

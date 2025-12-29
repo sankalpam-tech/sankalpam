@@ -1,6 +1,7 @@
 import express from 'express';
 import { validationResult } from 'express-validator';
 import { protect, authorize } from '../middleware/authMiddleware.js';
+import { validate } from '../middleware/validator.js';
 import { 
   productController,
   cartController,
@@ -185,7 +186,7 @@ router.route('/categories')
 
 router.route('/categories/tree')
   .get(
-    (req, res, next) => validate([])(req, res, next), 
+    // (req, res, next) => validate([])(req, res, next), 
     asyncHandler(ecommerceController.getCategoryTree)
   );
 

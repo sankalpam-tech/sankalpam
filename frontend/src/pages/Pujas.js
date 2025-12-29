@@ -129,9 +129,9 @@ function Pujas() {
   ];
 
   const handleBookNow = (puja) => {
-    alert('this feature is coming soon!');
-    // setSelectedPuja(puja);
-    // setCurrentPage("booking");
+    // alert("this feature is coming soon!");
+    setSelectedPuja(puja);
+    setCurrentPage("booking");
   };
 
   const handleCloseModal = () => {
@@ -261,11 +261,7 @@ function Pujas() {
       <div className="puja-search-wrapper">
         <div className="puja-search-inner">
           <div className="puja-search-box">
-            <span
-              className="puja-search-icon"
-              role="img"
-              aria-label="Search"
-            >
+            <span className="puja-search-icon" role="img" aria-label="Search">
               🔍
             </span>
             <input
@@ -283,7 +279,7 @@ function Pujas() {
       <section className="hero-banner-wrapper">
         <div className="hero-banner-container">
           <div className="hero-carousel">
-            <div 
+            <div
               className="hero-carousel-track"
               style={{
                 transform: `translateX(-${25 * slideIndex}%)`,
@@ -302,7 +298,7 @@ function Pujas() {
                 </div>
               ))}
             </div>
-            
+
             {/* Content Overlay */}
             <div className="hero-content">
               <h1 className="hero-title">Book Your Sacred Pujas Online</h1>
@@ -315,14 +311,20 @@ function Pujas() {
 
             {/* Navigation Arrows */}
             <button
-              onClick={() => setSlideIndex((idx) => (idx - 1 + HERO_IMAGES.length) % HERO_IMAGES.length)}
+              onClick={() =>
+                setSlideIndex(
+                  (idx) => (idx - 1 + HERO_IMAGES.length) % HERO_IMAGES.length
+                )
+              }
               aria-label="Previous slide"
               className="hero-carousel-btn hero-carousel-btn-prev"
             >
               {"<"}
             </button>
             <button
-              onClick={() => setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length)}
+              onClick={() =>
+                setSlideIndex((idx) => (idx + 1) % HERO_IMAGES.length)
+              }
               aria-label="Next slide"
               className="hero-carousel-btn hero-carousel-btn-next"
             >

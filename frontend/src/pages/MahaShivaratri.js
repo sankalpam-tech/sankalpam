@@ -199,22 +199,22 @@ export default function MahaShivaratri() {
 
       {/* Sections */}
       <section className="vm-section">
-        <h2>t.headings.about</h2>
+        <h2>{t.headings.about}</h2>
         <p>{t.about}</p>
       </section>
 
       <section className="vm-section light">
-        <h2>t.headings.benefits</h2>
+        <h2>{t.headings.benefits}</h2>
         <ul>{t.benefits.map((b, i) => <li key={i}>{b}</li>)}</ul>
       </section>
 
       <section className="vm-section">
-        <h2>t.headings.procedure</h2>
+        <h2>{t.headings.procedure}</h2>
         <ol>{t.procedure.map((p, i) => <li key={i}>{p}</li>)}</ol>
       </section>
 
       <section className="vm-section light">
-        <h2>t.headings.prasadam</h2>
+        <h2>{t.headings.prasadam}</h2>
         <p>{t.prasadam}</p>
       </section>
 

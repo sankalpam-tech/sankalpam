@@ -4,11 +4,12 @@ import imgmain from "../images/hero.jpg";
 import img1 from "../images/mahaabhishekam.jpg";
 import img2 from "../images/eventhomam.jpg";
 import img3 from "../images/Ganga-aarti.jpg";
+import BookingPage from "./Bookingpage";
 
 /* 🔒 RELIABLE DATE (IST) */
 const EVENT_DATE = new Date(2025, 1, 15, 23, 0, 0); // Feb 15 11:00 PM
 
-const GALLERY_IMAGES = [img1,imgmain, img2, img3];
+const GALLERY_IMAGES = [img1, imgmain, img2, img3];
 
 const CONTENT = {
   en: {
@@ -16,14 +17,15 @@ const CONTENT = {
     location: "Kashi (Varanasi)",
     price: "₹1,611",
     priceNote: "Per Participation",
-    liveNote: "🔴 Live Pooja Video will be provided to all registered devotees.",
+    liveNote:
+      "🔴 Live Pooja Video will be provided to all registered devotees.",
     headings: {
       about: "About Pooja",
       benefits: "Pooja Benefits",
       procedure: "Pooja Procedure",
       prasadam: "Prasadam",
       faq: "FAQs",
-    },  
+    },
     about:
       "Maha Shivaratri is the most sacred night dedicated to Lord Shiva. This pooja is performed at the holy Kashi Kshetra following complete Vedic traditions.",
     benefits: [
@@ -68,7 +70,8 @@ const CONTENT = {
     location: "కాశీ (వారణాసి)",
     price: "₹1,611",
     priceNote: "ప్రతి పాల్గొనేవారికి",
-    liveNote: "🔴 నమోదు చేసిన భక్తులందరికీ పూజ ప్రత్యక్ష వీడియో అందించబడుతుంది.",
+    liveNote:
+      "🔴 నమోదు చేసిన భక్తులందరికీ పూజ ప్రత్యక్ష వీడియో అందించబడుతుంది.",
     headings: {
       about: "పూజ వివరాలు",
       benefits: "పూజ ఫలితాలు",
@@ -92,8 +95,7 @@ const CONTENT = {
       "గంగా హారతి",
       "లింగోద్భవ కాల రుద్రాభిషేకం",
     ],
-    prasadam:
-      "పూజ అనంతరం తీర్థ ప్రసాదాలు పోస్టు ద్వారా పంపబడును.",
+    prasadam: "పూజ అనంతరం తీర్థ ప్రసాదాలు పోస్టు ద్వారా పంపబడును.",
     faq: [
       {
         q: "కాశీలో ప్రత్యక్షంగా ఉండాలా?",
@@ -121,6 +123,7 @@ export default function MahaShivaratri() {
   const [openFaq, setOpenFaq] = useState(null);
   const [time, setTime] = useState({});
   const [currentImage, setCurrentImage] = useState(0);
+  const [showBookingModal, setShowBookingModal] = useState(false);
 
   /* Countdown */
   useEffect(() => {
@@ -148,12 +151,39 @@ export default function MahaShivaratri() {
 
   const t = CONTENT[lang];
 
+  const handleCloseBookingModal = () => {
+    setShowBookingModal(false);
+  };
+
+  // Prevent body scroll when booking modal is open
+  useEffect(() => {
+    if (showBookingModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [showBookingModal]);
+
   return (
     <div className="vm-page">
       {/* Language */}
       <div className="vm-lang">
-        <button onClick={() => setLang("en")} className={lang === "en" ? "active" : ""}>EN</button>
-        <button onClick={() => setLang("te")} className={lang === "te" ? "active" : ""}>తెలుగు</button>
+        <button
+          onClick={() => setLang("en")}
+          className={lang === "en" ? "active" : ""}
+        >
+          EN
+        </button>
+        <button
+          onClick={() => setLang("te")}
+          className={lang === "te" ? "active" : ""}
+        >
+          తెలుగు
+        </button>
       </div>
 
       {/* Image Carousel */}
@@ -179,10 +209,18 @@ export default function MahaShivaratri() {
 
       {/* Countdown */}
       <div className="vm-timer">
-        <div><span>{time.d}</span>Days</div>
-        <div><span>{time.h}</span>Hrs</div>
-        <div><span>{time.m}</span>Min</div>
-        <div><span>{time.s}</span>Sec</div>
+        <div>
+          <span>{time.d}</span>Days
+        </div>
+        <div>
+          <span>{time.h}</span>Hrs
+        </div>
+        <div>
+          <span>{time.m}</span>Min
+        </div>
+        <div>
+          <span>{time.s}</span>Sec
+        </div>
       </div>
 
       {/* Sections */}
@@ -193,12 +231,20 @@ export default function MahaShivaratri() {
 
       <section className="vm-section light">
         <h2>{t.headings.benefits}</h2>
-        <ul>{t.benefits.map((b, i) => <li key={i}>{b}</li>)}</ul>
+        <ul>
+          {t.benefits.map((b, i) => (
+            <li key={i}>{b}</li>
+          ))}
+        </ul>
       </section>
 
       <section className="vm-section">
         <h2>{t.headings.procedure}</h2>
-        <ol>{t.procedure.map((p, i) => <li key={i}>{p}</li>)}</ol>
+        <ol>
+          {t.procedure.map((p, i) => (
+            <li key={i}>{p}</li>
+          ))}
+        </ol>
       </section>
 
       <section className="vm-section light">
@@ -225,8 +271,35 @@ export default function MahaShivaratri() {
 
       {/* CTA */}
       <div className="vm-cta">
-        <button>{t.register}</button>
+        <button onClick={() => setShowBookingModal(true)}>{t.register}</button>
       </div>
+
+      {/* Booking Modal Overlay */}
+      {showBookingModal && (
+        <div
+          className="booking-modal-overlay"
+          onClick={handleCloseBookingModal}
+        >
+          <div
+            className="booking-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="booking-modal-close"
+              onClick={handleCloseBookingModal}
+            >
+              ×
+            </button>
+            <BookingPage
+              puja={{
+                name: t.title,
+                price: t.price,
+              }}
+              onBack={handleCloseBookingModal}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

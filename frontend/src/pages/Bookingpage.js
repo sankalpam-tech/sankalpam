@@ -1,8 +1,19 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "../styles/Bookingpage.css";
 import QRImage from "../images/QR.jpg";
+import heroImg from "../images/mahaabhishekam.jpg";
 
 function Bookingpage({ puja, onBack, type = "puja" }) {
+  const location = useLocation();
+  const eventData = location.state || {};
+
+  // Use eventData if coming from navigation, otherwise use puja props
+  const eventName = eventData.eventName || puja?.name || "Satyanarayan Puja";
+  const eventPrice = eventData.price || puja?.price || "₹2501";
+  const eventLocation = eventData.location;
+  const eventImage = puja?.image || heroImg; // Use puja image if available, fallback to default
+
   const isAstrology = type === "astrology";
 
   return (
@@ -18,15 +29,21 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
           {/* Selected Puja Card */}
           <div className="bp-puja-card">
             <div className="bp-puja-card-inner">
-              <h2 className="bp-puja-name">
-                {puja?.name || "Satyanarayan Puja"}
-              </h2>
-              <p className="bp-puja-subtitle">
-                {isAstrology
-                  ? "You are booking this consultation"
-                  : "You are booking this puja"}
-              </p>
-              <p className="bp-puja-cost">Cost: {puja?.price || "₹2501"}</p>
+              <div className="bp-puja-hero">
+                <img src={eventImage} alt="Puja" />
+              </div>
+              <div className="bp-puja-details">
+                <h2 className="bp-puja-name">{eventName}</h2>
+                <p className="bp-puja-subtitle">
+                  {isAstrology
+                    ? "You are booking this consultation"
+                    : "You are booking this puja"}
+                </p>
+                {eventLocation && (
+                  <p className="bp-puja-location">📍 {eventLocation}</p>
+                )}
+                <p className="bp-puja-cost">Cost: {eventPrice}</p>
+              </div>
             </div>
           </div>
 
@@ -257,9 +274,8 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
               {/* Pay button */}
               <div className="bp-pay-wrapper">
                 <button type="submit" className="bp-pay-btn">
-                  Pay Now
+                  Submit Now
                 </button>
-                <p className="bp-pay-note">Secure payment powered by Stripe</p>
               </div>
             </form>
           </section>

@@ -169,4 +169,79 @@
   border: none;
   font-size: 16px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.vm-cta button:hover {
+  background: #6d1515;
+  transform: scale(1.05);
+}
+
+/* Booking Modal */
+.booking-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.booking-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  max-height: 95vh;
+  overflow-y: auto;
+  background: transparent;
+}
+
+.booking-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  color: #333;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.booking-modal-close:hover {
+  background-color: white;
+  transform: scale(1.1);
+}
+
+/* Custom scrollbar for modal */
+.booking-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.booking-modal-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.booking-modal-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.booking-modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }

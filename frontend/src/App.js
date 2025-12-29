@@ -1,34 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import Home from './pages/Home';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Home from "./pages/Home";
 
-import Pujas from './pages/Pujas';
-import Astrology from './pages/Astrology';
-import Ecommerce from './pages/Ecommerce';
-import Tourism from './pages/Tourism';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Profile from './pages/Profile';
-import AboutUs from './pages/AboutUs';
-import Admin from './pages/Admin';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
-import RefundPolicy from './pages/RefundPolicy';
-import FloatingButtons from './components/FloatingButtons';
+import Pujas from "./pages/Pujas";
+import Astrology from "./pages/Astrology";
+import Ecommerce from "./pages/Ecommerce";
+import Tourism from "./pages/Tourism";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
+import AboutUs from "./pages/AboutUs";
+import Admin from "./pages/Admin";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import RefundPolicy from "./pages/RefundPolicy";
+import FloatingButtons from "./components/FloatingButtons";
 import ForgotMail from "./pages/ForgotMail";
 import Otp from "./pages/Otp";
 import ResetPass from "./pages/ResetPass";
 import OAuthSuccess from "./pages/OAuthSuccess";
 import MahaShivaratri from "./pages/MahaShivaratri";
+import Bookingpage from "./pages/Bookingpage";
 
-
-import './App.css';
+import "./App.css";
 
 // Import background images for preloading
-import bgPujas from './images/86-Meenakshi-Amman-Temple-01_credit-Shutterstock.jpg';
-import bgAstrology from './images/astrology.jpg';
+import bgPujas from "./images/86-Meenakshi-Amman-Temple-01_credit-Shutterstock.jpg";
+import bgAstrology from "./images/astrology.jpg";
 
 // Scroll to top component
 function ScrollToTop() {
@@ -76,6 +81,7 @@ function App() {
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/refund-policy" element={<RefundPolicy />} />
               <Route path="/mahashivarathri" element={<MahaShivaratri />} />
+              <Route path="/bookingform" element={<Bookingpage />} />
             </Routes>
           </main>
           <FloatingButtons />

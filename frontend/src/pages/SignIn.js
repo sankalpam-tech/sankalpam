@@ -62,7 +62,7 @@ const SignIn = () => {
 
         login(user);
         window.alert(msg);
-        navigate("/profile");
+        navigate("/");
       } else {
         window.alert(msg);
       }

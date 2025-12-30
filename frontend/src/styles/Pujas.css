@@ -159,7 +159,7 @@
   background-color: #fff;
   border-radius: 16px;
   padding: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   min-height: 260px;
   margin-bottom: 24px;
 }
@@ -250,7 +250,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255,255,255,0.85);
+  background: rgba(255, 255, 255, 0.85);
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -259,14 +259,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   z-index: 2;
   transition: background 0.3s;
   font-size: 18px;
 }
 
 .hero-carousel-btn:hover {
-  background: rgba(255,255,255,1);
+  background: rgba(255, 255, 255, 1);
 }
 
 .hero-carousel-btn-prev {
@@ -1275,7 +1275,7 @@
 }
 
 .puja-search-inner {
-  width:100%;
+  width: 100%;
   padding: 8px 12px;
   display: flex;
   justify-content: flex-end;
@@ -1356,5 +1356,3 @@
     font-size: 13px;
   }
 }
-
-

@@ -11,10 +11,10 @@ function Bookingpage({ puja, onBack, type = "puja" }) {
   const eventData = location.state || {};
 
   // Use eventData if coming from navigation, otherwise use puja props
-  const eventName = eventData.eventName || puja?.name || "Satyanarayan Puja";
-  const eventPrice = eventData.price || puja?.price || "₹2501";
-  const eventLocation = eventData.location;
-  const eventImage = puja?.image || heroImg; // Use puja image if available, fallback to default
+  // const eventName = eventData.eventName || puja?.name || "Satyanarayan Puja";
+  // const eventPrice = eventData.price || puja?.price || "₹2501";
+  // const eventLocation = eventData.location;
+  // const eventImage = puja?.image || heroImg; // Use puja image if available, fallback to default
 
   const isAstrology = type === "astrology";
 

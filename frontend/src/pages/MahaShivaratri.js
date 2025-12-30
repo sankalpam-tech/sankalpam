@@ -236,45 +236,45 @@ export default function MahaShivaratri() {
         <h1>{t.title}</h1>
         <p>{t.location}</p>
         <div className="live-note">{t.liveNote}</div>
-
-        <div className="vm-price-box">
-          <div className="vm-price">{t.price}</div>
-          <div className="vm-price-note">{t.priceNote}</div>
-        </div>
       </div>
 
       {/* Countdown Timer */}
-      <div className="tourism-countdown">
-        <div className="tourism-countdown-item">
-          <div className="tourism-countdown-box">
-            <p className="tourism-countdown-number">{time.days || '0'}</p>
-          </div>
-          <div className="tourism-countdown-label">
-            <p>{lang === 'en' ? 'Days' : 'రోజులు'}</p>
-          </div>
+      <div className="vm-countdown-container">
+        <div className="vm-countdown-header">
+          {lang === 'en' ? 'Booking Closes in' : 'బుకింగ్ ముగియడానికి'}
         </div>
-        <div className="tourism-countdown-item">
-          <div className="tourism-countdown-box">
-            <p className="tourism-countdown-number">{time.hours || '0'}</p>
+        <div className="tourism-countdown">
+          <div className="tourism-countdown-item">
+            <div className="tourism-countdown-box">
+              <p className="tourism-countdown-number">{time.days || '0'}</p>
+            </div>
+            <div className="tourism-countdown-label">
+              <p>{lang === 'en' ? 'Days' : 'రోజులు'}</p>
+            </div>
           </div>
-          <div className="tourism-countdown-label">
-            <p>{lang === 'en' ? 'Hours' : 'గంటలు'}</p>
+          <div className="tourism-countdown-item">
+            <div className="tourism-countdown-box">
+              <p className="tourism-countdown-number">{time.hours || '0'}</p>
+            </div>
+            <div className="tourism-countdown-label">
+              <p>{lang === 'en' ? 'Hours' : 'గంటలు'}</p>
+            </div>
           </div>
-        </div>
-        <div className="tourism-countdown-item">
-          <div className="tourism-countdown-box">
-            <p className="tourism-countdown-number">{time.minutes || '0'}</p>
+          <div className="tourism-countdown-item">
+            <div className="tourism-countdown-box">
+              <p className="tourism-countdown-number">{time.minutes || '0'}</p>
+            </div>
+            <div className="tourism-countdown-label">
+              <p>{lang === 'en' ? 'Minutes' : 'నిమిషాలు'}</p>
+            </div>
           </div>
-          <div className="tourism-countdown-label">
-            <p>{lang === 'en' ? 'Minutes' : 'నిమిషాలు'}</p>
-          </div>
-        </div>
-        <div className="tourism-countdown-item">
-          <div className="tourism-countdown-box">
-            <p className="tourism-countdown-number">{time.seconds || '0'}</p>
-          </div>
-          <div className="tourism-countdown-label">
-            <p>{lang === 'en' ? 'Seconds' : 'సెకన్లు'}</p>
+          <div className="tourism-countdown-item">
+            <div className="tourism-countdown-box">
+              <p className="tourism-countdown-number">{time.seconds || '0'}</p>
+            </div>
+            <div className="tourism-countdown-label">
+              <p>{lang === 'en' ? 'Seconds' : 'సెకన్లు'}</p>
+            </div>
           </div>
         </div>
       </div>

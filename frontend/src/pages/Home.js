@@ -22,6 +22,13 @@ function Home() {
   const audioRef = useRef(null);
   const heroCarouselIntervalRef = useRef(null);
 
+  const getEventLink = (event) => {
+    if (event.title.toLowerCase().includes("shivaratri")) {
+      return "/mahashivarathri";
+    }
+    return "/register";
+  };
+
   // Show promo popup on initial load
   useEffect(() => {
     const hasSeenPopup = sessionStorage.getItem('hasSeenPromoPopup');
@@ -328,7 +335,7 @@ function Home() {
           
           <div className="events-sidebar-list">
             {events.map((e, i) => (
-              <Link to={e.cta === "View Details" ? "/details" : "/register"} className="event-sidebar-card" key={i}>
+              <Link to={getEventLink(e)} className="event-sidebar-card" key={i}>
                 <div className="event-sidebar-date">
                   {e.date}
                   <small>{e.month}</small>
@@ -462,7 +469,7 @@ function Home() {
         <div className="events-container">
           <div className="events-list">
             {events.map((e, i) => (
-              <Link to={e.cta === "View Details" ? "/details" : "/register"} className="event-card" key={i}>
+              <Link to={getEventLink(e)} className="event-card" key={i}>
                 <div className="event-date">
                   {e.date}
                   <small>{e.month}</small>

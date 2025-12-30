@@ -275,3 +275,195 @@
     font-size: 13px !important;
   }
 }
+
+/* Steps Section Styles */
+.astrology-steps-section {
+  margin-bottom: 80px;
+  background-color: #fff;
+  padding: 60px 40px;
+  border-radius: 16px;
+}
+
+.astrology-steps-title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 56px;
+  color: #000;
+}
+
+.astrology-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.astrology-step-card {
+  text-align: center;
+  padding: 32px 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #fafafa;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.astrology-step-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -48px;
+  width: 48px;
+  height: 2px;
+  border-top: 2px dotted #c41e3a;
+  transform: translateY(-50%);
+}
+
+.astrology-step-card:last-child::after {
+  display: none;
+}
+
+.astrology-step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.astrology-step-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #ffe0e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 32px;
+}
+
+.astrology-step-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.astrology-step-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Steps Section - Tablet View */
+@media (max-width: 1024px) {
+  .astrology-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .astrology-steps-section {
+    padding: 50px 30px;
+  }
+
+  .astrology-step-card::after {
+    right: -32px;
+    width: 32px;
+  }
+}
+
+/* Steps Section - Mobile View */
+@media (max-width: 768px) {
+  .astrology-steps-section {
+    padding: 40px 20px;
+    margin-bottom: 60px;
+  }
+
+  .astrology-steps-title {
+    font-size: 26px;
+    margin-bottom: 40px;
+  }
+
+  .astrology-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .astrology-step-card {
+    padding: 24px 20px;
+  }
+
+  .astrology-step-card::after {
+    top: auto;
+    bottom: -24px;
+    left: 50%;
+    right: auto;
+    width: 2px;
+    height: 24px;
+    border-top: none;
+    border-left: 2px dotted #c41e3a;
+    transform: translateX(-50%);
+  }
+
+  .astrology-step-card:last-child::after {
+    display: none;
+  }
+
+  .astrology-step-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .astrology-step-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .astrology-step-desc {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
+
+/* Steps Section - Small Mobile View */
+@media (max-width: 480px) {
+  .astrology-steps-section {
+    padding: 30px 16px;
+    margin-bottom: 40px;
+  }
+
+  .astrology-steps-title {
+    font-size: 22px;
+    margin-bottom: 32px;
+  }
+
+  .astrology-steps-grid {
+    gap: 20px;
+  }
+
+  .astrology-step-card {
+    padding: 20px 16px;
+  }
+
+  .astrology-step-card::after {
+    bottom: -20px;
+    height: 20px;
+  }
+
+  .astrology-step-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .astrology-step-title {
+    font-size: 15px;
+  }
+
+  .astrology-step-desc {
+    font-size: 12px;
+  }
+}

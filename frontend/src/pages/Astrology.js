@@ -303,22 +303,10 @@ const Astrology = () => {
         </section>
 
         {/* STEPS SECTION */}
-        <section style={{ marginBottom: '80px', backgroundColor: '#fff', padding: '60px 40px', borderRadius: '16px' }}>
-          <h2 style={{
-            fontSize: '32px',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginBottom: '56px',
-            color: '#000'
-          }}>Your Path to Clarity in 3 Simple Steps</h2>
+        <section className="astrology-steps-section">
+          <h2 className="astrology-steps-title">Your Path to Clarity in 3 Simple Steps</h2>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '48px',
-            maxWidth: '1100px',
-            margin: '0 auto'
-          }}>
+          <div className="astrology-steps-grid">
             {[
               {
                 icon: "👆",
@@ -336,35 +324,10 @@ const Astrology = () => {
                 desc: "Get your comprehensive report or schedule a consultation to receive divine guidance."
               }
             ].map((step, i) => (
-              <div key={i} style={{
-                textAlign: 'center',
-                padding: '32px 24px',
-                border: '1px solid #e0e0e0',
-                borderRadius: '12px',
-                backgroundColor: '#fafafa'
-              }}>
-                <div style={{
-                  width: '64px',
-                  height: '64px',
-                  borderRadius: '50%',
-                  backgroundColor: '#ffe0e5',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 24px',
-                  fontSize: '32px'
-                }}>{step.icon}</div>
-                <h3 style={{
-                  fontSize: '18px',
-                  fontWeight: '600',
-                  marginBottom: '12px',
-                  color: '#000'
-                }}>{step.title}</h3>
-                <p style={{
-                  fontSize: '14px',
-                  color: '#666',
-                  lineHeight: '1.6'
-                }}>{step.desc}</p>
+              <div key={i} className="astrology-step-card">
+                <div className="astrology-step-icon">{step.icon}</div>
+                <h3 className="astrology-step-title">{step.title}</h3>
+                <p className="astrology-step-desc">{step.desc}</p>
               </div>
             ))}
           </div>

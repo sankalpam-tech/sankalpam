@@ -23,10 +23,17 @@ function Home() {
   const heroCarouselIntervalRef = useRef(null);
 
   const getEventLink = (event) => {
-    if (event.title.toLowerCase().includes("shivaratri")) {
-      return "/mahashivarathri";
-    }
-    return "/register";
+    const eventMap = {
+      'maha shivaratri': '/mahashivarathri',
+      'rudrabhishekam': '/rudrabhishekam',
+      'makara sankranti homam': '/makara-sankranti',
+      'vishwa shanti puja': '/vishwa-shanti-puja'
+    };
+    
+    const lowerTitle = event.title.toLowerCase();
+    const matchedEvent = Object.entries(eventMap).find(([key]) => lowerTitle.includes(key));
+    
+    return matchedEvent ? matchedEvent[1] : '/register';
   };
 
   // Show promo popup on initial load

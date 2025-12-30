@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/MahaShivaratri.css";
 import imgmain from "../images/hero.jpg";
 import img1 from "../images/mahaabhishekam.jpg";
 import img2 from "../images/eventhomam.jpg";
 import img3 from "../images/Ganga-aarti.jpg";
 import BookingPage from "./Bookingpage";
+import Footer from "../components/layout/Footer";
+import { FaArrowLeft } from "react-icons/fa";
 
-/* 🔒 RELIABLE DATE (IST) */
-const EVENT_DATE = new Date(2025, 1, 15, 23, 0, 0); // Feb 15 11:00 PM
+/* 🔒 RELIABLE DATE (IST) - February 10, 2026 00:00:00 IST */
+const EVENT_DATE = new Date(2026, 1, 10, 0, 0, 0); // Feb 15, 2026 00:00:00
 
 const GALLERY_IMAGES = [img1, imgmain, img2, img3];
 
@@ -125,18 +128,34 @@ export default function MahaShivaratri() {
   const [currentImage, setCurrentImage] = useState(0);
   const [showBookingModal, setShowBookingModal] = useState(false);
 
-  /* Countdown */
+  /* Countdown to Maha Shivaratri 2026 */
   useEffect(() => {
-    const t = setInterval(() => {
-      const diff = EVENT_DATE - new Date();
-      setTime({
-        d: Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24))),
-        h: Math.max(0, Math.floor((diff / (1000 * 60 * 60)) % 24)),
-        m: Math.max(0, Math.floor((diff / (1000 * 60)) % 60)),
-        s: Math.max(0, Math.floor((diff / 1000) % 60)),
-      });
-    }, 1000);
-    return () => clearInterval(t);
+    const updateCountdown = () => {
+      const now = new Date();
+      const target = new Date(EVENT_DATE);
+      const diff = target - now;
+
+      if (diff > 0) {
+        setTime({
+          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((diff % (1000 * 60)) / 1000)
+        });
+      } else {
+        // If the event has passed, set all to 0
+        setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    // Initial call
+    updateCountdown();
+    
+    // Update every second
+    const timer = setInterval(updateCountdown, 1000);
+    
+    // Cleanup
+    return () => clearInterval(timer);
   }, []);
 
   /* Auto image slider */
@@ -168,8 +187,25 @@ export default function MahaShivaratri() {
     };
   }, [showBookingModal]);
 
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
+
   return (
     <div className="vm-page">
+      {/* Back Button */}
+      <div className="vm-back-button-container">
+        <button 
+          onClick={handleBack}
+          className="vm-back-button"
+          aria-label={lang === 'en' ? 'Go back' : 'వెనుకకు వెళ్ళండి'}
+        >
+          <FaArrowLeft className="vm-back-icon" />
+          {lang === 'en' ? 'Back to Home' : 'హోమ్‌కి తిరిగి వెళ్ళు'}
+        </button>
+      </div>
       {/* Language */}
       <div className="vm-lang">
         <button
@@ -200,26 +236,46 @@ export default function MahaShivaratri() {
         <h1>{t.title}</h1>
         <p>{t.location}</p>
         <div className="live-note">{t.liveNote}</div>
-
-        <div className="vm-price-box">
-          <div className="vm-price">{t.price}</div>
-          <div className="vm-price-note">{t.priceNote}</div>
-        </div>
       </div>
 
-      {/* Countdown */}
-      <div className="vm-timer">
-        <div>
-          <span>{time.d}</span>Days
+      {/* Countdown Timer */}
+      <div className="vm-countdown-container">
+        <div className="vm-countdown-header">
+          {lang === 'en' ? 'Booking Closes in' : 'బుకింగ్ ముగియడానికి'}
         </div>
-        <div>
-          <span>{time.h}</span>Hrs
-        </div>
-        <div>
-          <span>{time.m}</span>Min
-        </div>
-        <div>
-          <span>{time.s}</span>Sec
+        <div className="tourism-countdown">
+          <div className="tourism-countdown-item">
+            <div className="tourism-countdown-box">
+              <p className="tourism-countdown-number">{time.days || '0'}</p>
+            </div>
+            <div className="tourism-countdown-label">
+              <p>{lang === 'en' ? 'Days' : 'రోజులు'}</p>
+            </div>
+          </div>
+          <div className="tourism-countdown-item">
+            <div className="tourism-countdown-box">
+              <p className="tourism-countdown-number">{time.hours || '0'}</p>
+            </div>
+            <div className="tourism-countdown-label">
+              <p>{lang === 'en' ? 'Hours' : 'గంటలు'}</p>
+            </div>
+          </div>
+          <div className="tourism-countdown-item">
+            <div className="tourism-countdown-box">
+              <p className="tourism-countdown-number">{time.minutes || '0'}</p>
+            </div>
+            <div className="tourism-countdown-label">
+              <p>{lang === 'en' ? 'Minutes' : 'నిమిషాలు'}</p>
+            </div>
+          </div>
+          <div className="tourism-countdown-item">
+            <div className="tourism-countdown-box">
+              <p className="tourism-countdown-number">{time.seconds || '0'}</p>
+            </div>
+            <div className="tourism-countdown-label">
+              <p>{lang === 'en' ? 'Seconds' : 'సెకన్లు'}</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -300,6 +356,8 @@ export default function MahaShivaratri() {
           </div>
         </div>
       )}
+      
+      <Footer />
     </div>
   );
 }

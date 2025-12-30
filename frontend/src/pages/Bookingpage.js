@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Bookingpage.css";
 import QRImage from "../images/QR.jpg";
 import heroImg from "../images/mahaabhishekam.jpg";
 
 function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const eventData = location.state || {};
 
   //Use eventData if coming from navigation, otherwise use puja props
@@ -354,11 +355,11 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
             © 2024 Sankalpam. All Rights Reserved.
           </p>
           <div className="bp-footer-links">
-            <button>Privacy Policy</button>
+            <button onClick={() => navigate('/privacy-policy')}>Privacy Policy</button>
             <span className="bp-footer-sep">|</span>
-            <button>Terms of Service</button>
+            <button onClick={() => navigate('/terms-of-service')}>Terms of Service</button>
             <span className="bp-footer-sep">|</span>
-            <button>Contact Us</button>
+            <button onClick={() => navigate('/refund-policy')}>Refund Policy</button>
           </div>
         </div>
       </footer>

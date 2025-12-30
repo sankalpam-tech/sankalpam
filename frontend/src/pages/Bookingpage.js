@@ -7,7 +7,7 @@ import {useLocation} from "react-router-dom";
 // import heroImg from "../images/mahaabhishekam.jpg";
 
 function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
-  const location = useLocation();
+  // const location = useLocation();
   // const eventData = location.state || {};
 
   // Use eventData if coming from navigation, otherwise use puja props

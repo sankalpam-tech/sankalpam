@@ -10,7 +10,7 @@ const OAuthSuccess = () => {
     if (loading) return;        // 🔑 wait for /auth/me
 
     if (user) {
-      navigate("/profile");    // or "/"
+      navigate("/");    // or "/"
     } else {
       navigate("/signin");
     }

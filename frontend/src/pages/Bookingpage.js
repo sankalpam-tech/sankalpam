@@ -3,8 +3,19 @@ import React, { useState } from "react";
 import "../styles/Bookingpage.css";
 import QRImage from "../images/QR.jpg";
 import axios from "axios";
+import {useLocation} from "react-router-dom";
+import heroImg from "../images/mahaabhishekam.jpg";
 
 function Bookingpage({ puja, onBack, type = "puja" }) {
+  const location = useLocation();
+  const eventData = location.state || {};
+
+  // Use eventData if coming from navigation, otherwise use puja props
+  const eventName = eventData.eventName || puja?.name || "Satyanarayan Puja";
+  const eventPrice = eventData.price || puja?.price || "₹2501";
+  const eventLocation = eventData.location;
+  const eventImage = puja?.image || heroImg; // Use puja image if available, fallback to default
+
   const isAstrology = type === "astrology";
 
   const [pujaForm, setPujaForm] = useState({
@@ -325,16 +336,16 @@ return (
               </>
             )}
 
-            {/* Pay button */}
-            <div className="bp-pay-wrapper">
-              <button type="submit" className="bp-pay-btn">
-                Pay Now
-              </button>
-              <p className="bp-pay-note">Secure payment powered by Stripe</p>
-            </div>
-          </form>
+              {/* Pay button */}
+              <div className="bp-pay-wrapper">
+                <button type="submit" className="bp-pay-btn">
+                  Submit Now
+                </button>
+              </div>
+            </form>
+          </section>
         </section>
-      </section>
+
     </main>
 
     <footer className="bp-page-footer">

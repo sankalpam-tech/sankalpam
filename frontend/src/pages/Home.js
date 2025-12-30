@@ -572,7 +572,7 @@ const events = [
   {
     date: "15",
     month: "FEB",
-    title: "Masa shivaratri",
+    title: "Maha Shivaratri",
     desc: "Participate in a powerful devotional event with us in the khasi.",
     cta: "Register Now"
   },

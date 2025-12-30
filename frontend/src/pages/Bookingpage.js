@@ -352,7 +352,7 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
       <footer className="bp-page-footer">
         <div className="bp-footer-inner">
           <p className="bp-footer-copy">
-            © 2024 Sankalpam. All Rights Reserved.
+            © 2025 Sankalpam. All Rights Reserved.
           </p>
           <div className="bp-footer-links">
             <button onClick={() => navigate('/privacy-policy')}>Privacy Policy</button>

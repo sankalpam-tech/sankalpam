@@ -33,7 +33,7 @@ const ResetPass = () => {
             }
 
             const res = await axios.post(
-                "https://backend.sankalpam/auth/reset",
+                "https://backend.sankalpam.world/auth/reset",
                 {
                     emailOrPhone: recoveryValue,   // ✅ ADD THIS
                     newPassword: password,

@@ -1,25 +1,20 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
 const OAuthSuccess = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { user, loading } = useAuth();
 
   useEffect(() => {
-    axios
-      .get("https://backend.sankalpam/auth/me", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        login(res.data.user);   // 🔑 STORE USER
-        navigate("/profile");
-      })
-      .catch(() => {
-        navigate("/signin");
-      });
-  }, [login, navigate]);
+    if (loading) return;        // 🔑 wait for /auth/me
+
+    if (user) {
+      navigate("/profile");    // or "/"
+    } else {
+      navigate("/signin");
+    }
+  }, [user, loading, navigate]);
 
   return <p>Signing you in with Google...</p>;
 };

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import '../styles/Auth.css';
@@ -8,6 +7,7 @@ import { useAuth } from '../context/AuthContext';
 import axios from "axios";
 
 const SignIn = () => {
+  const API=
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const { login } = useAuth();

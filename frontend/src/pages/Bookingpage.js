@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useLocation } from "react-router-dom";
 import "../styles/Bookingpage.css";
 import QRImage from "../images/QR.jpg";
@@ -8,14 +9,53 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
   const location = useLocation();
   const eventData = location.state || {};
 
-  // Use eventData if coming from navigation, otherwise use puja props
+  //Use eventData if coming from navigation, otherwise use puja props
 
-  // const eventName = eventData.eventName || puja?.name || "Satyanarayan Puja";
-  // const eventPrice = eventData.price || puja?.price || "₹2501";
-  // const eventLocation = eventData.location;
-  // const eventImage = puja?.image || heroImg; // Use puja image if available, fallback to default
+  const eventName = eventData.eventName || puja?.name || "Satyanarayan Puja";
+  const eventPrice = eventData.price || puja?.price || "₹2501";
+  const eventLocation = eventData.location;
+  const eventImage = puja?.image || heroImg; // Use puja image if available, fallback to default
 
   const isAstrology = type === "astrology";
+
+  const [formData, setFormData] = useState({
+    pujaName: eventName,
+    price: eventPrice,
+    kartaName: "",
+    wifeName: "",
+    familyMembers: "",
+    gothram: "",
+    phone: "",
+    referral: "",
+    address: "",
+    transactionId: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("pujas form details:",formData);
+    try {
+      const res = await axios.post(
+        "https://backend.sankalpam.world/auth/puja-booking",
+        formData
+      );
+
+      if (res.data.success) {
+        alert("Puja booked successfully");
+      }
+    } catch (err) {
+      alert("Booking failed");
+      console.error(err);
+    }
+  };
+
 
   return (
     <div className="bp-root">
@@ -58,10 +98,7 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
 
             <form
               className="bp-booking-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("Form submitted (demo)!");
-              }}
+              onSubmit={handleSubmit}
             >
               {isAstrology ? (
                 // Astrology Form Fields
@@ -152,13 +189,22 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
                       </label>
                       <input
                         type="text"
+                        name="kartaName"
+                        value={formData.kartaName}
+                        onChange={handleChange}
                         placeholder="Enter your full name"
                         required
                       />
                     </div>
                     <div className="bp-form-field">
                       <label>Wife&apos;s Name</label>
-                      <input type="text" placeholder="Optional" />
+                      <input
+                        type="text"
+                        name="wifeName"
+                        value={formData.wifeName}
+                        onChange={handleChange}
+                        placeholder="Optional"
+                      />
                     </div>
                   </div>
 
@@ -168,6 +214,9 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
                       <label>Other Family Members&apos; Names</label>
                       <input
                         type="text"
+                        name="familyMembers"
+                        value={formData.familyMembers}
+                        onChange={handleChange}
                         placeholder="e.g., Children, Parents (Optional)"
                       />
                     </div>
@@ -185,6 +234,9 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
                       </label>
                       <input
                         type="text"
+                        name="gothram"
+                        value={formData.gothram}
+                        onChange={handleChange}
                         placeholder="Enter your Gothram"
                         required
                       />
@@ -195,6 +247,9 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
                       </label>
                       <input
                         type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
                         placeholder="Enter your 10-digit number"
                         required
                       />
@@ -204,7 +259,11 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
                   <div className="bp-form-row">
                     <div className="bp-form-field bp-full-width">
                       <label>Referral </label>
-                      <input type="text" placeholder="Enter your Referral" />
+                      <input type="text"
+                        name="referral"
+                        value={formData.referral}
+                        onChange={handleChange}
+                        placeholder="Enter your Referral" />
                     </div>
                   </div>
                   {/* Row 4 */}
@@ -216,6 +275,9 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
                       </label>
                       <textarea
                         rows="3"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
                         placeholder="Enter your full address for Prasadam delivery"
                         required
                       />
@@ -264,6 +326,9 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
                       </label>
                       <input
                         type="text"
+                        name="transactionId"
+                        value={formData.transactionId}
+                        onChange={handleChange}
                         placeholder="Enter your transaction ID after payment"
                         required
                       />

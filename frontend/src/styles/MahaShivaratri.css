@@ -1,15 +1,54 @@
 .vm-page {
-  max-width: 1100px;
-  margin: auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   background: #fffaf2;
   font-family: "Segoe UI", sans-serif;
   color: #2c2c2c;
 }
 
+/* Back Button Styles */
+.vm-back-button-container {
+  width: 100%;
+  padding: 15px 0;
+  background-color: white;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 20px;
+}
+
+.vm-back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #8b1c1c;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 20px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1100px;
+  text-align: left;
+  transition: color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.vm-back-button:hover {
+  color: #6d1515;
+}
+
+.vm-back-icon {
+  margin-right: 8px;
+}
+
 /* Language */
 .vm-lang {
   text-align: right;
-  padding: 12px;
+  padding: 12px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 .vm-lang button {
   margin-left: 8px;
@@ -26,6 +65,8 @@
 /* Images */
 .vm-hero {
   padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 .vm-main-image {
   width: 100%;
@@ -37,6 +78,8 @@
 /* Title */
 .vm-title {
   padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 .vm-title h1 {
   color: #8b1c1c;
@@ -48,6 +91,43 @@
 }
 
 /* Price */
+.vm-price-box {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.5rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vm-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #8b1c1c;
+  margin-bottom: 0.25rem;
+}
+
+.vm-price-note {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Live Note */
+.live-note {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  background-color: #f8f0f0;
+  border-left: 4px solid #c41e3a;
+  color: #c41e3a;
+  font-weight: 500;
+  border-radius: 0 4px 4px 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .vm-price-box {
   margin-top: 12px;
   display: inline-block;
@@ -78,6 +158,83 @@
   display: block;
   font-size: 22px;
   color: #8b1c1c;
+}
+
+/* Countdown Timer */
+.tourism-countdown {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1.5rem 1rem;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto 2rem;
+  justify-content: center;
+}
+
+.tourism-countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.tourism-countdown-box {
+  display: flex;
+  height: 5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background-color: #8b1c1c;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tourism-countdown-number {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1;
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.tourism-countdown-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.tourism-countdown-label p {
+  color: #8b1c1c;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .tourism-countdown {
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+  }
+  
+  .tourism-countdown-box {
+    height: 4rem;
+    padding: 0.5rem;
+  }
+  
+  .tourism-countdown-number {
+    font-size: 1.5rem;
+  }
+  
+  .tourism-countdown-label p {
+    font-size: 0.75rem;
+  }
 }
 
 /* Sections */
@@ -154,13 +311,17 @@
 
 /* CTA */
 .vm-cta {
-  position: sticky;
-  bottom: 0;
-  background: #fff;
-  padding: 15px;
-  border-top: 1px solid #ccc;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
   text-align: center;
+  z-index: 1000;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
 }
+
 .vm-cta button {
   background: #8b1c1c;
   color: #fff;
@@ -168,13 +329,23 @@
   border-radius: 30px;
   border: none;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  pointer-events: auto;
 }
 
 .vm-cta button:hover {
   background: #6d1515;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Add padding to the bottom of the page to prevent content from being hidden behind the fixed CTA */
+.vm-page {
+  padding-bottom: 90px;
 }
 
 /* Booking Modal */
@@ -190,6 +361,8 @@
   justify-content: center;
   z-index: 9999;
   padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
   overflow-y: auto;
 }
 

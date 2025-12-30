@@ -49,8 +49,8 @@ router.post("/signup", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: True,
+      sameSite: "none",
     });
 
     res.json({

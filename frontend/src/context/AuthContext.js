@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://backend.sankalpam/auth/me", {
+        const res = await fetch("https://backend.sankalpam/auth/me", {
           credentials: "include", // 🔑 sends cookie
         });
 
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await fetch("http://backend.sankalpam/auth/logout", {
+    await fetch("https://backend.sankalpam/auth/logout", {
       method: "POST",
       credentials: "include",
     });

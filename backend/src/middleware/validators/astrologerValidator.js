@@ -135,7 +135,7 @@ export const astrologerValidationRules = [
   body('socialMedia.*')
     .optional()
     .isURL().withMessage('Please enter a valid URL')
-    .matches(/^https?:\/\//).withMessage('URL must start with http:// or https://'),
+    .matches(/^https?:\/\//).withMessage('URL must start with https:// or https://'),
     
   body('isAvailable')
     .optional()
@@ -160,7 +160,7 @@ export const astrologerValidationRules = [
   body('documents.*.url')
     .if((value, { req }) => req.body.documents && req.body.documents.some(doc => doc.url))
     .isURL().withMessage('Document URL must be a valid URL')
-    .matches(/^https?:\/\//).withMessage('Document URL must start with http:// or https://'),
+    .matches(/^https?:\/\//).withMessage('Document URL must start with https:// or https://'),
     
   body('documents.*.description')
     .optional()

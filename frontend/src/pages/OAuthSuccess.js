@@ -9,7 +9,7 @@ const OAuthSuccess = () => {
 
   useEffect(() => {
     axios
-      .get("http://backend.sankalpam/auth/me", {
+      .get("https://backend.sankalpam/auth/me", {
         withCredentials: true,
       })
       .then((res) => {

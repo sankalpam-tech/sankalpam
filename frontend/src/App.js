@@ -28,6 +28,9 @@ import ResetPass from "./pages/ResetPass";
 import OAuthSuccess from "./pages/OAuthSuccess";
 import MahaShivaratri from "./pages/MahaShivaratri";
 import Bookingpage from "./pages/Bookingpage";
+import Rudrabhishekam from "./pages/Rudrabhishekam";
+import MakaraSankranti from "./pages/MakaraSankranti";
+import VishwaShantiPuja from "./pages/VishwaShantiPuja";
 
 import "./App.css";
 
@@ -81,7 +84,10 @@ function App() {
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/refund-policy" element={<RefundPolicy />} />
               <Route path="/mahashivarathri" element={<MahaShivaratri />} />
-              <Route path="/bookingform" element={<Bookingpage />} />
+              <Route path="/rudrabhishekam" element={<Rudrabhishekam />} />
+              <Route path="/makara-sankranti" element={<MakaraSankranti />} />
+              <Route path="/vishwa-shanti-puja" element={<VishwaShantiPuja />} />
+              <Route path="/booking" element={<Bookingpage />} />
             </Routes>
           </main>
           <FloatingButtons />

@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await fetch("https://backend.sankalpam/auth/logout", {
+    await fetch("https://backend.sankalpam.world/auth/logout", {
       method: "POST",
       credentials: "include",
     });

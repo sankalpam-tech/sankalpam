@@ -227,6 +227,14 @@
 }
 
 /* Form container – single large rounded box (like screenshot) */
+.bp-form-section {
+  width: 100%;
+  background: var(--bp-card);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: var(--bp-shadow-soft);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
 
 .bp-form-title {
   margin: 0 0 22px;

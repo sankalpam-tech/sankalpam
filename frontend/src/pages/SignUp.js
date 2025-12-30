@@ -43,7 +43,7 @@ const SignUp = () => {
       if (res.data.account) {
         login(res.data.user);   // ✅ STORE USER
         window.alert("account created");
-        navigate("/profile");
+        navigate("/");
       }
     }
     catch (err) {

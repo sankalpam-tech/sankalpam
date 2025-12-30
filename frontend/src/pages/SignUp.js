@@ -35,7 +35,7 @@ const SignUp = () => {
       console.log('Sign up:', formData);
 
       const res = await axios.post(
-        "https://backend.sankalpam.world/auth/signup",
+        "http://localhost:5000/auth/signup",
         formData,
         { withCredentials: true }
       );
@@ -59,7 +59,7 @@ const SignUp = () => {
   //==============================================  
   //-----------------------------------
   const handleGoogleSignUp = async () => {
-    window.location.href = "https://backend.sankalpam.world/auth/google";
+    window.location.href = "http://localhost:5000/auth/google";
   };
   //--------------------------------------
   return (

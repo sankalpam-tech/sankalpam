@@ -36,7 +36,7 @@ const SignIn = () => {
     // 🔐 NORMAL USER LOGIN
     try {
       const res = await axios.post(
-        "https://backend.sankalpam.world/auth/signin",
+        "http://localhost:5000/auth/signin",
         formData,
         { withCredentials: true }
       );
@@ -75,7 +75,7 @@ const SignIn = () => {
   //--------------------------------------------------------
 
   const handleGoogleSignIn = async () => {
-    window.location.href = "https://backend.sankalpam.world/auth/google";
+    window.location.href = "http://localhost:5000/auth/google";
   };
 
   return (

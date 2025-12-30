@@ -5,7 +5,7 @@ export const connectDB = async () => {
     throw new Error('MONGO_URI is not defined');
   }
 
-  if (mongoose.connection.readyState === 1) return;
+  // if (mongoose.connection.readyState === 1) return;
 
   const conn = await mongoose.connect(process.env.MONGO_URI);
 

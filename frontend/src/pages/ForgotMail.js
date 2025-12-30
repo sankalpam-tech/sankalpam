@@ -13,7 +13,7 @@ const ForgotMail = () => {
 
     try {
       const res = await axios.post(
-        "https://backend.sankalpam.world/auth/otp",
+        "http://localhost:5000/auth/otp",
         { emailOrPhone: value }
       );
         // 🔑 SAVE EMAIL / PHONE FOR NEXT STEPS

@@ -5,6 +5,7 @@ import passport from "../config/passport.js";
 import User from "../models/User.js";
 import verifyToken from "../middleware/jwt.js";
 import transporter from "../config/mailer.js";
+import PujaBooking from "../models/PujaBooking.js";
 
 const router = express.Router();
 
@@ -85,7 +86,7 @@ router.post("/signup", async (req, res) => {
 router.post("/signin", async (req, res) => {
   try {
     const { emailOrPhone, password } = req.body;
-
+    
     console.log( emailOrPhone, password)
 
     const user = await User.findOne({
@@ -122,7 +123,7 @@ router.post("/signin", async (req, res) => {
       secure: false,
       sameSite: "lax",
     });
-
+    
     res.json({
       verify: true,
       msg: "Signed in successfully",
@@ -245,6 +246,7 @@ router.post("/reset", async (req, res) => {
    GET CURRENT USER
 ======================= */
 router.get("/me", verifyToken, async (req, res) => {
+
   const user = await User.findById(req.userId).select("-password");
 
   res.json({
@@ -258,10 +260,50 @@ router.get("/me", verifyToken, async (req, res) => {
     },
   });
 });
-
+//-------
 router.post("/logout", (req, res) => {
   res.clearCookie("token");
   res.json({ success: true });
+});
+
+
+/* =======================
+   PUJA ROUTES
+======================= */
+router.post("/puja-booking", async (req, res) => {
+  try {
+    const cleanedData = {
+      pujaName: req.body.pujaName?.trim(),
+      price: req.body.price?.trim(),
+      kartaName: req.body.kartaName?.trim(),
+      wifeName: req.body.wifeName?.trim(),
+      familyMembers: req.body.familyMembers?.trim(),
+      gothram: req.body.gothram?.trim(),
+      phone: req.body.phone?.trim(),
+      referral: req.body.referral?.trim(),
+      address: req.body.address?.trim(),
+      transactionId: req.body.transactionId?.trim(),
+    };
+
+    console.log("Cleaned Puja Booking:", cleanedData);
+
+    const booking = await PujaBooking.create(cleanedData);
+
+    res.json({
+      success: true,
+      bookingId: booking._id,
+    });
+  } catch (err) {
+    console.log("Booking error:", err);
+
+    if (err.code === 11000) {
+      return res
+        .status(409)
+        .json({ message: "Transaction already exists" });
+    }
+
+    res.status(500).json({ success: false });
+  }
 });
 
 

@@ -4,7 +4,7 @@ import "../styles/Bookingpage.css";
 import QRImage from "../images/QR.jpg";
 import heroImg from "../images/mahaabhishekam.jpg";
 
-function Bookingpage({ puja, onBack, type = "puja" }) {
+function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
   const location = useLocation();
   const eventData = location.state || {};
 

@@ -58,7 +58,7 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
 
     try {
       await axios.post(
-        "http://backend.sankalpam.world/auth/puja-booking",
+        "https://backend.sankalpam.world/auth/puja-booking",
         cleanedData
       );
       alert("Booking submitted successfully");

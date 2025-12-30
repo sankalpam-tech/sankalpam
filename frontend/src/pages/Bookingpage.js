@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "../styles/Bookingpage.css";
 import QRImage from "../images/QR.jpg";
 import axios from "axios";
-import {useLocation} from "react-router-dom";
+// import {useLocation} from "react-router-dom";
 // import heroImg from "../images/mahaabhishekam.jpg";
 
 function Bookingpage({ puja, /* onBack, */ type = "puja" }) {

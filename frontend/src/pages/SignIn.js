@@ -7,7 +7,6 @@ import { useAuth } from '../context/AuthContext';
 import axios from "axios";
 
 const SignIn = () => {
-  const API=
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const { login } = useAuth();

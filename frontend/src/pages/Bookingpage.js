@@ -41,7 +41,7 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("pujas form details:",formData);
+    console.log("pujas form details:", formData);
     try {
       const res = await axios.post(
         "https://backend.sankalpam.world/auth/puja-booking",
@@ -50,6 +50,20 @@ function Bookingpage({ puja, /* onBack, */ type = "puja" }) {
 
       if (res.data.success) {
         alert("Puja booked successfully");
+
+        setFormData({
+          pujaName: eventName,     // keep same
+          price: eventPrice,       // keep same
+          kartaName: "",
+          wifeName: "",
+          familyMembers: "",
+          gothram: "",
+          phone: "",
+          referral: "",
+          address: "",
+          transactionId: "",
+        });
+
       }
     } catch (err) {
       alert("Booking failed");

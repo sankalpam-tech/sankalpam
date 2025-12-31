@@ -49,7 +49,7 @@ router.post("/signup", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: True,
+      secure: true,
       sameSite: "none",
     });
 
@@ -120,8 +120,8 @@ router.post("/signin", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
     
     res.json({
@@ -175,33 +175,47 @@ router.get(
    SEND OTP
 ======================= */
 router.post("/otp", async (req, res) => {
-  const { emailOrPhone } = req.body;
+  try {
+    const { emailOrPhone } = req.body;
 
-  const user = await User.findOne({
-    $or: [{ email: emailOrPhone }, { phone: emailOrPhone }],
-  });
+    if (!emailOrPhone) {
+      return res.status(400).json({ message: "Email or phone required" });
+    }
 
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
+    const user = await User.findOne({
+      $or: [{ email: emailOrPhone }, { phone: emailOrPhone }],
+    });
 
-  const otp = Math.floor(1000 + Math.random() * 9000).toString();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-  user.otp = otp;
-  user.otpExpires = Date.now() + 5 * 60 * 1000;
-  await user.save();
+    const otp = Math.floor(1000 + Math.random() * 9000).toString();
 
-  if (user.email) {
-    await transporter.sendMail({
-      from: `"Sankalpam" <${process.env.MAIL_USER}>`,
-      to: user.email,
-      subject: "Your OTP - Sankalpam",
-      html: `<h2>Your OTP is ${otp}</h2><p>Valid for 5 minutes</p>`,
+    user.otp = otp;
+    user.otpExpires = Date.now() + 5 * 60 * 1000;
+    await user.save();
+
+    if (user.email) {
+      await transporter.sendMail({
+        from: `"Sankalpam" <${process.env.MAIL_USER}>`,
+        to: user.email,
+        subject: "Your OTP - Sankalpam",
+        html: `<h2>Your OTP is ${otp}</h2><p>Valid for 5 minutes</p>`,
+      });
+    }
+
+    return res.status(200).json({ success: true });
+
+  } catch (err) {
+    console.error("OTP ERROR:", err.message);
+
+    return res.status(500).json({
+      message: "Failed to send OTP. Please try again.",
     });
   }
-
-  res.json({ success: true });
 });
+
 
 /* =======================
    VERIFY OTP

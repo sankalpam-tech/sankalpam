@@ -498,16 +498,6 @@
     padding-left: 20px;
   }
 
-  .bp-puja-card-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .bp-puja-hero img {
-    width: 100%;
-    height: auto;
-  }
-
   /* QR Code responsive styles */
   .bp-qr-container {
     padding: 16px;

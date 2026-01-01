@@ -404,7 +404,8 @@ const Astrology = () => {
             <BookingPage 
               puja={{
                 name: selectedService?.title || 'Astrology Consultation',
-                price: selectedService?.price || '₹999'
+                price: selectedService?.price || '₹999',
+                image: selectedService?.img
               }} 
               onBack={handleCloseModal}
               type="astrology"

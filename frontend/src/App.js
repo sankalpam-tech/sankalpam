@@ -10,7 +10,7 @@ import { AuthProvider } from "./context/AuthContext";
 import Home from "./pages/Home";
 
 import Pujas from "./pages/Pujas";
-import Astrology from "./pages/Astrology";
+// import Astrology from "./pages/Astrology";
 import Ecommerce from "./pages/Ecommerce";
 import Tourism from "./pages/Tourism";
 import SignIn from "./pages/SignIn";

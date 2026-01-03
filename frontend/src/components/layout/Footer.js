@@ -47,7 +47,7 @@ const Footer = () => {
 
   const quickLinks = [
     { label: 'Pujas', to: '/pujas' },
-    { label: 'Astrology', to: '/astrology' },
+    // { label: 'Astrology', to: '/astrology' },
     { label: 'Ecommerce', to: '/ecommerce' },
     { label: 'Tourism', to: '/tourism' },
     { label: 'About Us', to: '/about' },
@@ -55,7 +55,7 @@ const Footer = () => {
 
   const services = [
     { label: 'Puja Booking', to: '/pujas' },
-    { label: 'Astrology', to: '/astrology' },
+    // { label: 'Astrology', to: '/astrology' },
     { label: 'Products', to: '/ecommerce' },
     { label: 'Tourism', to: '/tourism' },
     { label: 'Rituals', to: '/pujas' },

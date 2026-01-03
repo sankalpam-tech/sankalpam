@@ -139,7 +139,8 @@ const Navbar = ({ activePage = 'home' }) => {
           >
             Pujas
           </Link>
-          <Link
+
+          {/* <Link
             to="/astrology"
             onClick={handleLinkClick}
             className={`nav-link ${activePage === 'astrology' ? 'active' : ''}`}
@@ -158,7 +159,8 @@ const Navbar = ({ activePage = 'home' }) => {
             }}
           >
             Astrology
-          </Link>
+          </Link> */}
+
           <Link
             to="/ecommerce"
             onClick={handleLinkClick}

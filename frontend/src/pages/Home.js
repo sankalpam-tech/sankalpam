@@ -29,10 +29,10 @@ function Home() {
       'makara sankranti homam': '/makara-sankranti',
       'vishwa shanti puja': '/vishwa-shanti-puja'
     };
-    
+
     const lowerTitle = event.title.toLowerCase();
     const matchedEvent = Object.entries(eventMap).find(([key]) => lowerTitle.includes(key));
-    
+
     return matchedEvent ? matchedEvent[1] : '/register';
   };
 
@@ -62,7 +62,7 @@ function Home() {
   // Auto-rotate hero images
   useEffect(() => {
     startHeroCarousel();
-    
+
     return () => {
       if (heroCarouselIntervalRef.current) {
         clearInterval(heroCarouselIntervalRef.current);
@@ -74,9 +74,9 @@ function Home() {
     if (heroCarouselIntervalRef.current) {
       clearInterval(heroCarouselIntervalRef.current);
     }
-    
+
     heroCarouselIntervalRef.current = setInterval(() => {
-      setCurrentHeroImageIndex((prevIndex) => 
+      setCurrentHeroImageIndex((prevIndex) =>
         prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000); // Change image every 3 seconds
@@ -107,14 +107,14 @@ function Home() {
 
   // Hero carousel navigation
   const nextHeroImage = () => {
-    setCurrentHeroImageIndex((prevIndex) => 
+    setCurrentHeroImageIndex((prevIndex) =>
       prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
     );
     startHeroCarousel(); // Reset interval
   };
 
   const prevHeroImage = () => {
-    setCurrentHeroImageIndex((prevIndex) => 
+    setCurrentHeroImageIndex((prevIndex) =>
       prevIndex === 0 ? heroImages.length - 1 : prevIndex - 1
     );
     startHeroCarousel(); // Reset interval
@@ -171,13 +171,13 @@ function Home() {
 
   // Video carousel navigation functions
   const nextVideo = () => {
-    setCurrentVideoIndex((prevIndex) => 
+    setCurrentVideoIndex((prevIndex) =>
       prevIndex === videos.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const prevVideo = () => {
-    setCurrentVideoIndex((prevIndex) => 
+    setCurrentVideoIndex((prevIndex) =>
       prevIndex === 0 ? videos.length - 1 : prevIndex - 1
     );
   };
@@ -189,7 +189,7 @@ function Home() {
   // Auto-rotate video carousel on mobile
   useEffect(() => {
     if (!isMobile) return;
-    
+
     const interval = setInterval(() => {
       nextVideo();
     }, 5000);
@@ -199,7 +199,7 @@ function Home() {
 
   return (
     <div className="home-wrapper">
-      <Navbar/>
+      <Navbar />
 
       {/* ========================= PROMO POPUP ========================= */}
       {showPromoPopup && (
@@ -208,9 +208,9 @@ function Home() {
             <button className="promo-close-btn" onClick={closePromoPopup}>
               ✕
             </button>
-            <img 
-              src={promoImage} 
-              alt="Sankalpam Promo" 
+            <img
+              src={promoImage}
+              alt="Sankalpam Promo"
               className="promo-image"
             />
           </div>
@@ -251,7 +251,7 @@ function Home() {
           <div className="hero-banner-wrapper">
             <div className="hero-banner-container">
               <div className="hero-carousel">
-                <div 
+                <div
                   className="hero-carousel-track"
                   style={{
                     transform: `translateX(-${25 * currentHeroImageIndex}%)`,
@@ -270,7 +270,7 @@ function Home() {
                     </div>
                   ))}
                 </div>
-                
+
                 {/* Content Overlay */}
                 <div className="hero-content">
                   <h1 className="hero-title">Connect with the Divine, Anywhere</h1>
@@ -312,7 +312,7 @@ function Home() {
             <div className="past-events-container">
               {/* Left Arrow for Scroll (Visual only for now or functional if implemented) */}
               {/* <button className="scroll-btn left"><FaChevronLeft /></button> */}
-              
+
               <div className="past-events-list" ref={pastEventsRef}>
                 {pastEvents.map((e, i) => (
                   <div className="past-event-card" key={i}>
@@ -339,7 +339,7 @@ function Home() {
         {/* Events Sidebar for Laptop & Large Screens */}
         <section className="events-sidebar">
           <h2 className="events-sidebar-title">Upcoming Events</h2>
-          
+
           <div className="events-sidebar-list">
             {events.map((e, i) => (
               <Link to={getEventLink(e)} className="event-sidebar-card" key={i}>
@@ -422,7 +422,7 @@ function Home() {
             <button className="carousel-btn prev-btn" onClick={prevVideo}>
               <FaChevronLeft />
             </button>
-            
+
             <div className="carousel-slide">
               {videos.map((v, index) => (
                 <a
@@ -523,7 +523,7 @@ function Home() {
         </div>
       </section>
 
-      <Footer/>
+      <Footer />
 
     </div>
   );
@@ -552,12 +552,14 @@ const serviceCards = [
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCpXX7EjaHEclR9khSbUlnV1ci2VcWxkwmNQxfqZyPm1WNA2q8vZe4nSoxugzDePSVzcncblP7xGEyZKRsEOgUXmLy0LrOzuB6dpwLa4eFReAi8aBvVPRblefhBN9YnJL184r9O5DiNPFOrkUvQBW8lAWGRCCYPSVh2-N7dzKnn-B4cgQa4tfu9hilgpTKf7eOGWoImNCxTf36kbc8T0JGYhtVsNo3FTzLZEV7bdW0EqwsQIFBolFbzXmtLfk2-hHhUr3e1OuXPo94",
     link: "/pujas"
   },
-  {
-    title: "Astrology",
-    desc: "Insights from expert Vedic astrologers. Personalized guidance for life decisions.",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBLpEGJcbpu9LVHVw2qmEfC2dZ0iGTbCkefim5-5HTL603WFJ4VShvYuyLU4WRq2UKpw8gKOflwyO6hHtX90MwH2MOmfeuk0cxe2nxTSFVyt52BEFW4Te6k3iz6GWrRYeg5QiCS5BChpM1RHlvSe_jUQYTNOZhb6xbeQm8qQpMmR_p8-bMIQkQe1Q0NloB6LHKb5ns5sw0I9jr9U6mGT2MjE_Fy1c6TTuR85IkLUbN_znjIBhSBmBEUqyufwO9KtljkDsJ80Q7fAlw",
-    link: "/astrology"
-  },
+  
+  // {
+  //   title: "Astrology",
+  //   desc: "Insights from expert Vedic astrologers. Personalized guidance for life decisions.",
+  //   img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBLpEGJcbpu9LVHVw2qmEfC2dZ0iGTbCkefim5-5HTL603WFJ4VShvYuyLU4WRq2UKpw8gKOflwyO6hHtX90MwH2MOmfeuk0cxe2nxTSFVyt52BEFW4Te6k3iz6GWrRYeg5QiCS5BChpM1RHlvSe_jUQYTNOZhb6xbeQm8qQpMmR_p8-bMIQkQe1Q0NloB6LHKb5ns5sw0I9jr9U6mGT2MjE_Fy1c6TTuR85IkLUbN_znjIBhSBmBEUqyufwO9KtljkDsJ80Q7fAlw",
+  //   link: "/astrology"
+  // },
+
   {
     title: "Ecommerce",
     desc: "Guided spiritual tours to holy sites across India. Customized pilgrimage packages.",
@@ -643,27 +645,27 @@ const pastEvents = [
 const videos = [
   {
     link: "https://youtu.be/mbcEIm6l5rw?si=7fh_f2HYcPdynZB3",
-    embedUrl: "https://www.youtube.com/embed/mbcEIm6l5rw?si=7fh_f2HYcPdynZB3",  
+    embedUrl: "https://www.youtube.com/embed/mbcEIm6l5rw?si=7fh_f2HYcPdynZB3",
     caption: "video 1"
   },
   {
     link: "https://youtu.be/xpqwHcyy18g?si=MMEThkmG4iQtc70e",
-    embedUrl: "https://www.youtube.com/embed/xpqwHcyy18g", 
+    embedUrl: "https://www.youtube.com/embed/xpqwHcyy18g",
     caption: "video 2"
   },
   {
     link: "https://youtu.be/kWuUkNIqlM4?si=mP2eo5WCy4gM9GEw",
-    embedUrl: "https://www.youtube.com/embed/kWuUkNIqlM4?si=mP2eo5WCy4gM9GEw",  
+    embedUrl: "https://www.youtube.com/embed/kWuUkNIqlM4?si=mP2eo5WCy4gM9GEw",
     caption: "video 3"
   },
   {
     link: "https://youtu.be/9neoP97KxPQ?si=3ty61nympsiAHIkj",
-    embedUrl: "https://www.youtube.com/embed/9neoP97KxPQ?si=3ty61nympsiAHIkj",  
+    embedUrl: "https://www.youtube.com/embed/9neoP97KxPQ?si=3ty61nympsiAHIkj",
     caption: "video 4"
   },
   {
     link: "https://youtu.be/mbcEIm6l5rw?si=7fh_f2HYcPdynZB3",
-    embedUrl: "https://www.youtube.com/embed/mbcEIm6l5rw?si=7fh_f2HYcPdynZB3",  
+    embedUrl: "https://www.youtube.com/embed/mbcEIm6l5rw?si=7fh_f2HYcPdynZB3",
     caption: "video 5"
   },
 ];

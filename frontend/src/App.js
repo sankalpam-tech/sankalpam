@@ -68,7 +68,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/pujas" element={<Pujas />} />
-              <Route path="/astrology" element={<Astrology />} />
+              {/* <Route path="/astrology" element={<Astrology />} /> */}
               <Route path="/ecommerce" element={<Ecommerce />} />
               <Route path="/tourism" element={<Tourism />} />
               <Route path="/signin" element={<SignIn />} />

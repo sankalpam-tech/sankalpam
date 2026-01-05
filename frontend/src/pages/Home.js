@@ -10,7 +10,7 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import "../styles/Home.css";
-import promoImage from "../images/promo.jpg";
+import promoImage from "../images/promo.jpeg";
 
 function Home() {
   const [isPlaying, setIsPlaying] = useState(false);

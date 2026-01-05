@@ -42,3 +42,8 @@ yarn-error.log*
 /frontend/node_modules/
 /frontend/.env
 /frontend/build/
+
+# Admin
+/admin/node_modules/
+/admin/.env
+/admin/build/

@@ -210,10 +210,12 @@ const Navbar = ({ activePage = 'home' }) => {
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
+            minWidth: '200px',
+            justifyContent: 'flex-end',
           }}
         >
           {loading ? (
-            /* Show nothing while checking authentication */
+            /* Show nothing or a placeholder while checking auth */
             <div style={{ width: '40px', height: '40px' }}></div>
           ) : isAuthenticated ? (
             /* Profile Icon - Show when user is logged in */

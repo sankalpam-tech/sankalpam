@@ -17,7 +17,6 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import AboutUs from "./pages/AboutUs";
-import Admin from "./pages/Admin";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import RefundPolicy from "./pages/RefundPolicy";
@@ -79,7 +78,6 @@ function App() {
               <Route path="/reset" element={<ResetPass />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/about" element={<AboutUs />} />
-              <Route path="/admin" element={<Admin />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/refund-policy" element={<RefundPolicy />} />

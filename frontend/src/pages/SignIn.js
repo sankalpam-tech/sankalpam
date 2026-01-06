@@ -45,21 +45,6 @@ const SignIn = () => {
       const { verify, msg, user } = res.data;
 
       if (verify) {
-
-        // 🔑 ADMIN LOGIN CHECK (FROM .env)
-        if (
-          res.data.user.role === "admin") {
-          login({
-            name: "Admin",
-            email: res.data.user.role,
-            role: "admin",
-          });
-
-          window.alert("Admin logged in successfully");
-          navigate("/admin");
-          return;
-        }
-
         login(user);
         window.alert(msg);
         navigate("/");

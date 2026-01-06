@@ -45,27 +45,6 @@
   margin: 0;
 }
 
-/* Admin Badge */
-.admin-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #c41e3a 0%, #8b1526 100%);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 50px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
-}
-
-.badge-icon {
-  font-size: 1.2rem;
-}
-
-.badge-text {
-  font-size: 0.95rem;
-}
-
 /* Profile Header */
 .profile-header {
   background: white;
@@ -180,15 +159,6 @@
 
 .action-button:hover::after {
   transform: translateX(4px);
-}
-
-/* Admin Buttons */
-.admin-button {
-  background: linear-gradient(135deg, #c41e3a 0%, #8b1526 100%);
-}
-
-.admin-button:hover {
-  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
 }
 
 .action-button:active {

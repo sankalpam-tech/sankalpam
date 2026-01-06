@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -9,7 +9,14 @@ import axios from "axios";
 const SignIn = () => {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isAuthenticated, loading } = useAuth();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (!loading && isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, loading, navigate]);
 
   const [formData, setFormData] = useState({
     emailOrPhone: '',
@@ -61,6 +68,11 @@ const SignIn = () => {
   const handleGoogleSignIn = async () => {
     window.location.href = "https://backend.sankalpam.world/auth/google";
   };
+
+  // Show nothing while checking authentication
+  if (loading) {
+    return null;
+  }
 
   return (
     <div

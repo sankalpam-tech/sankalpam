@@ -34,6 +34,7 @@ import ecommerceRoutes from './routes/ecommerceRoutes.js';
 import astrologerRoutes from './routes/astrologerRoutes.js';
 import priestAssignmentRoutes from './routes/priestAssignmentRoutes.js';
 import priestAvailabilityRoutes from './routes/priestAvailabilityRoutes.js';
+import PujaBooking from "./models/PujaBooking.js";
 
 dotenv.config();
 
@@ -122,6 +123,17 @@ app.use('/api/v1/tour-bookings', tourBookingRoutes);
 app.use('/api/v1/tour-reviews', tourReviewRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1/notification-preferences', notificationPreferenceRoutes);
+
+//giving db documents
+app.get("/api/pujas", async (req, res) => {
+  try {
+    const pujas = await PujaBooking.find().sort({ createdAt: -1 });
+    res.status(200).json(pujas);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch records" });
+  }
+});
 
 // 404
 app.use((req, res) => {

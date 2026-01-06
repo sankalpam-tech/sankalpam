@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/Layout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import DbDetails from './pages/DbDetails';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -24,7 +25,7 @@ const App = () => {
           <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
             <Route index element={<Dashboard />} />
             <Route path="products" element={<div className="content-area"><h2 style={{ color: '#1c140d' }}>Products Management</h2><p>Coming Soon</p></div>} />
-            <Route path="pujas" element={<div className="content-area"><h2 style={{ color: '#1c140d' }}>Pujas Management</h2><p>Coming Soon</p></div>} />
+            <Route path="pujas" element={<DbDetails/>} />
             <Route path="bookings" element={<div className="content-area"><h2 style={{ color: '#1c140d' }}>Bookings Management</h2><p>Coming Soon</p></div>} />
           </Route>
         </Routes>

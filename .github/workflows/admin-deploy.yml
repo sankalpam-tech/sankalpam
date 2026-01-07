@@ -1,0 +1,53 @@
+name: Deploy Admin UI to S3
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "admin/**"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install admin dependencies
+        working-directory: admin
+        run: npm install
+
+      - name: Build admin
+        working-directory: admin
+        env:
+          REACT_APP_API_URL: https://backend.sankalpam.world
+          REACT_APP_ENV: production
+        run: npm run build
+
+      - name: Sync admin build to S3
+        run: |
+          echo "Verifying admin build output..."
+          ls -la admin
+          ls -la admin/build
+
+          aws s3 sync admin/build s3://admin.sankalpam.world --delete --region ap-south-1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Invalidate CloudFront cache (Admin)
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id D3M8F8ARD99IZU \
+            --paths "/index.html"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

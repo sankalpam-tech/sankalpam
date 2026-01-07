@@ -19,8 +19,8 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             // Check against environment variables first (Hardcoded Admin)
-            const envEmail = process.env.REACT_APP_ADMIN_EMAIL;
-            const envPassword = process.env.REACT_APP_ADMIN_PASSWORD;
+            const envEmail = 'admin123@gmail.com';
+            const envPassword = '12345678';
 
             if (envEmail && envPassword && email === envEmail && password === envPassword) {
                 // Successful hardcoded login

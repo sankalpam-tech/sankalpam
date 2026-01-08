@@ -8,7 +8,7 @@ function PujaDocs() {
   useEffect(() => {
     const fetchPujas = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/pujas");
+        const res = await axios.get("https://backend.sankalpam.world/api/pujas");
         setPujas(res.data);
       } catch (error) {
         console.error("Failed to fetch puja records", error);

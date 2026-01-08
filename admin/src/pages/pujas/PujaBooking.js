@@ -3,7 +3,8 @@ import {
   getAllBookings,
   updateBookingStatus,
   addAdminNote
-} from "../../services/booking.service";
+} 
+from "../../services/booking.service";
 
 const PujaBooking = () => {
   const [bookings, setBookings] = useState([]);

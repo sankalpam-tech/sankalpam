@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import '../styles/Auth.css';
@@ -10,7 +9,14 @@ import { useAuth } from '../context/AuthContext';
 const SignUp = () => {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isAuthenticated, loading } = useAuth();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (!loading && isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, loading, navigate]);
 
   // const { login } = useAuth();
   const [formData, setFormData] = useState({
@@ -62,6 +68,12 @@ const SignUp = () => {
     window.location.href = "https://backend.sankalpam.world/auth/google";
   };
   //--------------------------------------
+
+  // Show nothing while checking authentication
+  if (loading) {
+    return null;
+  }
+
   return (
     <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif', backgroundColor: '#FFF8E1', minHeight: '100vh' }}>
       <Navbar activePage="signup" />

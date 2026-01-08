@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import '../../styles/Navbar.css';
 
 const Navbar = ({ activePage = 'home' }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Close menu on resize to desktop
@@ -210,9 +210,14 @@ const Navbar = ({ activePage = 'home' }) => {
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
+            minWidth: '200px',
+            justifyContent: 'flex-end',
           }}
         >
-          {isAuthenticated ? (
+          {loading ? (
+            /* Show nothing or a placeholder while checking auth */
+            <div style={{ width: '40px', height: '40px' }}></div>
+          ) : isAuthenticated ? (
             /* Profile Icon - Show when user is logged in */
             <Link
               to="/profile"

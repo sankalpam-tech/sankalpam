@@ -51,6 +51,16 @@ function PujaDocs() {
           </div>
 
           <div style={styles.row}>
+  <span style={styles.label}>Booked On</span>
+  <span>
+    {item.createdAt
+      ? new Date(item.createdAt).toLocaleString()
+      : "—"}
+  </span>
+</div>
+
+
+          <div style={styles.row}>
             <span style={styles.label}>Transaction ID</span>
             <span>{item.transactionId}</span>
           </div>

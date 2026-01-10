@@ -7,99 +7,185 @@ import Footer from "../components/layout/Footer";
 const PRODUCTS = [
   {
     id: 1,
-    name: "Brass Diya Set",
-    category: "Puja Kits",
+    name: "Surya",
+    category: "Stones",
     price: 499,
     description:
-      "Traditional brass diya set perfect for daily puja and festival rituals. Includes multiple diyas for a complete setup.",
+      [
+  { label: "Deity", value: "Lord Suryanarayana" },
+  { label: "Gemstone", value: "Ruby (Manikyam)" },
+  { label: "Substitute Stones", value: "Red Spinel, Garnet" },
+  { label: "Color", value: "Red" },
+  { label: "Metal", value: "Gold" },
+  { label: "Direction", value: "East" },
+  { label: "Day", value: "Sunday" },
+  { label: "Mantra", value: "Om Hraam Hreem Hroum Sah Suryaya Namah" },
+  { label: "Benefits", value: "Authority, self-confidence, good health, and favor from the government" }
+],
     image:
-      "https://5.imimg.com/data5/SELLER/Default/2023/10/350831350/CR/JZ/JK/32461526/shiv-shakti-arts-brass-puja-plate-diya-set-embossed-design-1-plate-20-brass-diyas-1000x1000.jpg",
+      "/surya.jpeg",
   },
   {
     id: 2,
-    name: "Marble Ganesh Idol",
-    category: "Idols & Murtis",
+    name: "Chandra",
+    category: "Stones",
     price: 1299,
     description:
-      "Exquisitely crafted marble idol of Lord Ganesha, ideal for home temples and auspicious beginnings.",
+      [
+  { label: "Deity", value: "Lord Chandra" },
+  { label: "Gemstone", value: "Pearl (Muthyam)" },
+  { label: "Substitute Stones", value: "Moonstone" },
+  { label: "Color", value: "White" },
+  { label: "Metal", value: "Silver" },
+  { label: "Direction", value: "North-West" },
+  { label: "Day", value: "Monday" },
+  { label: "Mantra", value: "Om Shraam Shreem Shroum Sah Chandraya Namah" },
+  { label: "Benefits", value: "Peace of mind, emotional control, and family happiness" }
+],
     image:
-      "https://m.media-amazon.com/images/I/81NNnlE4lLL.jpg",
+      "/chandra.jpeg",
   },
   {
     id: 3,
-    name: "Bhagavad Gita",
-    category: "Spiritual Books",
+    name: "Mars",
+    category: "Stones",
     price: 799,
     description:
-      "A beautifully printed edition of the Bhagavad Gita with clear fonts, ideal for daily reading and study.",
+      [
+  { label: "Deity", value: "Lord Angarakudu (Mangal)" },
+  { label: "Gemstone", value: "Red Coral (Pagadam)" },
+  { label: "Substitute Stones", value: "Carnelian" },
+  { label: "Color", value: "Red" },
+  { label: "Metal", value: "Copper" },
+  { label: "Direction", value: "South" },
+  { label: "Day", value: "Tuesday" },
+  { label: "Mantra", value: "Om Kraam Kreem Kroum Sah Bhoumaya Namah" },
+  { label: "Benefits", value: "Courage, physical strength, and gains in land/property" }
+],
     image:
-      "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781647226787/bhagavad-gita-9781647226787_hr.jpg",
+      "/mars.jpeg",
   },
   {
     id: 4,
-    name: "Navaratri Puja Kit",
-    category: "Puja Kits",
+    name: "Mercury",
+    category: "Stones",
     price: 2499,
     description:
-      "Complete Navaratri puja kit containing all essential items curated for nine days of devotion.",
+      [
+  { label: "Deity", value: "Lord Budha" },
+  { label: "Gemstone", value: "Emerald (Marakatham / Pacha)" },
+  { label: "Substitute Stones", value: "Peridot, Green Tourmaline" },
+  { label: "Color", value: "Green" },
+  { label: "Metal", value: "Bronze" },
+  { label: "Direction", value: "North" },
+  { label: "Day", value: "Wednesday" },
+  { label: "Mantra", value: "Om Braam Breem Broum Sah Budhaya Namah" },
+  { label: "Benefits", value: "Intelligence, success in business, and communication skills" }
+],
     image:
-      "https://images-cdn.ubuy.co.in/67004ed9fed59b7a8146b3db-pujahome-navratri-puja-samagri.jpg",
+      "/mercury.jpeg",
   },
   {
     id: 5,
-    name: "Sandalwood Incense",
-    category: "Incense & Dhoop",
+    name: "Jupiter",
+    category: "Stones",
     price: 249,
     description:
-      "Premium sandalwood incense sticks for a calming and divine fragrance during meditation and puja.",
+      [
+  { label: "Deity", value: "Lord Brihaspati" },
+  { label: "Gemstone", value: "Yellow Sapphire (Kanaka Pushyaragam)" },
+  { label: "Substitute Stones", value: "Yellow Topaz, Citrine" },
+  { label: "Color", value: "Yellow" },
+  { label: "Metal", value: "Gold" },
+  { label: "Direction", value: "North-East" },
+  { label: "Day", value: "Thursday" },
+  { label: "Mantra", value: "Om Graam Greem Groum Sah Gurave Namah" },
+  { label: "Benefits", value: "Wisdom, wealth, children, and spiritual growth" }
+],
     image:
-      "https://hemfragrances.com/cdn/shop/products/SANDALWOODHX_INCENSE.jpg?v=1606552877",
+      "/jupiter.jpeg",
   },
   {
     id: 6,
-    name: "Panchmukhi Rudraksha",
-    category: "Rudraksha & Malas",
+    name: "Venus",
+    category: "Stones",
     price: 1999,
     description:
-      "Sacred Panchmukhi Rudraksha bead, believed to bring peace, clarity, and spiritual growth.",
+      [
+  { label: "Deity", value: "Lord Shukracharya" },
+  { label: "Gemstone", value: "Diamond (Vajram)" },
+  { label: "Substitute Stones", value: "White Sapphire, Opal" },
+  { label: "Color", value: "White / Clear" },
+  { label: "Metal", value: "Silver" },
+  { label: "Direction", value: "South-East" },
+  { label: "Day", value: "Friday" },
+  { label: "Mantra", value: "Om Draam Dreem Droum Sah Shukraya Namah" },
+  { label: "Benefits", value: "Luxury, artistic talents, and marital bliss" }
+],
     image:
-      "https://astroblog.in/wp-content/uploads/2021/02/6.png",
+      "/venus.jpeg",
   },
   {
     id: 7,
-    name: "Brass Puja Thali",
-    category: "Puja Kits",
+    name: "Saturn",
+    category: "Stones",
     price: 899,
     description:
-      "Polished brass puja thali with intricate design, suitable for all major Hindu rituals and ceremonies.",
+      [
+  { label: "Deity", value: "Lord Shaneshwara" },
+  { label: "Gemstone", value: "Blue Sapphire (Neelam)" },
+  { label: "Substitute Stones", value: "Amethyst, Iolite" },
+  { label: "Color", value: "Blue / Black" },
+  { label: "Metal", value: "Iron" },
+  { label: "Direction", value: "West" },
+  { label: "Day", value: "Saturday" },
+  { label: "Mantra", value: "Om Praam Preem Proum Sah Shanaye Namah" },
+  { label: "Benefits", value: "Reward for hard work, stability, and longevity" }
+],
     image:
-      "https://i.etsystatic.com/26958973/r/il/03f238/2836194859/il_1588xN.2836194859_g3uu.jpg",
+      "/saturn.jpeg",
   },
   {
     id: 8,
-    name: "Silver Plated Kalash",
-    category: "Puja Kits",
+    name: "Rahu",
+    category: "Stones",
     price: 1499,
     description:
-      "Elegant silver plated kalash used for auspicious occasions, weddings, and housewarming ceremonies.",
+      [
+  { label: "Gemstone", value: "Hessonite Garnet (Gomedhikam)" },
+  { label: "Color", value: "Honey-brown / Smoke" },
+  { label: "Metal", value: "Lead" },
+  { label: "Direction", value: "South-West" },
+  { label: "Mantra", value: "Om Bhraam Bhreem Bhroum Sah Rahave Namah" },
+  { label: "Benefits", value: "Sudden financial gains and success in politics" }
+],
     image:
-      "https://i5.walmartimages.com/seo/GoldGiftIdeas-Oxidized-Silver-Plated-Nakshi-Pooja-Kalash-Pooja-Thali-Set-Decorative-Kalash-Lota-Indian-Pooja-Items-for-Home-Wedding-Gift_7d984f9d-fa19-4f74-810f-945dccde3a8a.a7b32f6f434f636188d442586eb958cf.jpeg",
+      "/rahu.jpeg",
   },
   {
     id: 9,
-    name: "Bracelet",
-    category: "Rudraksha & Malas",
+    name: "Kethu",
+    category: "Stones",
     price: 1599,
     description:
-      "Stylish Rudraksha bracelet that combines spiritual significance with everyday wearability.",
+     [
+    { label: "Gemstone", value: "Cat’s Eye (Vaiduryam)" },
+  { label: "Substitute Stones", value: "Tiger’s Eye" },
+  { label: "Color", value: "Brown / Grey with a streak" },
+  { label: "Metal", value: "Mixed Metal (Alloy)" },
+  { label: "Direction", value: "South-East (or North-West in some traditions)" },
+  { label: "Mantra", value: "Om Sraam Sreem Sroum Sah Ketave Namah" },
+  { label: "Benefits", value: "Spiritual progress and path to liberation (Moksha)" }
+  ],
     image:
-      "https://i.pinimg.com/originals/0f/aa/a2/0faaa2099662c2847a117cb25f37abbc.jpg",
+      "/kethu.jpeg",
   },
   
 ];
 
 const CATEGORY_FILTERS = [
   "All Items",
+  "Stones",
   "Idols & Murtis",
   "Puja Kits",
   "Spiritual Books",
@@ -121,6 +207,132 @@ const formatCurrency = (value) =>
     maximumFractionDigits: 0,
   }).format(value);
 
+// Telugu translations for products
+const TELUGU_TRANSLATIONS = {
+  1: {
+    name: "సూర్యుడు",
+    description: [
+      { label: "దేవత", value: "సూర్యనారాయణుడు" },
+      { label: "జాతి రత్నం", value: "మాణిక్యం (Ruby)" },
+      { label: "ఉప రత్నాలు", value: "గార్నెట్, రెడ్ స్పైనెల్" },
+      { label: "రంగు", value: "ఎరుపు" },
+      { label: "లోహం", value: "బంగారం" },
+      { label: "దిశ", value: "తూర్పు" },
+      { label: "వారం", value: "ఆదివారం" },
+      { label: "మంత్రం", value: "ఓం హ్రాం హ్రీం హ్రౌం సః సూర్యాయ నమః" },
+      { label: "ఫలితాలు", value: "అధికారం, ఆత్మవిశ్వాసం, ఆరోగ్యం, ప్రభుత్వ అనుగ్రహం" }
+    ]
+  },
+  2: {
+    name: "చంద్రుడు",
+    description: [
+      { label: "దేవత", value: "చంద్రదేవుడు" },
+      { label: "జాతి రత్నం", value: "ముత్యం (Pearl)" },
+      { label: "ఉప రత్నాలు", value: "మూన్ స్టోన్" },
+      { label: "రంగు", value: "తెలుపు" },
+      { label: "లోహం", value: "వెండి" },
+      { label: "దిశ", value: "వాయువ్యం" },
+      { label: "వారం", value: "సోమవారం" },
+      { label: "మంత్రం", value: "ఓం శ్రాం శ్రీం శ్రౌం సః చంద్రాయ నమః" },
+      { label: "ఫలితాలు", value: "మనశ్శాంతి, భావోద్వేగ నియంత్రణ, కుటుంబ సుఖం" }
+    ]
+  },
+  3: {
+    name: "కుజుడు / అంగారకుడు",
+    description: [
+      { label: "దేవత", value: "అంగారకుడు" },
+      { label: "జాతి రత్నం", value: "పగడము (Red Coral)" },
+      { label: "ఉప రత్నాలు", value: "కార్నేలియన్" },
+      { label: "రంగు", value: "ఎరుపు" },
+      { label: "లోహం", value: "రాగి" },
+      { label: "దిశ", value: "దక్షిణం" },
+      { label: "వారం", value: "మంగళవారం" },
+      { label: "మంత్రం", value: "ఓం క్రాం క్రీం క్రౌం సః భౌమాయ నమః" },
+      { label: "ఫలితాలు", value: "ధైర్యం, శక్తి, భూమి–ఆస్తి లాభాలు" }
+    ]
+  },
+  4: {
+    name: "బుధుడు",
+    description: [
+      { label: "దేవత", value: "బుధదేవుడు" },
+      { label: "జాతి రత్నం", value: "మరకతము (Emerald)" },
+      { label: "ఉప రత్నాలు", value: "పెరిడాట్, గ్రీన్ టూర్మలిన్" },
+      { label: "రంగు", value: "పచ్చ" },
+      { label: "లోహం", value: "కంచు" },
+      { label: "దిశ", value: "ఉత్తరం" },
+      { label: "వారం", value: "బుధవారం" },
+      { label: "మంత్రం", value: "ఓం బ్రాం బ్రీం బ్రౌం సః బుధాయ నమః" },
+      { label: "ఫలితాలు", value: "బుద్ధి, వ్యాపారం, కమ్యూనికేషన్ నైపుణ్యం" }
+    ]
+  },
+  5: {
+    name: "గురుడు",
+    description: [
+      { label: "దేవత", value: "బృహస్పతి" },
+      { label: "జాతి రత్నం", value: "పుష్యరాగం (Yellow Sapphire)" },
+      { label: "ఉప రత్నాలు", value: "యెల్లో టోపాజ్" },
+      { label: "రంగు", value: "పసుపు" },
+      { label: "లోహం", value: "బంగారం" },
+      { label: "దిశ", value: "ఈశాన్యం" },
+      { label: "వారం", value: "గురువారం" },
+      { label: "మంత్రం", value: "ఓం గ్రాం గ్రీం గ్రౌం సః గురవే నమః" },
+      { label: "ఫలితాలు", value: "జ్ఞానం, ధనం, సంతానం, ధార్మిక జీవితం" }
+    ]
+  },
+  6: {
+    name: "శుక్రుడు",
+    description: [
+      { label: "దేవత", value: "శుక్రాచార్యుడు" },
+      { label: "జాతి రత్నం", value: "వజ్రం (Diamond)" },
+      { label: "ఉప రత్నాలు", value: "వైట్ సఫైర్, ఓపల్" },
+      { label: "రంగు", value: "తెలుపు" },
+      { label: "లోహం", value: "వెండి" },
+      { label: "దిశ", value: "ఆగ్నేయం" },
+      { label: "వారం", value: "శుక్రవారం" },
+      { label: "మంత్రం", value: "ఓం ద్రాం ద్రీం ద్రౌం సః శుక్రాయ నమః" },
+      { label: "ఫలితాలు", value: "విలాసం, కళలు, దాంపత్య సుఖం" }
+    ]
+  },
+  7: {
+    name: "శని",
+    description: [
+      { label: "దేవత", value: "శనేశ్వరుడు" },
+      { label: "జాతి రత్నం", value: "నీలమణి (Blue Sapphire)" },
+      { label: "ఉప రత్నాలు", value: "అమేతిస్ట్" },
+      { label: "రంగు", value: "నీలం" },
+      { label: "లోహం", value: "ఇనుము" },
+      { label: "దిశ", value: "పడమర" },
+      { label: "వారం", value: "శనివారం" },
+      { label: "మంత్రం", value: "ఓం ప్రాం ప్రీం ప్రౌం సః శనయే నమః" },
+      { label: "ఫలితాలు", value: "శ్రమఫలం, స్థిరత్వం, దీర్ఘాయుష్షు" }
+    ]
+  },
+  8: {
+    name: "రాహు",
+    description: [
+      { label: "జాతి రత్నం", value: "గోమెదికం (Hessonite)" },
+      { label: "ఉప రత్నాలు", value: "గార్నెట్" },
+      { label: "రంగు", value: "పొగరంగు" },
+      { label: "లోహం", value: "సీసం" },
+      { label: "దిశ", value: "నైరుతి" },
+      { label: "మంత్రం", value: "ఓం భ్రాం భ్రీం భ్రౌం సః రాహవే నమః" },
+      { label: "ఫలితాలు", value: "అకస్మాత్తు లాభాలు, రాజకీయ శక్తి" }
+    ]
+  },
+  9: {
+    name: "కేతు",
+    description: [
+      { label: "జాతి రత్నం", value: "వైడూర్యం (Cat's Eye)" },
+      { label: "ఉప రత్నాలు", value: "టైగర్ ఐ" },
+      { label: "రంగు", value: "గోధుమ" },
+      { label: "లోహం", value: "మిశ్రమ లోహం" },
+      { label: "దిశ", value: "ఆగ్నేయం" },
+      { label: "మంత్రం", value: "ఓం స్రాం స్రీం స్రౌం సః కేతవే నమః" },
+      { label: "ఫలితాలు", value: "ఆధ్యాత్మిక పురోగతి, మోక్ష మార్గం" }
+    ]
+  }
+};
+
 const Ecommerce = () => {
   const [activeCategory, setActiveCategory] = useState("All Items");
   const [maxPrice, setMaxPrice] = useState(5000);
@@ -134,6 +346,7 @@ const Ecommerce = () => {
   const [isFilterBarVisible, setIsFilterBarVisible] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [slideIndex, setSlideIndex] = useState(0);
+  const [language, setLanguage] = useState("en"); // "en" or "te"
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -251,6 +464,18 @@ const Ecommerce = () => {
     }
   }, [wishlist]);
 
+  // Helper function to get localized product data
+  const getLocalizedProduct = (product) => {
+    if (language === "te" && TELUGU_TRANSLATIONS[product.id]) {
+      return {
+        ...product,
+        name: TELUGU_TRANSLATIONS[product.id].name,
+        description: TELUGU_TRANSLATIONS[product.id].description
+      };
+    }
+    return product;
+  };
+
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
       const matchesCategory =
@@ -259,13 +484,14 @@ const Ecommerce = () => {
 
       const matchesPrice = product.price <= maxPrice;
 
-      const matchesSearch = product.name
+      const localizedProduct = getLocalizedProduct(product);
+      const matchesSearch = localizedProduct.name
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
 
       return matchesCategory && matchesPrice && matchesSearch;
     });
-  }, [activeCategory, maxPrice, searchTerm]);
+  }, [activeCategory, maxPrice, searchTerm, language]);
 
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / ITEMS_PER_PAGE));
 
@@ -519,15 +745,18 @@ const Ecommerce = () => {
               </div>
             </div>
             <div className="ecom-order-summary">
-              <h3>Order Summary</h3>
-              {cart.map((item) => (
+              <h3>{language === "te" ? "ఆర్డర్ సారాంశం" : "Order Summary"}</h3>
+              {cart.map((item) => {
+                const localizedItem = getLocalizedProduct(item);
+                return (
                 <div key={item.id} className="ecom-order-item">
-                  <span>{item.name} x{item.quantity}</span>
+                  <span>{localizedItem.name} x{item.quantity}</span>
                   <span>{formatCurrency(item.price * item.quantity)}</span>
                 </div>
-              ))}
+                );
+              })}
               <div className="ecom-order-total">
-                <strong>Total: {formatCurrency(getCartTotal())}</strong>
+                <strong>{language === "te" ? "మొత్తం" : "Total"}: {formatCurrency(getCartTotal())}</strong>
               </div>
             </div>
             <button type="submit" className="ecom-primary-btn ecom-pay-btn">
@@ -548,15 +777,18 @@ const Ecommerce = () => {
           <h1>Payment</h1>
           <div className="ecom-payment-card">
             <div className="ecom-payment-summary">
-              <h3>Order Summary</h3>
-              {cart.map((item) => (
+              <h3>{language === "te" ? "ఆర్డర్ సారాంశం" : "Order Summary"}</h3>
+              {cart.map((item) => {
+                const localizedItem = getLocalizedProduct(item);
+                return (
                 <div key={item.id} className="ecom-payment-item">
-                  <span>{item.name} x{item.quantity}</span>
+                  <span>{localizedItem.name} x{item.quantity}</span>
                   <span>{formatCurrency(item.price * item.quantity)}</span>
                 </div>
-              ))}
+                );
+              })}
               <div className="ecom-payment-total">
-                <strong>Total Amount: {formatCurrency(getCartTotal())}</strong>
+                <strong>{language === "te" ? "మొత్తం మొత్తం" : "Total Amount"}: {formatCurrency(getCartTotal())}</strong>
               </div>
             </div>
             <div className="ecom-payment-methods">
@@ -606,13 +838,16 @@ const Ecommerce = () => {
               <p><strong>Total Amount:</strong> {formatCurrency(orderDetails.total)}</p>
               <p><strong>Date:</strong> {new Date(orderDetails.date).toLocaleString()}</p>
               <div className="ecom-confirmation-items">
-                <h4>Items:</h4>
-                {orderDetails.items.map((item) => (
+                <h4>{language === "te" ? "వస్తువులు" : "Items"}:</h4>
+                {orderDetails.items.map((item) => {
+                  const localizedItem = getLocalizedProduct(item);
+                  return (
                   <div key={item.id} className="ecom-confirmation-item">
-                    <span>{item.name} x{item.quantity}</span>
+                    <span>{localizedItem.name} x{item.quantity}</span>
                     <span>{formatCurrency(item.price * item.quantity)}</span>
                   </div>
-                ))}
+                  );
+                })}
               </div>
               <div className="ecom-confirmation-address">
                 <h4>Delivery Address:</h4>
@@ -676,11 +911,13 @@ const Ecommerce = () => {
             </div>
           ) : (
             <div className="ecom-cart-items">
-              {wishlist.map((item) => (
+              {wishlist.map((item) => {
+                const localizedItem = getLocalizedProduct(item);
+                return (
                 <div key={item.id} className="ecom-cart-item">
-                  <img src={item.image} alt={item.name} />
+                  <img src={item.image} alt={localizedItem.name} />
                   <div className="ecom-cart-item-details">
-                    <h3>{item.name}</h3>
+                    <h3>{localizedItem.name}</h3>
                     <p className="ecom-cart-item-category">{item.category}</p>
                     <div className="ecom-cart-item-controls" style={{ justifyContent: 'space-between' }}>
                       <span className="ecom-cart-item-price">
@@ -692,19 +929,20 @@ const Ecommerce = () => {
                           style={{ padding: '8px 12px', borderRadius: '12px' }}
                           onClick={() => addToCart(item)}
                         >
-                          Add to Cart
+                          {language === "te" ? "కార్ట్‌కు జోడించు" : "Add to Cart"}
                         </button>
                         <button
                           className="ecom-remove-btn"
                           onClick={() => toggleWishlist(item)}
                         >
-                          Remove
+                          {language === "te" ? "తీసివేయి" : "Remove"}
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
@@ -751,11 +989,13 @@ const Ecommerce = () => {
           ) : (
             <>
               <div className="ecom-cart-items">
-                {cart.map((item) => (
+                {cart.map((item) => {
+                  const localizedItem = getLocalizedProduct(item);
+                  return (
                   <div key={item.id} className="ecom-cart-item">
-                    <img src={item.image} alt={item.name} />
+                    <img src={item.image} alt={localizedItem.name} />
                     <div className="ecom-cart-item-details">
-                      <h3>{item.name}</h3>
+                      <h3>{localizedItem.name}</h3>
                       <p className="ecom-cart-item-category">{item.category}</p>
                       <div className="ecom-cart-item-controls">
                         <div className="ecom-quantity-controls">
@@ -779,11 +1019,12 @@ const Ecommerce = () => {
                         className="ecom-remove-btn"
                         onClick={() => removeFromCart(item.id)}
                       >
-                        Remove
+                        {language === "te" ? "తీసివేయి" : "Remove"}
                       </button>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
               <div className="ecom-cart-summary">
                 <div className="ecom-cart-total">
@@ -1105,16 +1346,54 @@ const Ecommerce = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: '32px'
+              marginBottom: '32px',
+              flexWrap: 'wrap',
+              gap: '16px'
             }}>
-              <h2 style={{
-                fontSize: '32px',
-                fontWeight: 'bold',
-                color: '#000'
-              }}>Our Products</h2>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                flexWrap: 'wrap'
+              }}>
+                <h2 style={{
+                  fontSize: isMobile ? '24px' : '32px',
+                  fontWeight: 'bold',
+                  color: '#000',
+                  margin: 0
+                }}>Our Products</h2>
+                <button
+                  onClick={() => setLanguage(language === "en" ? "te" : "en")}
+                  style={{
+                    padding: isMobile ? '6px 12px' : '8px 16px',
+                    backgroundColor: language === "te" ? '#c41e3a' : '#fff',
+                    color: language === "te" ? '#fff' : '#c41e3a',
+                    border: '2px solid #c41e3a',
+                    borderRadius: '20px',
+                    fontSize: isMobile ? '12px' : '14px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    whiteSpace: 'nowrap'
+                  }}
+                  onMouseOver={(e) => {
+                    if (language === "en") {
+                      e.currentTarget.style.backgroundColor = '#f5f5f5';
+                    }
+                  }}
+                  onMouseOut={(e) => {
+                    if (language === "en") {
+                      e.currentTarget.style.backgroundColor = '#fff';
+                    }
+                  }}
+                >
+                  {language === "en" ? "తెలుగు" : "English"}
+                </button>
+              </div>
               <p style={{
-                fontSize: '16px',
-                color: '#666'
+                fontSize: isMobile ? '14px' : '16px',
+                color: '#666',
+                margin: 0
               }}>
                 {filteredProducts.length} item{filteredProducts.length === 1 ? "" : "s"} found
               </p>
@@ -1156,7 +1435,9 @@ const Ecommerce = () => {
                     </button>
                   </div>
                 ) : (
-                  paginatedProducts.map((product) => (
+                  paginatedProducts.map((product) => {
+                    const localizedProduct = getLocalizedProduct(product);
+                    return (
                     <div
                       key={product.id}
                       style={{
@@ -1215,7 +1496,7 @@ const Ecommerce = () => {
                               fontWeight: '600',
                             }}
                           >
-                            Added to Cart! ✓
+                            {language === "te" ? "కార్ట్‌కు జోడించబడింది! ✓" : "Added to Cart! ✓"}
                           </div>
                         )}
                       </div>
@@ -1246,7 +1527,7 @@ const Ecommerce = () => {
                                 color: '#000',
                               }}
                             >
-                              {product.name}
+                              {localizedProduct.name}
                             </h3>
                             <p
                               style={{
@@ -1269,7 +1550,9 @@ const Ecommerce = () => {
                               whiteSpace: 'nowrap',
                             }}
                           >
-                            {expandedProductId === product.id ? "View less" : "View more"}
+                            {expandedProductId === product.id 
+                              ? (language === "te" ? "తక్కువ చూడండి" : "View less") 
+                              : (language === "te" ? "మరిన్ని చూడండి" : "View more")}
                           </button>
                         </div>
 
@@ -1292,7 +1575,15 @@ const Ecommerce = () => {
                               marginTop: '4px',
                             }}
                           >
-                            {product.description}
+                            {Array.isArray(localizedProduct.description) && (
+                              <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                {localizedProduct.description.map((d, i) => (
+                                  <li key={i} style={{ marginBottom: '4px' }}>
+                                    <strong>{d.label}:</strong> {d.value}
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
                           </p>
                         )}
 
@@ -1322,7 +1613,7 @@ const Ecommerce = () => {
                               textAlign: 'center',
                             }}
                           >
-                            Add to Cart
+                            {language === "te" ? "కార్ట్‌కు జోడించు" : "Add to Cart"}
                           </button>
                           <button
                             onClick={() => handleBuyNow(product)}
@@ -1339,12 +1630,13 @@ const Ecommerce = () => {
                               textAlign: 'center',
                             }}
                           >
-                            Buy Now
+                            {language === "te" ? "ఇప్పుడే కొనండి" : "Buy Now"}
                           </button>
                         </div>
                       </div>
                     </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             ) : (
@@ -1353,6 +1645,7 @@ const Ecommerce = () => {
                   display: 'grid',
                   gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
                   gap: '20px',
+                  alignItems: 'start',
                 }}
               >
                 {paginatedProducts.length === 0 ? (
@@ -1384,7 +1677,9 @@ const Ecommerce = () => {
                     </button>
                   </div>
                 ) : (
-                  paginatedProducts.map((product) => (
+                  paginatedProducts.map((product) => {
+                    const localizedProduct = getLocalizedProduct(product);
+                    return (
                     <div
                       key={product.id}
                       style={{
@@ -1443,7 +1738,7 @@ const Ecommerce = () => {
                               fontWeight: '600',
                             }}
                           >
-                            Added to Cart! ✓
+                            {language === "te" ? "కార్ట్‌కు జోడించబడింది! ✓" : "Added to Cart! ✓"}
                           </div>
                         )}
                       </div>
@@ -1452,7 +1747,7 @@ const Ecommerce = () => {
                         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '8px' }}>
                           <div>
                             <h3 style={{ fontSize: '16px', fontWeight: 600, margin: 0, color: '#000' }}>
-                              {product.name}
+                              {localizedProduct.name}
                             </h3>
                             <p style={{ fontSize: '13px', color: '#777', margin: '4px 0 0' }}>
                               {product.category}
@@ -1469,7 +1764,9 @@ const Ecommerce = () => {
                               whiteSpace: 'nowrap',
                             }}
                           >
-                            {expandedProductId === product.id ? "View less" : "View more"}
+                            {expandedProductId === product.id 
+                              ? (language === "te" ? "తక్కువ చూడండి" : "View less") 
+                              : (language === "te" ? "మరిన్ని చూడండి" : "View more")}
                           </button>
                         </div>
 
@@ -1479,7 +1776,15 @@ const Ecommerce = () => {
 
                         {expandedProductId === product.id && (
                           <p style={{ fontSize: '13px', color: '#555', marginTop: '4px' }}>
-                            {product.description}
+                            {Array.isArray(localizedProduct.description) && (
+                              <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                {localizedProduct.description.map((d, i) => (
+                                  <li key={i} style={{ marginBottom: '4px' }}>
+                                    <strong>{d.label}:</strong> {d.value}
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
                           </p>
                         )}
 
@@ -1498,7 +1803,7 @@ const Ecommerce = () => {
                               width: '100%',
                             }}
                           >
-                            Add to Cart
+                            {language === "te" ? "కార్ట్‌కు జోడించు" : "Add to Cart"}
                           </button>
                           <button
                             onClick={() => handleBuyNow(product)}
@@ -1514,12 +1819,13 @@ const Ecommerce = () => {
                               width: '100%',
                             }}
                           >
-                            Buy Now
+                            {language === "te" ? "ఇప్పుడే కొనండి" : "Buy Now"}
                           </button>
                         </div>
                       </div>
                     </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             )}
@@ -1624,11 +1930,13 @@ const Ecommerce = () => {
             ) : (
               <>
                 <div className="ecom-cart-sidebar-items">
-                  {cart.map((item) => (
+                  {cart.map((item) => {
+                    const localizedItem = getLocalizedProduct(item);
+                    return (
                     <div key={item.id} className="ecom-cart-sidebar-item">
-                      <img src={item.image} alt={item.name} />
+                      <img src={item.image} alt={localizedItem.name} />
                       <div className="ecom-cart-sidebar-item-info">
-                        <h4>{item.name}</h4>
+                        <h4>{localizedItem.name}</h4>
                         <div className="ecom-cart-sidebar-item-controls">
                           <div className="ecom-quantity-controls-small">
                             <button
@@ -1659,7 +1967,8 @@ const Ecommerce = () => {
                         ×
                       </button>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 <div className="ecom-cart-sidebar-footer">
                   <div className="ecom-cart-sidebar-total">

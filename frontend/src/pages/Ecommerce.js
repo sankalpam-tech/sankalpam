@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useRef } from "react";
+import React, { useMemo, useState, useEffect, useRef, useCallback } from "react";
 import "../styles/Ecommerce.css";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -465,33 +465,38 @@ const Ecommerce = () => {
   }, [wishlist]);
 
   // Helper function to get localized product data
-  const getLocalizedProduct = (product) => {
-    if (language === "te" && TELUGU_TRANSLATIONS[product.id]) {
-      return {
-        ...product,
-        name: TELUGU_TRANSLATIONS[product.id].name,
-        description: TELUGU_TRANSLATIONS[product.id].description
-      };
-    }
-    return product;
-  };
+  const getLocalizedProduct = useCallback(
+    (product) => {
+      if (language === "te" && TELUGU_TRANSLATIONS[product.id]) {
+        return {
+          ...product,
+          name: TELUGU_TRANSLATIONS[product.id].name,
+          description: TELUGU_TRANSLATIONS[product.id].description
+        };
+      }
+      return product;
+    },
+    [language]
+  );
+  
 
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
       const matchesCategory =
         activeCategory === "All Items" ||
         product.category === activeCategory;
-
+  
       const matchesPrice = product.price <= maxPrice;
-
+  
       const localizedProduct = getLocalizedProduct(product);
       const matchesSearch = localizedProduct.name
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
-
+  
       return matchesCategory && matchesPrice && matchesSearch;
     });
-  }, [activeCategory, maxPrice, searchTerm, language]);
+  }, [activeCategory, maxPrice, searchTerm, getLocalizedProduct]);
+  
 
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / ITEMS_PER_PAGE));
 

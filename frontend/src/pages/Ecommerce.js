@@ -210,7 +210,7 @@ const formatCurrency = (value) =>
 // Telugu translations for products
 const TELUGU_TRANSLATIONS = {
   1: {
-    name: "సూర్యుడు",
+    name: "పచ్చ ",
     description: [
       { label: "దేవత", value: "సూర్యనారాయణుడు" },
       { label: "జాతి రత్నం", value: "మాణిక్యం (Ruby)" },
@@ -224,7 +224,7 @@ const TELUGU_TRANSLATIONS = {
     ]
   },
   2: {
-    name: "చంద్రుడు",
+    name: "వజ్రం ",
     description: [
       { label: "దేవత", value: "చంద్రదేవుడు" },
       { label: "జాతి రత్నం", value: "ముత్యం (Pearl)" },
@@ -238,7 +238,7 @@ const TELUGU_TRANSLATIONS = {
     ]
   },
   3: {
-    name: "కుజుడు / అంగారకుడు",
+    name: "ముత్యం ",
     description: [
       { label: "దేవత", value: "అంగారకుడు" },
       { label: "జాతి రత్నం", value: "పగడము (Red Coral)" },
@@ -252,7 +252,7 @@ const TELUGU_TRANSLATIONS = {
     ]
   },
   4: {
-    name: "బుధుడు",
+    name: "కనక పుష్యరాగం ",
     description: [
       { label: "దేవత", value: "బుధదేవుడు" },
       { label: "జాతి రత్నం", value: "మరకతము (Emerald)" },
@@ -266,7 +266,7 @@ const TELUGU_TRANSLATIONS = {
     ]
   },
   5: {
-    name: "గురుడు",
+    name: "కెంపు",
     description: [
       { label: "దేవత", value: "బృహస్పతి" },
       { label: "జాతి రత్నం", value: "పుష్యరాగం (Yellow Sapphire)" },
@@ -280,7 +280,7 @@ const TELUGU_TRANSLATIONS = {
     ]
   },
   6: {
-    name: "శుక్రుడు",
+    name: "పగడం ",
     description: [
       { label: "దేవత", value: "శుక్రాచార్యుడు" },
       { label: "జాతి రత్నం", value: "వజ్రం (Diamond)" },
@@ -294,7 +294,7 @@ const TELUGU_TRANSLATIONS = {
     ]
   },
   7: {
-    name: "శని",
+    name: "వైడూర్యము ",
     description: [
       { label: "దేవత", value: "శనేశ్వరుడు" },
       { label: "జాతి రత్నం", value: "నీలమణి (Blue Sapphire)" },
@@ -308,7 +308,7 @@ const TELUGU_TRANSLATIONS = {
     ]
   },
   8: {
-    name: "రాహు",
+    name: "నీలం ",
     description: [
       { label: "జాతి రత్నం", value: "గోమెదికం (Hessonite)" },
       { label: "ఉప రత్నాలు", value: "గార్నెట్" },
@@ -320,7 +320,7 @@ const TELUGU_TRANSLATIONS = {
     ]
   },
   9: {
-    name: "కేతు",
+    name: "గోమేదికం",
     description: [
       { label: "జాతి రత్నం", value: "వైడూర్యం (Cat's Eye)" },
       { label: "ఉప రత్నాలు", value: "టైగర్ ఐ" },
